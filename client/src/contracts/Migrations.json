@@ -1457,12 +1457,12 @@
     "1590160555677": {
       "events": {},
       "links": {},
-      "address": "0xD9E4779d652aE7C052B50997CBec4f0d104C7b81",
-      "transactionHash": "0x522a5fd06c3c7c0d740af8f23a44f1017d4a0e13317be9f272ca02718eeec788"
+      "address": "0x44c7B1cE5bdF866f1EFb262b3aB978fc83Da3cB5",
+      "transactionHash": "0xe92fc34a5eefe8ad1ccf151109d892971f50af6223fec991d1a25b9b30f68405"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-22T15:17:30.824Z",
+  "updatedAt": "2020-05-22T18:40:28.873Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

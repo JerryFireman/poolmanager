@@ -66,6 +66,23 @@ class App extends Component {
     this.setState({value: parseInt(e.target.value, 10)})
   }
 
+    // @dev Executed by client to approve current phase
+    createPool = async () => {
+      const { accounts, contract } = this.state;
+      try {
+        const tx = await contract.methods.createPool().send({ from: accounts[0], gas: 6000000 });
+        console.log("tx",tx)
+        console.log("bPoolAddress: ",tx.events.PoolCreated.returnValues.bpoolAddress)
+      } catch (error) {
+        alert(
+          `Attempt to create new smart pool failed. Check console for details.`,
+        );
+        console.error(error);
+      }
+    };
+  
+  
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -89,9 +106,10 @@ class App extends Component {
         </label>
         <button value="Submit" onClick={this.setValue} >Submit </button>
         </form>
-
-        
         <div>The stored value is: {this.state.storageValue}</div>
+        <br/>
+        <button value="Create pool" onClick={this.createPool} >Create Pool </button>
+         
       </div>
     );
   }
