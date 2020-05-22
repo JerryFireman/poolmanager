@@ -32,13 +32,6 @@ contract('PoolManager', async (accounts) => {
             console.log("factory.address", await factory.address)
             poolmanager = await PoolManager.new(factory.address, { from: owner });
             console.log("poolmanager.address", await poolmanager.address)
-            POOL = await poolmanager.createPool.call();
-            tx = await poolmanager.createPool({ from: owner, gas: 5000000 } );
-            console.log("tx:",tx);
-            console.log("tx.logs[0].args.bpoolAddress: ", tx.logs[0].args.bpoolAddress);
-            console.log("isaddress: ", web3.utils.isAddress(tx.logs[0].args.bpoolAddress));
-            pool = await BPool.at(POOL)
-            console.log("pool.address", await pool.address)
 
             /*
             weth = await TToken.new('Wrapped Ether', 'WETH', 18);
@@ -63,6 +56,17 @@ contract('PoolManager', async (accounts) => {
             */
         });
 
+        it('should create a new smart pool', async () => {
+            POOL = await poolmanager.createPool.call();
+            tx = await poolmanager.createPool({ from: owner, gas: 5000000 } );
+            console.log("tx:",tx);
+            console.log("tx.logs[0].args.bpoolAddress: ", tx.logs[0].args.bpoolAddress);
+            console.log("isaddress: ", web3.utils.isAddress(tx.logs[0].args.bpoolAddress));
+            pool = await BPool.at(POOL)
+            console.log("pool.address", await pool.address)
+            assert.isTrue(web3.utils.isAddress(await pool.address));
+        });
+
         it('owner should be owner of pool manager', async () => {
             const pmowner = await poolmanager.owner.call();
             assert.isTrue(owner == pmowner);
@@ -72,6 +76,8 @@ contract('PoolManager', async (accounts) => {
             const factoryaddress = await poolmanager.factory.call();
             assert.isTrue(factory.address == factoryaddress);
         });
+
+
 
         it('pool should not be finalized', async () => {
             assert.isFalse(await pool.isFinalized.call());
