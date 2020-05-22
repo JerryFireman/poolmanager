@@ -56,18 +56,7 @@ contract('PoolManager', async (accounts) => {
             */
         });
 
-        it('should create a new smart pool', async () => {
-            POOL = await poolmanager.createPool.call();
-            tx = await poolmanager.createPool({ from: owner, gas: 5000000 } );
-            console.log("tx:",tx);
-            console.log("tx.logs[0].args.bpoolAddress: ", tx.logs[0].args.bpoolAddress);
-            console.log("isaddress: ", web3.utils.isAddress(tx.logs[0].args.bpoolAddress));
-            pool = await BPool.at(POOL)
-            console.log("pool.address", await pool.address)
-            assert.isTrue(web3.utils.isAddress(await pool.address));
-        });
-
-        it('owner should be owner of pool manager', async () => {
+        it('calling account should be owner of pool manager', async () => {
             const pmowner = await poolmanager.owner.call();
             assert.isTrue(owner == pmowner);
         });
@@ -77,27 +66,32 @@ contract('PoolManager', async (accounts) => {
             assert.isTrue(factory.address == factoryaddress);
         });
 
-
-
-        it('pool should not be finalized', async () => {
-            assert.isFalse(await pool.isFinalized.call());
+        it('should create new smart pool and emit PoolCreated event', async () => {
+            POOL = await poolmanager.createPool.call();
+            tx = await poolmanager.createPool({ from: owner, gas: 5000000 } );
+            pool = await BPool.at(POOL)
+            assert.isTrue(web3.utils.isAddress(await pool.address));
+            assert.isTrue(web3.utils.isAddress(tx.logs[0].args.bpoolAddress));
         });
 
-        it('isBPool on pool returns true', async () => {
+        it('isBPool should return true', async () => {
             const isBPool = await factory.isBPool(POOL);
             assert.isTrue(isBPool);
         });
 
-        it('isBPool on non pool returns false', async () => {
+        it('isBPool on non pool should return false', async () => {
             const isBPool = await factory.isBPool(owner);
             assert.isFalse(isBPool);
         });
 
-        it('poolmanager is controller of BPool', async () => {
+        it('poolmanager should be controller of BPool', async () => {
             const controller = await pool.getController.call();
             assert.isTrue(controller == poolmanager.address);
         });
 
+        it('pool should not be finalized', async () => {
+            assert.isFalse(await pool.isFinalized.call());
+        });
 
     });
 });
