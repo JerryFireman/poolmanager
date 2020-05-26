@@ -58,3 +58,34 @@ module.exports = async function (deployer, network, accounts) {
     }
     deployer.deploy(PoolManager);
 };
+
+Development plan 
+  (smart contract function, test, UI function, component)
+1. Header: Smart Pool Manager
+2. Select BPool
+    Current BPool Address
+    Load Existing Pool
+    Create New Pool
+3. Adjust tokens
+    Bind new token: token, amount, weight, unbound balance (approve, send)
+    Rebind new token: token, amount, weight, unbound balance (approve, send)
+4. BPool Status
+    Table: Token, Balance, Normalized Weight, Unbound Balance
+    Get current tokens, get balances, get norm
+    Withdraw tokens
+5. Swap fee
+    Existing swap fee
+    Change swap fee
+    Set public swap
+    Set private swap
+ 
+newBPool
+approve spend
+bind
+get current tokens
+get balances
+get denorm/norm
+set swap fee
+set public swap
+rebind tokens
+withdraw tokens
