@@ -2,6 +2,8 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField'
+import StyledButton from './StyledButton';
 
 
 
@@ -13,8 +15,8 @@ const NavBar = (props) => {
                 color="primary"
              >
                 <Toolbar>
-                    <Typography variant="h4" color="inherit" >
-                        Current bPool: {props.bpoolAddress} 
+                    <Typography variant="h5" color="inherit" >
+                        Current smart pool address: {props.bpoolAddress} 
                     </Typography>
                 </Toolbar>
             </AppBar>
