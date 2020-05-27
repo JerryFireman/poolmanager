@@ -60,25 +60,16 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-  (smart contract function, test, UI function, component)
-1. Header: Smart Pool Manager
-2. Select BPool
-    Current BPool Address
-    Load Existing Pool
-    Create New Pool
-3. Adjust tokens
-    Bind new token: token, amount, weight, unbound balance (approve, send)
-    Rebind new token: token, amount, weight, unbound balance (approve, send)
-4. BPool Status
-    Table: Token, Balance, Normalized Weight, Unbound Balance
-    Get current tokens, get balances, get norm
-    Withdraw tokens
-5. Swap fee
-    Existing swap fee
-    Change swap fee
-    Set public swap
-    Set private swap
- 
+1) wire create smart pool
+2) smart contract - bind new token
+3) test bind new token
+4) wire bind new token
+5) smart contract status table
+6) wire status table (if needed)
+7) smart contract change balance/weight
+8 wire change balance/weight
+
+New functions:
 newBPool
 approve spend
 bind
@@ -89,3 +80,6 @@ set swap fee
 set public swap
 rebind tokens
 withdraw tokens
+
+
+May need to npm install @material/typography

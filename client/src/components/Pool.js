@@ -24,7 +24,7 @@ export default function Pool(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={0} >
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
               <form className={classes.root} noValidate autoComplete="off">
@@ -52,7 +52,7 @@ export default function Pool(props) {
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
             <form className={classes.root} noValidate autoComplete="off">
@@ -96,7 +96,7 @@ export default function Pool(props) {
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
             <form className={classes.root} noValidate autoComplete="off">
