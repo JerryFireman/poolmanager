@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PoolManagerContract from "./contracts/PoolManager.json";
-// truffleimport BFactory from "./contracts/BFactory.json";
 import getWeb3 from "./getWeb3";
-
 import "./App.css";
+import Header from "./components/Header.js";
+import NavBar from './components/NavBar.js';
+
+
 
 class App extends Component {
   constructor(props) {
@@ -89,16 +91,6 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2> 
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
-        </p>
         <form>
         <label>
           Name:
@@ -109,6 +101,8 @@ class App extends Component {
         <div>The stored value is: {this.state.storageValue}</div>
         <br/>
         <button value="Create pool" onClick={this.createPool} >Create Pool </button>
+        <Header project={this.state.project}/>
+        <NavBar project={this.state.project}/>
          
       </div>
     );
