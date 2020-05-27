@@ -5,8 +5,6 @@ import "./App.css";
 import Header from "./components/Header.js";
 import NavBar from './components/NavBar.js';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -14,7 +12,14 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   
-  state = { storageValue: 0, web3: null, accounts: null, contract: null, value: 0 };
+  state = { 
+    web3: null, 
+    accounts: null, 
+    contract: null, 
+    bpoolAddress: "",
+    storageValue: 0, 
+    value: 0, 
+  };
 
   componentDidMount = async () => {
     try {
@@ -75,6 +80,9 @@ class App extends Component {
         const tx = await contract.methods.createPool().send({ from: accounts[0], gas: 6000000 });
         console.log("tx",tx)
         console.log("bPoolAddress: ",tx.events.PoolCreated.returnValues.bpoolAddress)
+        this.setState({ bpoolAddress: tx.events.PoolCreated.returnValues.bpoolAddress });
+        console.log("this.state.bpoolAddress", this.state.bpoolAddress)
+
       } catch (error) {
         alert(
           `Attempt to create new smart pool failed. Check console for details.`,
@@ -101,8 +109,8 @@ class App extends Component {
         <div>The stored value is: {this.state.storageValue}</div>
         <br/>
         <button value="Create pool" onClick={this.createPool} >Create Pool </button>
-        <Header project={this.state.project}/>
-        <NavBar project={this.state.project}/>
+        <Header />
+        <NavBar bpoolAddress={this.state.bpoolAddress}/>
          
       </div>
     );

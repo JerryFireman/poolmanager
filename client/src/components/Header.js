@@ -11,7 +11,7 @@ class Header extends Component {
                     Smart Pool Manager
                 </Typography>
                 <Typography variant="h6" color="textPrimary" align="center" padding="0px">
-                Creating and managing Balancer pools controlled by a smart contract using embedded control logic
+                Creating and managing Balancer pools from a smart contract using embedded control logic
                 </Typography>
             </div>
         )

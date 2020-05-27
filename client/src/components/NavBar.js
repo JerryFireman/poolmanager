@@ -14,7 +14,7 @@ const NavBar = (props) => {
              >
                 <Toolbar>
                     <Typography variant="h4" color="inherit" >
-                        test
+                        Current bPool: {props.bpoolAddress} 
                     </Typography>
                 </Toolbar>
             </AppBar>
