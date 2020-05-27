@@ -5,6 +5,8 @@ import "./App.css";
 import Header from "./components/Header.js";
 import NavBar from './components/NavBar.js';
 import Pool from './components/Pool.js';
+import Status from './components/Status.js';
+
 
 class App extends Component {
   constructor(props) {
@@ -112,6 +114,7 @@ class App extends Component {
         <button value="Create pool" onClick={this.createPool} >Create Pool </button>
         <Header />
         <NavBar bpoolAddress={this.state.bpoolAddress}/>
+        <Status />
         <Pool />
          
       </div>
