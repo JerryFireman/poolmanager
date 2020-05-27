@@ -24,91 +24,20 @@ export default function Pool(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={0} >
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
               <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.approvePhaseStructure}>
                   Create new smart pool
                 </StyledButton>
-              </form>
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper} square={true} elevation={0}>
-            <Box fontWeight="fontWeightBold" textAlign="left">    
-            <form className={classes.root} noValidate autoComplete="off">
+              </form><br/>
+              <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.approvePhaseStructure}>
                     Load existing smart pool
                 </StyledButton>
             </form>
-          <form className={classes.root} noValidate autoComplete="off">
-                <TextField 
-                  id="filled-basic" 
-                  label="Phase name" 
-                  variant="filled" 
-                  fullWidth={true} 
-                  type="text" 
-                  name="phaseName" 
-                  value={props.phaseName} 
-                  onChange={props.handleChange}
-                />
-                <br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Locked payment" 
-                  variant="filled" 
-                  type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
-                  onChange={props.handleChange}
-                />
-                <br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Discretionary payment" 
-                  variant="filled" 
-                  type="number" 
-                  name="discretionaryPayment" 
-                  value={props.discretionaryPayment} 
-                  onChange={props.handleChange}
-                />
-                <br/>
-                <StyledButton onClick={props.definePhase}>
-                  Create new phase
-                </StyledButton>
-              </form><br/>
-              <form className={classes.root} noValidate autoComplete="off">
-                <TextField 
-                  id="filled-basic" 
-                  label="Amount to withdraw" 
-                  variant="filled" 
-                  type="number" 
-                  name="serviceProviderWithdrawalAmount" 
-                  value={props.serviceProviderWithdrawalAmount} 
-                  onChange={props.handleChange}
-                />
-                <StyledButton 
-                  onClick={props.serviceProviderWithdrawal}>
-                  Withdraw
-                </StyledButton>
-              </form><br/>
-              <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.startPhase}>
-                  Start next phase
-                </StyledButton>
-              </form><br/>
-              <StyledButton onClick={props.serviceProviderCancelProject}>
-                Cancel project
-              </StyledButton>
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper} square={true} elevation={0}>
-            <Box fontWeight="fontWeightBold" textAlign="left">    
-              <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
                   id="filled-basic" 
                   label="Address of smart pool to load" 
@@ -119,10 +48,23 @@ export default function Pool(props) {
                   value={props.phaseName} 
                   onChange={props.handleChange}
                 />
-                <br/>
+              </form><br/>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper} square={true} elevation={0}>
+            <Box fontWeight="fontWeightBold" textAlign="left">    
+            <form className={classes.root} noValidate autoComplete="off">
+            <StyledButton onClick={props.definePhase}>
+                  Approve payment
+                </StyledButton><br/>
+                <StyledButton onClick={props.definePhase}>
+                  Bind new token
+                </StyledButton><br/>
                 <TextField 
                   id="filled-basic" 
-                  label="Locked payment" 
+                  label="Token name" 
                   variant="filled" 
                   type="number" 
                   name="lockedPayment" 
@@ -132,41 +74,66 @@ export default function Pool(props) {
                 <br/>
                 <TextField 
                   id="filled-basic" 
-                  label="Discretionary payment" 
+                  label="Amount" 
                   variant="filled" 
                   type="number" 
-                  name="discretionaryPayment" 
-                  value={props.discretionaryPayment} 
+                  name="lockedPayment" 
+                  value={props.lockedPayment} 
                   onChange={props.handleChange}
                 />
                 <br/>
-                <StyledButton onClick={props.definePhase}>
-                  Create new phase
-                </StyledButton>
-              </form><br/>
-              <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
                   id="filled-basic" 
-                  label="Amount to withdraw" 
+                  label="Denorm" 
                   variant="filled" 
                   type="number" 
-                  name="serviceProviderWithdrawalAmount" 
-                  value={props.serviceProviderWithdrawalAmount} 
+                  name="lockedPayment" 
+                  value={props.lockedPayment} 
                   onChange={props.handleChange}
                 />
-                <StyledButton 
-                  onClick={props.serviceProviderWithdrawal}>
-                  Withdraw
-                </StyledButton>
-              </form><br/>
-              <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.startPhase}>
-                  Start next phase
-                </StyledButton>
-              </form><br/>
-              <StyledButton onClick={props.serviceProviderCancelProject}>
-                Cancel project
-              </StyledButton>
+                <br/>
+             </form><br/>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper} square={true} elevation={0}>
+            <Box fontWeight="fontWeightBold" textAlign="left">    
+            <form className={classes.root} noValidate autoComplete="off">
+                <StyledButton onClick={props.definePhase}>
+                  Change balance/weight of token
+                </StyledButton><br/>
+                <TextField 
+                  id="filled-basic" 
+                  label="Token name" 
+                  variant="filled" 
+                  type="number" 
+                  name="lockedPayment" 
+                  value={props.lockedPayment} 
+                  onChange={props.handleChange}
+                />
+                <br/>
+                <TextField 
+                  id="filled-basic" 
+                  label="Amount" 
+                  variant="filled" 
+                  type="number" 
+                  name="lockedPayment" 
+                  value={props.lockedPayment} 
+                  onChange={props.handleChange}
+                />
+                <br/>
+                <TextField 
+                  id="filled-basic" 
+                  label="Denorm" 
+                  variant="filled" 
+                  type="number" 
+                  name="lockedPayment" 
+                  value={props.lockedPayment} 
+                  onChange={props.handleChange}
+                />
+                <br/>
+             </form><br/>
             </Box>
           </Paper>
         </Grid>
