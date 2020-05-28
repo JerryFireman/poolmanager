@@ -20,8 +20,8 @@ class App extends Component {
     accounts: null, 
     contract: null, 
     bpoolAddress: "",
-    storageValue: 0, 
-    value: 0, 
+    storageValue: "0", 
+    value: "abc", 
   };
 
   componentDidMount = async () => {
@@ -62,18 +62,20 @@ class App extends Component {
     const { accounts, contract } = this.state;
 
     // Stores a given value, 5 by default.
-    await contract.methods.set(this.state.value).send({ from: accounts[0] });
+   // await contract.methods.set(this.state.value).send({ from: accounts[0] });
 
     // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
+   // const response = await contract.methods.get().call();
 
     // Update state with the result.
-    this.setState({ storageValue: response });
+  //  this.setState({ storageValue: response });
   };
 
   handleChange = async (e) => {
     //e.preventDefault()
-    this.setState({value: parseInt(e.target.value, 10)})
+    this.setState({ [e.target.name]: e.target.value })
+    console.log(e.target.name, ": ", e.target.value)
+    console.log("this.state.value", this.state.value)
   }
 
     // @dev Executed by client to approve current phase
@@ -104,12 +106,10 @@ class App extends Component {
       <div className="App">
         <form>
         <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          Value:
+          <input name="value" type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
-        <button value="Submit" onClick={this.setValue} >Submit </button>
         </form>
-        <div>The stored value is: {this.state.storageValue}</div>
         <br/>
         <button value="Create pool" onClick={this.createPool} >Create Pool </button>
         <Header />
