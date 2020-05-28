@@ -33,7 +33,7 @@ export default function Pool(props) {
                 </StyledButton>
               </form><br/>
               <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.approvePhaseStructure}>
+                <StyledButton onClick={props.loadExistingPool}>
                     Load existing smart pool
                 </StyledButton>
             </form>

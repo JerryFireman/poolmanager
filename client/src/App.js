@@ -78,7 +78,7 @@ class App extends Component {
     console.log("this.state.value", this.state.value)
   }
 
-    // @dev Executed by client to approve current phase
+    // @dev Creates a new smart pool and gets ready to manage it
     createPool = async () => {
       const { accounts, contract } = this.state;
       try {
@@ -96,6 +96,16 @@ class App extends Component {
       }
     };
   
+    // @dev Creates a new smart pool and gets ready to manage it
+    loadExistingPool = async () => {
+      this.setState({ 
+        bpoolAddress: this.state.bpoolToLoad 
+      });
+      this.setState({
+        bpoolToLoad: ""
+      });
+
+    };
   
 
   render() {
@@ -104,14 +114,6 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <form>
-        <label>
-          Value:
-          <input name="value" type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        </form>
-        <br/>
-        <button value="Create pool" onClick={this.createPool} >Create Pool </button>
         <Header />
         <NavBar bpoolAddress={this.state.bpoolAddress}/>
         <Status />
@@ -119,6 +121,7 @@ class App extends Component {
           bpoolToLoad={this.state.bpoolToLoad} 
           handleChange={this.handleChange}
           createPool={this.createPool}
+          loadExistingPool={this.loadExistingPool}
         />
          
       </div>
