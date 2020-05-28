@@ -64,11 +64,11 @@ export default function Pool(props) {
                 </StyledButton><br/>
                 <TextField 
                   id="filled-basic" 
-                  label="Token name" 
+                  label="Token" 
                   variant="filled" 
-                  type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
+                  type="text" 
+                  name="token" 
+                  value={props.token} 
                   onChange={props.handleChange}
                 />
                 <br/>
@@ -77,8 +77,8 @@ export default function Pool(props) {
                   label="Amount" 
                   variant="filled" 
                   type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
+                  name="amount" 
+                  value={props.amount} 
                   onChange={props.handleChange}
                 />
                 <br/>
@@ -87,8 +87,8 @@ export default function Pool(props) {
                   label="Denorm" 
                   variant="filled" 
                   type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
+                  name="denorm" 
+                  value={props.denorm} 
                   onChange={props.handleChange}
                 />
                 <br/>

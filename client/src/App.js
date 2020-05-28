@@ -21,7 +21,9 @@ class App extends Component {
     contract: null, 
     bpoolAddress: "",
     bpoolToLoad: "", 
-    value: "abc", 
+    token: "",
+    amount: "",
+    denorm: "",
   };
 
   componentDidMount = async () => {
@@ -122,6 +124,9 @@ class App extends Component {
           handleChange={this.handleChange}
           createPool={this.createPool}
           loadExistingPool={this.loadExistingPool}
+          token={this.state.token} 
+          amount={this.state.amount} 
+          denorm={this.state.denorm} 
         />
          
       </div>

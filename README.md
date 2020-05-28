@@ -60,14 +60,13 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) wire create smart pool
-2) smart contract - bind new token
-3) test bind new token
-4) wire bind new token
-5) smart contract status table
-6) wire status table (if needed)
-7) smart contract change balance/weight
-8 wire change balance/weight
+1) smart contract - bind new token
+2) test bind new token
+3) wire bind new token
+4) smart contract status table
+5) wire status table (if needed)
+6) smart contract change balance/weight
+7) wire change balance/weight
 
 New functions:
 newBPool
