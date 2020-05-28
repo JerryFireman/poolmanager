@@ -20,7 +20,7 @@ class App extends Component {
     accounts: null, 
     contract: null, 
     bpoolAddress: "",
-    storageValue: "0", 
+    bpoolToLoad: "", 
     value: "abc", 
   };
 
@@ -115,7 +115,10 @@ class App extends Component {
         <Header />
         <NavBar bpoolAddress={this.state.bpoolAddress}/>
         <Status />
-        <Pool />
+        <Pool 
+          bpoolToLoad={this.state.bpoolToLoad} 
+          handleChange={this.handleChange}
+        />
          
       </div>
     );

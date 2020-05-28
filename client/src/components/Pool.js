@@ -44,8 +44,8 @@ export default function Pool(props) {
                   variant="filled" 
                   fullWidth={true} 
                   type="text" 
-                  name="phaseName" 
-                  value={props.phaseName} 
+                  name="bpoolToLoad" 
+                  value={props.bpoolToLoad} 
                   onChange={props.handleChange}
                 />
               </form><br/>
