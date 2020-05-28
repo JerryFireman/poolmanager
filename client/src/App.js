@@ -118,6 +118,7 @@ class App extends Component {
         <Pool 
           bpoolToLoad={this.state.bpoolToLoad} 
           handleChange={this.handleChange}
+          createPool={this.createPool}
         />
          
       </div>

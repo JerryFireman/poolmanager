@@ -28,7 +28,7 @@ export default function Pool(props) {
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
               <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.approvePhaseStructure}>
+                <StyledButton onClick={props.createPool}>
                   Create new smart pool
                 </StyledButton>
               </form><br/>
