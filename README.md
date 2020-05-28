@@ -60,7 +60,7 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) smart contract - bind new token
+1) smart contract - bind new token: need selector for token, check ranges for last 2, smart contract bind, ui function must convert to address, wei, wei
 2) test bind new token
 3) wire bind new token
 4) smart contract status table
