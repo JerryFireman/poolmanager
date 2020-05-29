@@ -1,7 +1,8 @@
 const BFactory = artifacts.require('BFactory');
 const PoolManager = artifacts.require('PoolManager');
-
+const TToken = artifacts.require('TToken')
 module.exports = function(deployer) {
+  deployer.deploy(TToken, 'Wrapped Ether', 'WETH', 18)
   deployer.deploy(BFactory).then(function() {
     return deployer.deploy(PoolManager, BFactory.address);
   });
