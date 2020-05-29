@@ -64,7 +64,13 @@ class App extends Component {
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance, contract2: instance2 });
 
+      const { contract2 } = this.state;
 
+    var tx = await contract2.methods.mint(accounts[0], web3.utils.toWei('55')).send({ from: accounts[0], gas: 6000000 });
+    const ts = await contract2.methods.totalSupply().call();
+    console.log("totalSupply", ts);
+
+    
     
       
       
@@ -77,12 +83,11 @@ class App extends Component {
     }
   };
 
+
+
   setValue = async (event) => {
     event.preventDefault()
     
-    const { accounts, contract, contract2 } = this.state;
-
-    await contract2.methods.new('Wrapped Ether', 'WETH', 18);
 
     // Stores a given value, 5 by default.
    // await contract.methods.set(this.state.value).send({ from: accounts[0] });
