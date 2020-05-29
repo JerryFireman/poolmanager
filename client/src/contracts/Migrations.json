@@ -1481,12 +1481,12 @@
     "1590776936229": {
       "events": {},
       "links": {},
-      "address": "0x018ee7DE7c28fc7681ab5B46A8707cF178642765",
-      "transactionHash": "0xa543d88e96e51a041f38de282a0cf2fc1b002beb896581fa9c350fa0f7a9343a"
+      "address": "0x495D8A8A05E115A80Dd414B2E99764d107b8F777",
+      "transactionHash": "0xc13d22fbb2cdabfffa19fbc7b31fd9b47786cdd9bdc74d96309729df56fac2e7"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-29T18:58:56.590Z",
+  "updatedAt": "2020-05-29T19:56:52.085Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

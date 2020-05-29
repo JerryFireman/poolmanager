@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PoolManagerContract from "./contracts/PoolManager.json";
+import TToken from "./contracts/TToken.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 import Header from "./components/Header.js";
@@ -35,7 +36,7 @@ class App extends Component {
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
 
-      // Get the contract instance.
+      // Get the Pool Manager contract instance.
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = PoolManagerContract.networks[networkId];
       const instance = new web3.eth.Contract(
@@ -43,13 +44,28 @@ class App extends Component {
         deployedNetwork && deployedNetwork.address,
       );
 
+      // Get TToken contract instance
+      const networkId2 = await web3.eth.net.getId();
+      const deployedNetwork2 = TToken.networks[networkId2];
+      const instance2 = new web3.eth.Contract(
+        TToken.abi,
+        deployedNetwork2 && deployedNetwork2.address,
+      );
+
+
+
+
+
 //        instance.events.LogSet((error, event)=>{
 //          console.log(event)
 //        })
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance });
+      this.setState({ web3, accounts, contract: instance, contract2: instance2 });
+
+
+    
       
       
     } catch (error) {
@@ -64,7 +80,9 @@ class App extends Component {
   setValue = async (event) => {
     event.preventDefault()
     
-    const { accounts, contract } = this.state;
+    const { accounts, contract, contract2 } = this.state;
+
+    await contract2.methods.new('Wrapped Ether', 'WETH', 18);
 
     // Stores a given value, 5 by default.
    // await contract.methods.set(this.state.value).send({ from: accounts[0] });
