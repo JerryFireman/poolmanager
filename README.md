@@ -60,13 +60,18 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) smart contract - bind new token: need selector for token, check ranges for last 2, smart contract bind, ui function must convert to address, wei, wei
-2) test bind new token
-3) wire bind new token
-4) smart contract status table
-5) wire status table (if needed)
-6) smart contract change balance/weight
-7) wire change balance/weight
+1) token working 
+2) smart contract - bind new token: smart contract bind, ui function must convert to address, wei, wei
+3) test bind new token
+4) wire bind new token: need selector for token, check ranges for last 2, 
+5) smart contract status table
+6) wire status table
+7) smart contract change balance/weight
+8) wire change balance/weight
+9) withdraw funds
+10) readme
+11) video demo
+12) social media
 
 New functions:
 newBPool

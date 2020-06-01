@@ -2983,10 +2983,49 @@
       "links": {},
       "address": "0x950199593E820B9196cE79C579aFd9B5B09d2346",
       "transactionHash": "0x69f7431c5b2a10f91aff6ef88a619a8e570ad9020b0f75ef78832cc6c4d65619"
+    },
+    "1591042074817": {
+      "events": {
+        "0xfa687fbbbd114f405c78850b508cd15ded5f4d9400cf4190a3093b0af68de8c1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newValue",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogSet",
+          "type": "event"
+        },
+        "0x83a48fbcfc991335314e74d0496aab6a1987e992ddc85dddbcc4d6dd6ef2e9fc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "bpoolAddress",
+              "type": "address"
+            }
+          ],
+          "name": "PoolCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xCb2149ba8dA2b6f3edE1aA0eAf8904A09E86E23c",
+      "transactionHash": "0x90041026c9d4d0a4f4eca7ced2be1aff916dd46a6b60de3e354827f5f7634aad"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-29T22:41:33.554Z",
+  "updatedAt": "2020-06-01T20:57:33.229Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

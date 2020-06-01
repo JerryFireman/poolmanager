@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PoolManagerContract from "./contracts/PoolManager.json";
-import TToken from "./contracts/TToken.json";
+import Weth from "./contracts/Weth.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 import Header from "./components/Header.js";
@@ -44,11 +44,11 @@ class App extends Component {
         deployedNetwork && deployedNetwork.address,
       );
 
-      // Get TToken contract instance
+      // Get Weth contract instance
       const networkId2 = await web3.eth.net.getId();
-      const deployedNetwork2 = TToken.networks[networkId2];
+      const deployedNetwork2 = Weth.networks[networkId2];
       const instance2 = new web3.eth.Contract(
-        TToken.abi,
+        Weth.abi,
         deployedNetwork2 && deployedNetwork2.address,
       );
 
