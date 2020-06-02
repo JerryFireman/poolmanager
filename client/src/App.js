@@ -60,14 +60,31 @@ class App extends Component {
       const deployedNetwork3 = WethContract.networks[networkId3];
       const daiInstance = new web3.eth.Contract(
         DaiContract.abi,
-        deployedNetwork2 && deployedNetwork2.address,
+        deployedNetwork3 && deployedNetwork3.address,
       );
 
+      // Get Mkr contract instance
+      const networkId4 = await web3.eth.net.getId();
+      const deployedNetwork4 = WethContract.networks[networkId4];
+      const mkrInstance = new web3.eth.Contract(
+        MkrContract.abi,
+              deployedNetwork4 && deployedNetwork4.address,
+            );
+      
 
       // Set web3, accounts, and contracts to the state
-      this.setState({ web3, accounts, contract: instance, wethContract: wethInstance, daiContract: daiInstance });
+      this.setState({ 
+        web3, 
+        accounts, 
+        contract: instance, 
+        wethContract: wethInstance, 
+        daiContract: daiInstance,
+        mkrContract: mkrInstance, 
+      });
       const { wethContract } = this.state;
       const { daiContract } = this.state;
+      const { mkrContract } = this.state;
+
 
       // @ mint weth for owner
       await wethContract.methods.mint(accounts[0], web3.utils.toWei('100')).send({ from: accounts[0], gas: 5000000 });
@@ -83,6 +100,12 @@ class App extends Component {
       const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
       console.log("dai owner balance: ", daiOwnerBalance)
 
+      // @ mint mkr for owner
+      await mkrContract.methods.mint(accounts[0], web3.utils.toWei('50')).send({ from: accounts[0], gas: 5000000 });
+      const mkrSupply = await mkrContract.methods.totalSupply().call();
+      console.log("mkrSupply", mkrSupply);
+      const mkrOwnerBalance = await mkrContract.methods.balanceOf(accounts[0]).call();
+      console.log("mkri owner balance: ", mkrOwnerBalance)
 
     } catch (error) {
       // Catch any errors for any of the above operations.
