@@ -10,8 +10,6 @@ import NavBar from './components/NavBar.js';
 import Pool from './components/Pool.js';
 import Status from './components/Status.js';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -25,6 +23,8 @@ class App extends Component {
     accounts: null, 
     contract: null, 
     wethContract: null,
+    daiContract: null,
+    mkrContract: null,
     bpoolAddress: "",
     bpoolToLoad: "", 
     token: "",
@@ -55,26 +55,35 @@ class App extends Component {
         WethContract.abi,
         deployedNetwork2 && deployedNetwork2.address,
       );
+      // Get Dai contract instance
+      const networkId3 = await web3.eth.net.getId();
+      const deployedNetwork3 = WethContract.networks[networkId3];
+      const daiInstance = new web3.eth.Contract(
+        DaiContract.abi,
+        deployedNetwork2 && deployedNetwork2.address,
+      );
 
 
-
-
-
-
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance, wethContract: wethInstance });
-
+      // Set web3, accounts, and contracts to the state
+      this.setState({ web3, accounts, contract: instance, wethContract: wethInstance, daiContract: daiInstance });
       const { wethContract } = this.state;
+      const { daiContract } = this.state;
 
-    await wethContract.methods.mint(accounts[0], web3.utils.toWei('55')).send({ from: accounts[0], gas: 6000000 });
-    const ts = await wethContract.methods.totalSupply().call();
-    console.log("totalSupply", ts);
+      // @ mint weth for owner
+      await wethContract.methods.mint(accounts[0], web3.utils.toWei('100')).send({ from: accounts[0], gas: 5000000 });
+      const wethSupply = await wethContract.methods.totalSupply().call();
+      console.log("wethSupply", wethSupply);
+      const wethOwnerBalance = await wethContract.methods.balanceOf(accounts[0]).call();
+      console.log("weth owner balance: ", wethOwnerBalance)
 
-    
-    
-      
-      
+      // @ mint dai for owner
+      await daiContract.methods.mint(accounts[0], web3.utils.toWei('500')).send({ from: accounts[0], gas: 5000000 });
+      const daiSupply = await daiContract.methods.totalSupply().call();
+      console.log("daiSupply", daiSupply);
+      const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
+      console.log("dai owner balance: ", daiOwnerBalance)
+
+
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -83,9 +92,6 @@ class App extends Component {
       console.error(error);
     }
   };
-
-
-
 
   handleChange = async (e) => {
     //e.preventDefault()
@@ -112,7 +118,7 @@ class App extends Component {
       }
     };
   
-    // @dev Creates a new smart pool and gets ready to manage it
+    // @dev loads an existing smart pool and gets ready to manage it
     loadExistingPool = async () => {
       this.setState({ 
         bpoolAddress: this.state.bpoolToLoad 
