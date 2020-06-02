@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PoolManagerContract from "./contracts/PoolManager.json";
-import Weth from "./contracts/Weth.json";
+import WethContract from "./contracts/Weth.json";
+import DaiContract from "./contracts/Dai.json";
+import MkrContract from "./contracts/Mkr.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 import Header from "./components/Header.js";
@@ -13,14 +15,16 @@ import Status from './components/Status.js';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.setValue = this.setValue.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.createPool = this.createPool.bind(this)
+    this.loadExistingPool = this.loadExistingPool.bind(this)
   }
   
   state = { 
     web3: null, 
     accounts: null, 
     contract: null, 
+    wethContract: null,
     bpoolAddress: "",
     bpoolToLoad: "", 
     token: "",
@@ -46,9 +50,9 @@ class App extends Component {
 
       // Get Weth contract instance
       const networkId2 = await web3.eth.net.getId();
-      const deployedNetwork2 = Weth.networks[networkId2];
-      const instance2 = new web3.eth.Contract(
-        Weth.abi,
+      const deployedNetwork2 = WethContract.networks[networkId2];
+      const wethInstance = new web3.eth.Contract(
+        WethContract.abi,
         deployedNetwork2 && deployedNetwork2.address,
       );
 
@@ -56,18 +60,15 @@ class App extends Component {
 
 
 
-//        instance.events.LogSet((error, event)=>{
-//          console.log(event)
-//        })
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance, contract2: instance2 });
+      this.setState({ web3, accounts, contract: instance, wethContract: wethInstance });
 
-      const { contract2 } = this.state;
+      const { wethContract } = this.state;
 
-    var tx = await contract2.methods.mint(accounts[0], web3.utils.toWei('55')).send({ from: accounts[0], gas: 6000000 });
-    const ts = await contract2.methods.totalSupply().call();
+    await wethContract.methods.mint(accounts[0], web3.utils.toWei('55')).send({ from: accounts[0], gas: 6000000 });
+    const ts = await wethContract.methods.totalSupply().call();
     console.log("totalSupply", ts);
 
     
@@ -85,19 +86,6 @@ class App extends Component {
 
 
 
-  setValue = async (event) => {
-    event.preventDefault()
-    
-
-    // Stores a given value, 5 by default.
-   // await contract.methods.set(this.state.value).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-   // const response = await contract.methods.get().call();
-
-    // Update state with the result.
-  //  this.setState({ storageValue: response });
-  };
 
   handleChange = async (e) => {
     //e.preventDefault()
