@@ -3,8 +3,13 @@
 <2_deploy_factories.js>
 const BFactory = artifacts.require('BFactory');
 const PoolManager = artifacts.require('PoolManager');
-
+const Weth = artifacts.require('Weth');
+const Dai = artifacts.require('Dai')
+const Mkr = artifacts.require('Mkr')
 module.exports = function(deployer) {
+  deployer.deploy(Weth, 'Wrapped Ether', 'WETH', 18);
+  deployer.deploy(Dai, 'Dai Stablecoin', 'DAI', 18)
+  deployer.deploy(Mkr, 'Maker', 'MKR', 18)
   deployer.deploy(BFactory).then(function() {
     return deployer.deploy(PoolManager, BFactory.address);
   });
@@ -16,22 +21,13 @@ truffle migrate --reset
 
 client$ npm start
 
->>2. Testing:
+>>2 Testing
 
-<2_deploy_factories.js>
+No need to change 2_deploy_factories.js
 
-const BFactory = artifacts.require('BFactory');
-const PoolManager = artifacts.require('PoolManager');
+Just run: truffle test ./test/poolmanager.js
 
-module.exports = function(deployer) {
-  deployer.deploy(BFactory)
-};
-
-ganache-cli -l 10000000
-
-truffle test ./test/poolmanager.js
-
->>3. Kovan:
+>>2. Kovan:
 Need to run ganache on specific addresses to access account with testnet coins
 Use .env to pass private key, deploy poolmanager with BFactory account on Kovan
 
