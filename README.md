@@ -68,9 +68,10 @@ Development plan
 6) smart contract change balance/weight
 7) wire change balance/weight
 8) balances, withdraw funds
-9) readme
-10) video demo
-11) social media
+9) clean up UI: fonts and colors
+10) readme
+11) video demo
+12) social media
 
 New functions:
 newBPool
