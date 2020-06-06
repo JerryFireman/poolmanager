@@ -8,7 +8,7 @@ contract PoolManager {
     address public factory;
 
     event PoolCreated(address bpoolAddress);
-    event TokenBound(address currentPool, address token, uint balance, uint denorm)
+    event TokenBound(address currentPool, address token, uint balance, uint denorm);
 
     modifier onlyOwner {
         require(msg.sender == owner, "Only owner can call this function");

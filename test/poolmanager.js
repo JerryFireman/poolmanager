@@ -33,7 +33,6 @@ contract('PoolManager', async (accounts) => {
             poolmanager = await PoolManager.new(factory.address, { from: owner });
             console.log("poolmanager.address", await poolmanager.address)
 
-            /*
             weth = await TToken.new('Wrapped Ether', 'WETH', 18);
             dai = await TToken.new('Dai Stablecoin', 'DAI', 18);
 
@@ -48,12 +47,11 @@ contract('PoolManager', async (accounts) => {
             await weth.mint(user1, toWei('1'), { from: owner });
             await dai.mint(user1, toWei('50'), { from: owner });
 
-            await weth.approve(POOL, MAX, { from: owner });
-            await dai.approve(POOL, MAX, { from: owner });
+            await weth.approve(poolmanager.address, MAX, { from: owner });
+            await dai.approve(poolmanager.address, MAX, { from: owner });
 
-            await weth.approve(POOL, MAX, { from: user1 });
-            await dai.approve(POOL, MAX, { from: user1 });
-            */
+            await weth.approve(poolmanager.address, MAX, { from: user1 });
+            await dai.approve(poolmanager.address, MAX, { from: user1 });
         });
 
         it('calling account should be owner of pool manager', async () => {
