@@ -19,6 +19,7 @@ contract PoolManager {
         factory = _factory;
     }
 
+    //@dev creates a new smart pool that will be controlled by pool manager
     function createPool()
         public
         onlyOwner
@@ -29,6 +30,14 @@ contract PoolManager {
         address poolAddress = address(bpool);
         emit PoolCreated(poolAddress);
         return bpool;
+    }
+
+    //@dev binds a new token to the smart pool that is current being managed
+    function bindToken(address _currentPoolAddress, address _token, uint _balance, uint _denorm)
+        public
+        onlyOwner
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
     }
 
     //Stored data section for testing UI

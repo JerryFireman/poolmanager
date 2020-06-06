@@ -23,11 +23,11 @@ client$ npm start
 
 >>2 Testing
 
-No need to change 2_deploy_factories.js
+No need to change 2_deploy_factories.js -- it's not used for testing
 
 Just run: truffle test ./test/poolmanager.js
 
->>2. Kovan:
+>>3ow . Kovan:
 Need to run ganache on specific addresses to access account with testnet coins
 Use .env to pass private key, deploy poolmanager with BFactory account on Kovan
 
@@ -58,7 +58,7 @@ module.exports = async function (deployer, network, accounts) {
 Development plan 
 1) smart contract - bind new token: smart contract bind, ui function must convert to address, wei, wei
 2) test bind new token
-3) wire bind new token: need selector for token, check ranges for last 2, 
+3) wire bind new token: select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, 
 4) smart contract status table
 5) wire status table
 6) smart contract change balance/weight
