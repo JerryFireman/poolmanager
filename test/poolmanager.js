@@ -127,15 +127,15 @@ contract('PoolManager', async (accounts) => {
                 'ERR_BTOKEN_BAD_CALLER',
             );
         });
-        /*
 
-        it('Admin approves tokens', async () => {
-            await weth.approve(POOL, MAX);
-            await mkr.approve(POOL, MAX);
-            await dai.approve(POOL, MAX);
-            await xxx.approve(POOL, MAX);
+        it('Owner approves poolmanager tokens', async () => {
+            await weth.approve(poolmanager.address, MAX, { from: owner, gas: 5000000 });
+            await mkr.approve(POOL, MAX, { from: owner, gas: 5000000 });
+            await dai.approve(POOL, MAX, { from: owner, gas: 5000000 });
+            await xxx.approve(POOL, MAX, { from: owner, gas: 5000000 });
         });
 
+        /*
         it('Fails binding weights and balances outside MIX MAX', async () => {
             await truffleAssert.reverts(
                 pool.bind(WETH, toWei('51'), toWei('1')),
