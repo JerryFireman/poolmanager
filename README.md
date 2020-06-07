@@ -56,18 +56,19 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) smart contract - bind new token: smart contract bind, ui function must convert to address, wei, wei
-2) test bind new token
-3) wire bind new token: select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, 
-4) smart contract status table
-5) wire status table
-6) smart contract change balance/weight
-7) wire change balance/weight
-8) balances, withdraw funds
-9) clean up UI: fonts and colors
-10) readme
-11) video demo
-12) social media
+1) test bind new token
+2) wire bind new token: select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, ui function must convert to address, wei, wei
+3) smart contract status table
+4) wire status table
+5) smart contract change balance/weight
+6) wire change balance/weight
+7) balances, withdraw funds, set public, change controller
+8) clean up UI: fonts and colors
+9) readme
+10) video demo
+11) social media
+12) develop algorithm
+13) code algorithm in node
 
 New functions:
 newBPool
@@ -80,6 +81,8 @@ set swap fee
 set public swap
 rebind tokens
 withdraw tokens
+
+Run algorithm in node js to control smart contract
 
 
 May need to npm install @material/typography

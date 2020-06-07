@@ -19,12 +19,10 @@ contract('PoolManager', async (accounts) => {
     let poolmanager;
     let pool;
     let POOL;
-    let WETH;
-    let DAI;
-    let weth;
-    let dai;
-
-    describe('Create BPool', () => {
+    let WETH; let MKR; let DAI; let
+        XXX; // addresses
+    let weth; let mkr; let dai; let
+        xxx; // TTokens
 
         before(async () => {
             factory = await BFactory.deployed();
@@ -34,26 +32,47 @@ contract('PoolManager', async (accounts) => {
             console.log("poolmanager.address", await poolmanager.address)
 
             weth = await TToken.new('Wrapped Ether', 'WETH', 18);
+            mkr = await TToken.new('Maker', 'MKR', 18);
             dai = await TToken.new('Dai Stablecoin', 'DAI', 18);
-
+            xxx = await TToken.new('XXX', 'XXX', 18);
+    
             WETH = weth.address;
+            MKR = mkr.address;
             DAI = dai.address;
-
-            // admin balances
-            await weth.mint(owner, toWei('5'));
-            await dai.mint(owner, toWei('200'));
-
-            // nonAdmin balances
-            await weth.mint(user1, toWei('1'), { from: owner });
-            await dai.mint(user1, toWei('50'), { from: owner });
-
-            await weth.approve(poolmanager.address, MAX, { from: owner });
-            await dai.approve(poolmanager.address, MAX, { from: owner });
-
-            await weth.approve(poolmanager.address, MAX, { from: user1 });
-            await dai.approve(poolmanager.address, MAX, { from: user1 });
+            XXX = xxx.address;
+    
+            /*
+                Tests assume token prices
+                WETH - $200
+                MKR  - $500
+                DAI  - $1
+                XXX  - $0
+            */
+    
+            // Owner balances
+            await weth.mint(owner, toWei('50'));
+            await mkr.mint(owner, toWei('20'));
+            await dai.mint(owner, toWei('10000'));
+            await xxx.mint(owner, toWei('10'));
+    
+            // Poolmanager balances
+            await weth.mint(poolmanager.address, toWei('50'), { from: owner });
+            await mkr.mint(poolmanager.address, toWei('20'), { from: owner });
+            await dai.mint(poolmanager.address, toWei('10000'), { from: owner });
+            await xxx.mint(poolmanager.address, toWei('10'), { from: owner });
+    
+            // User1 balances
+            await weth.mint(user1, toWei('12.2222'), { from: owner });
+            await mkr.mint(user1, toWei('1.015333'), { from: owner });
+            await dai.mint(user1, toWei('0'), { from: owner });
+            await xxx.mint(user1, toWei('51'), { from: owner });
         });
+    
 
+
+    describe('Create BPool', () => {
+
+    
         it('calling account should be owner of pool manager', async () => {
             const pmowner = await poolmanager.owner.call();
             assert.isTrue(owner == pmowner);
@@ -90,6 +109,126 @@ contract('PoolManager', async (accounts) => {
         it('pool should not be finalized', async () => {
             assert.isFalse(await pool.isFinalized.call());
         });
+    });
 
+    describe('Binding Tokens', () => {
+
+
+        it('Pool starts with no bound tokens', async () => {
+            const numTokens = await pool.getNumTokens();
+            assert.equal(0, numTokens);
+            const isBound = await pool.isBound.call(WETH);
+            assert(!isBound);
+        });
+
+        /*
+
+        send tokens to contract
+        these operations should come from pool manager
+
+        it('Fails binding tokens that are not approved', async () => {
+            await truffleAssert.reverts(
+                pool.bind(MKR, toWei('10'), toWei('2.5')),
+                'ERR_BTOKEN_BAD_CALLER',
+            );
+        });
+
+        it('Admin approves tokens', async () => {
+            await weth.approve(POOL, MAX);
+            await mkr.approve(POOL, MAX);
+            await dai.approve(POOL, MAX);
+            await xxx.approve(POOL, MAX);
+        });
+
+        it('Fails binding weights and balances outside MIX MAX', async () => {
+            await truffleAssert.reverts(
+                pool.bind(WETH, toWei('51'), toWei('1')),
+                'ERR_INSUFFICIENT_BAL',
+            );
+            await truffleAssert.reverts(
+                pool.bind(MKR, toWei('0.0000000000001'), toWei('1')),
+                'ERR_MIN_BALANCE',
+            );
+            await truffleAssert.reverts(
+                pool.bind(DAI, toWei('1000'), toWei('0.99')),
+                'ERR_MIN_WEIGHT',
+            );
+            await truffleAssert.reverts(
+                pool.bind(WETH, toWei('5'), toWei('50.01')),
+                'ERR_MAX_WEIGHT',
+            );
+        });
+
+        it('Fails finalizing pool without 2 tokens', async () => {
+            await truffleAssert.reverts(
+                pool.finalize(),
+                'ERR_MIN_TOKENS',
+            );
+        });
+
+        it('Admin binds tokens', async () => {
+            // Equal weights WETH, MKR, DAI
+            await pool.bind(WETH, toWei('50'), toWei('5'));
+            await pool.bind(MKR, toWei('20'), toWei('5'));
+            await pool.bind(DAI, toWei('10000'), toWei('5'));
+            const numTokens = await pool.getNumTokens();
+            assert.equal(3, numTokens);
+            const totalDernomWeight = await pool.getTotalDenormalizedWeight();
+            assert.equal(15, fromWei(totalDernomWeight));
+            const wethDenormWeight = await pool.getDenormalizedWeight(WETH);
+            assert.equal(5, fromWei(wethDenormWeight));
+            const wethNormWeight = await pool.getNormalizedWeight(WETH);
+            assert.equal(0.333333333333333333, fromWei(wethNormWeight));
+            const mkrBalance = await pool.getBalance(MKR);
+            assert.equal(20, fromWei(mkrBalance));
+        });
+
+        it('Admin unbinds token', async () => {
+            await pool.bind(XXX, toWei('10'), toWei('5'));
+            let adminBalance = await xxx.balanceOf(admin);
+            assert.equal(0, fromWei(adminBalance));
+            await pool.unbind(XXX);
+            adminBalance = await xxx.balanceOf(admin);
+            assert.equal(10, fromWei(adminBalance));
+            const numTokens = await pool.getNumTokens();
+            assert.equal(3, numTokens);
+            const totalDernomWeight = await pool.getTotalDenormalizedWeight();
+            assert.equal(15, fromWei(totalDernomWeight));
+        });
+
+        it('Fails binding above MAX TOTAL WEIGHT', async () => {
+            await truffleAssert.reverts(
+                pool.bind(XXX, toWei('1'), toWei('40')),
+                'ERR_MAX_TOTAL_WEIGHT',
+            );
+        });
+
+        it('Fails rebinding token or unbinding random token', async () => {
+            await truffleAssert.reverts(
+                pool.bind(WETH, toWei('0'), toWei('1')),
+                'ERR_IS_BOUND',
+            );
+            await truffleAssert.reverts(
+                pool.rebind(XXX, toWei('0'), toWei('1')),
+                'ERR_NOT_BOUND',
+            );
+            await truffleAssert.reverts(
+                pool.unbind(XXX),
+                'ERR_NOT_BOUND',
+            );
+        });
+
+        it('Get current tokens', async () => {
+            const currentTokens = await pool.getCurrentTokens();
+            assert.sameMembers(currentTokens, [WETH, MKR, DAI]);
+        });
+
+        it('Fails getting final tokens before finalized', async () => {
+            await truffleAssert.reverts(
+                pool.getFinalTokens(),
+                'ERR_NOT_FINALIZED',
+            );
+        });
+        */
     });
 });
