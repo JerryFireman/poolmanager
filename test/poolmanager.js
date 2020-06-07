@@ -121,17 +121,13 @@ contract('PoolManager', async (accounts) => {
             assert(!isBound);
         });
 
-        /*
-
-        send tokens to contract
-        these operations should come from pool manager
-
         it('Fails binding tokens that are not approved', async () => {
             await truffleAssert.reverts(
-                pool.bind(MKR, toWei('10'), toWei('2.5')),
+                poolmanager.bindToken(pool.address, MKR, toWei('10'), toWei('2.5'), { from: owner, gas: 5000000 }),
                 'ERR_BTOKEN_BAD_CALLER',
             );
         });
+        /*
 
         it('Admin approves tokens', async () => {
             await weth.approve(POOL, MAX);
