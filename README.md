@@ -56,33 +56,14 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) test bind new token
+1) functions: unbind token, denorm weight, norm weight, get  number tokens, get current tokens, rebind?
 2) wire bind new token: select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, ui function must convert to address, wei, wei
-3) smart contract status table
-4) wire status table
-5) smart contract change balance/weight
-6) wire change balance/weight
-7) balances, withdraw funds, set public, change controller
-8) clean up UI: fonts and colors
-9) readme
-10) video demo
-11) social media
-12) develop algorithm
-13) code algorithm in node
-
-New functions:
-newBPool
-approve spend
-bind
-get current tokens
-get balances
-get denorm/norm
-set swap fee
-set public swap
-rebind tokens
-withdraw tokens
-
-Run algorithm in node js to control smart contract
-
-
-May need to npm install @material/typography
+3) wire status table
+4) wire change balance/weight
+5) withdraw funds, swap fee, set public, change controller
+6) clean up UI: fonts and colors
+7) readme
+8) video demo
+9) social media
+10) develop algorithm
+11) code algorithm in node
