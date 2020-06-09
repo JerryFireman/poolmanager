@@ -10,6 +10,8 @@ contract('PoolManager', async (accounts) => {
     const user1 = accounts[1];
     const user2 = accounts[2];
     const { toWei } = web3.utils;
+    const { toString } = web3.utils;
+
     const { fromWei } = web3.utils;
     const { hexToUtf8 } = web3.utils;
 
@@ -50,13 +52,14 @@ contract('PoolManager', async (accounts) => {
             */
     
             // Owner balances
-            await weth.mint(owner, toWei('50'));
-            await mkr.mint(owner, toWei('20'));
-            await dai.mint(owner, toWei('10000'));
-            await xxx.mint(owner, toWei('10'));
+            await weth.mint(owner, toWei('100'));
+            await mkr.mint(owner, toWei('40'));
+            await dai.mint(owner, toWei('50000'));
+            await xxx.mint(owner, toWei('20'));
     
             // Poolmanager balances
-            await weth.mint(poolmanager.address, toWei('50'), { from: owner });
+            await weth.mint(poolmanager.address, toWei('50'), { from: owner } );
+            console.log("owner balance: ", await weth.balanceOf(owner).toString());
             await mkr.mint(poolmanager.address, toWei('20'), { from: owner });
             await dai.mint(poolmanager.address, toWei('10000'), { from: owner });
             await xxx.mint(poolmanager.address, toWei('10'), { from: owner });
@@ -129,18 +132,35 @@ contract('PoolManager', async (accounts) => {
         });
 
         it('Owner approves poolmanager tokens', async () => {
-            await weth.approve(poolmanager.address, MAX, { from: owner, gas: 5000000 });
-            await mkr.approve(POOL, MAX, { from: owner, gas: 5000000 });
-            await dai.approve(POOL, MAX, { from: owner, gas: 5000000 });
-            await xxx.approve(POOL, MAX, { from: owner, gas: 5000000 });
+            tx = await poolmanager.approveToken(WETH, pool.address, MAX, { from: owner });
+            console.log("tx: ", await tx);
+            
+/*
+            await mkr.approve(poolmanager.address, MAX, { from: owner });
+            await approve(poolmanager.address, MAX, { from: owner });
+            await xxx.approve(poolmanager.address, MAX, { from: owner });
+*/
         });
+
+        it('Admin binds tokens', async () => {
+            console.log("pool.address", pool.address);
+            console.log("WETH", WETH);
+            console.log("toWei('10')", toWei('10'));
+            console.log("toWei('5')", toWei('5'));
+            console.log("owner", owner);
+            console.log("poolmanager.owner", await poolmanager.owner.call());
+            await poolmanager.owner.call()
+            await poolmanager.bindToken(pool.address, WETH, toWei('50'), toWei('5'), { from: owner, gas: 5000000 });
+        });
+
 
         /*
         it('Fails binding weights and balances outside MIX MAX', async () => {
             await truffleAssert.reverts(
-                pool.bind(WETH, toWei('51'), toWei('1')),
+                poolmanager.bindToken(pool.address, WETH, toWei('51'), toWei('1'), { from: owner, gas: 5000000 }),
                 'ERR_INSUFFICIENT_BAL',
             );
+        });
             await truffleAssert.reverts(
                 pool.bind(MKR, toWei('0.0000000000001'), toWei('1')),
                 'ERR_MIN_BALANCE',

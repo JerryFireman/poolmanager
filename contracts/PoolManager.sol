@@ -2,6 +2,8 @@ pragma solidity 0.5.12;
 
 import "./BFactory.sol";
 import "./BPool.sol";
+import "./test/TToken.sol";
+
 
 contract PoolManager {
     address public owner;
@@ -9,6 +11,7 @@ contract PoolManager {
 
     event PoolCreated(address bpoolAddress);
     event TokenBound(address currentPool, address token, uint balance, uint denorm);
+    event TokenApproved(address token, address currentPoolAddress, uint balance);
 
     modifier onlyOwner {
         require(msg.sender == owner, "Only owner can call this function");
@@ -32,6 +35,17 @@ contract PoolManager {
         emit PoolCreated(poolAddress);
         return bpool;
     }
+
+    //@dev approves a new token for binding by a smart pool
+    function approveToken(address _token, address _currentPoolAddress, uint _balance)
+        public
+        onlyOwner
+    {
+        TToken token = TToken(_token);
+        token.approve(_currentPoolAddress, _balance);
+        emit TokenApproved(_token, _currentPoolAddress, _balance);
+    }
+
 
     //@dev binds a new token to the smart pool that is current being managed
     function bindToken(address _currentPoolAddress, address _token, uint _balance, uint _denorm)
