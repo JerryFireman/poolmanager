@@ -46,6 +46,15 @@ contract PoolManager {
         emit TokenApproved(_token, _currentPoolAddress, _balance);
     }
 
+    //@dev checks whether a token is bound to the current smart pool
+    function checkToken(address _currentPoolAddress, address _token)
+        public
+        onlyOwner
+        returns(bool)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.isBound(_token);
+    }
 
     //@dev binds a new token to the smart pool that is current being managed
     function bindToken(address _currentPoolAddress, address _token, uint _balance, uint _denorm)

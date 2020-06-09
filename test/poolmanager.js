@@ -8,13 +8,9 @@ const assert = require("chai").assert;
 contract('PoolManager', async (accounts) => {
     const owner = accounts[0];
     const user1 = accounts[1];
-    const user2 = accounts[2];
     const { toWei } = web3.utils;
-    const { toString } = web3.utils;
-
     const { fromWei } = web3.utils;
     const { hexToUtf8 } = web3.utils;
-
     const MAX = web3.utils.toTwosComplement(-1);
 
     let factory;
@@ -58,11 +54,11 @@ contract('PoolManager', async (accounts) => {
             await xxx.mint(owner, toWei('20'));
     
             // Poolmanager balances
-            await weth.mint(poolmanager.address, toWei('50'), { from: owner } );
+            await weth.mint(poolmanager.address, toWei('75'), { from: owner } );
             console.log("owner balance: ", await weth.balanceOf(owner).toString());
-            await mkr.mint(poolmanager.address, toWei('20'), { from: owner });
-            await dai.mint(poolmanager.address, toWei('10000'), { from: owner });
-            await xxx.mint(poolmanager.address, toWei('10'), { from: owner });
+            await mkr.mint(poolmanager.address, toWei('30'), { from: owner });
+            await dai.mint(poolmanager.address, toWei('40000'), { from: owner });
+            await xxx.mint(poolmanager.address, toWei('15'), { from: owner });
     
             // User1 balances
             await weth.mint(user1, toWei('12.2222'), { from: owner });
@@ -71,12 +67,9 @@ contract('PoolManager', async (accounts) => {
             await xxx.mint(user1, toWei('51'), { from: owner });
         });
     
-
-
     describe('Create BPool', () => {
 
-    
-        it('calling account should be owner of pool manager', async () => {
+            it('calling account should be owner of pool manager', async () => {
             const pmowner = await poolmanager.owner.call();
             assert.isTrue(owner == pmowner);
         });
@@ -132,26 +125,22 @@ contract('PoolManager', async (accounts) => {
         });
 
         it('Owner approves poolmanager tokens', async () => {
-            tx = await poolmanager.approveToken(WETH, pool.address, MAX, { from: owner });
-            console.log("tx: ", await tx);
-            
-/*
-            await mkr.approve(poolmanager.address, MAX, { from: owner });
-            await approve(poolmanager.address, MAX, { from: owner });
-            await xxx.approve(poolmanager.address, MAX, { from: owner });
-*/
+            await poolmanager.approveToken(WETH, pool.address, MAX, { from: owner });
+            await poolmanager.approveToken(DAI, pool.address, MAX, { from: owner });
+            await poolmanager.approveToken(MKR, pool.address, MAX, { from: owner });
+            await poolmanager.approveToken(XXX, pool.address, MAX, { from: owner });
         });
 
         it('Admin binds tokens', async () => {
             console.log("pool.address", pool.address);
             console.log("WETH", WETH);
-            console.log("toWei('10')", toWei('10'));
-            console.log("toWei('5')", toWei('5'));
+            console.log("balance", toWei('10'));
+            console.log("denorm", toWei('5'));
             console.log("owner", owner);
             console.log("poolmanager.owner", await poolmanager.owner.call());
-            await poolmanager.owner.call()
             await poolmanager.bindToken(pool.address, WETH, toWei('50'), toWei('5'), { from: owner, gas: 5000000 });
         });
+/*
 
 
         /*
