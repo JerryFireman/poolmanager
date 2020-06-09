@@ -139,6 +139,7 @@ contract('PoolManager', async (accounts) => {
             console.log("owner", owner);
             console.log("poolmanager.owner", await poolmanager.owner.call());
             await poolmanager.bindToken(pool.address, WETH, toWei('50'), toWei('5'), { from: owner, gas: 5000000 });
+            assert(poolmanager.checkToken(poolmanager.address, WETH));
         });
 /*
 
