@@ -49,11 +49,21 @@ contract PoolManager {
     //@dev checks whether a token is bound to the current smart pool
     function checkToken(address _currentPoolAddress, address _token)
         public
-        onlyOwner
+        view
         returns(bool)
     {
         BPool currentPool = BPool(_currentPoolAddress);
         return currentPool.isBound(_token);
+    }
+
+    //@dev returns array of tokens bound to the current smart pool
+    function currentTokens(address _currentPoolAddress)
+        public
+        view
+        returns(address[] memory)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.getCurrentTokens();
     }
 
     //@dev binds a new token to the smart pool that is current being managed

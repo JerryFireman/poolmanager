@@ -56,14 +56,13 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) functions: unbind token, denorm weight, norm weight, get  number tokens, get current tokens, rebind?
+1) functions: get current tokens, norm weight, unbind, rebind, swap fee, set public, change controller, withdraw funds (as each is completed add test)
 2) wire bind new token: select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, ui function must convert to address, wei, wei
 3) wire status table
-4) wire change balance/weight
-5) withdraw funds, swap fee, set public, change controller
-6) clean up UI: fonts and colors
-7) readme
-8) video demo
-9) social media
-10) develop algorithm
-11) code algorithm in node
+4) wire rest
+5) clean up UI: fonts and colors
+6) readme
+7) video demo
+8) social media
+9) develop algorithm
+10) code algorithm in node

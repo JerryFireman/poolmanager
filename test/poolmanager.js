@@ -124,53 +124,26 @@ contract('PoolManager', async (accounts) => {
             );
         });
 
-        it('Owner approves poolmanager tokens', async () => {
+        it('Pool manager approves tokens', async () => {
             await poolmanager.approveToken(WETH, pool.address, MAX, { from: owner });
             await poolmanager.approveToken(DAI, pool.address, MAX, { from: owner });
             await poolmanager.approveToken(MKR, pool.address, MAX, { from: owner });
             await poolmanager.approveToken(XXX, pool.address, MAX, { from: owner });
         });
 
-        it('Admin binds tokens', async () => {
+        it('Pool manager should be able to bind tokens in current smart pool', async () => {
             await poolmanager.bindToken(pool.address, WETH, toWei('50'), toWei('5'), { from: owner, gas: 5000000 });
-            assert(poolmanager.checkToken(poolmanager.address, WETH));
-        });
-/*
-
-
-        /*
-        it('Fails binding weights and balances outside MIX MAX', async () => {
-            await truffleAssert.reverts(
-                poolmanager.bindToken(pool.address, WETH, toWei('51'), toWei('1'), { from: owner, gas: 5000000 }),
-                'ERR_INSUFFICIENT_BAL',
-            );
-        });
-            await truffleAssert.reverts(
-                pool.bind(MKR, toWei('0.0000000000001'), toWei('1')),
-                'ERR_MIN_BALANCE',
-            );
-            await truffleAssert.reverts(
-                pool.bind(DAI, toWei('1000'), toWei('0.99')),
-                'ERR_MIN_WEIGHT',
-            );
-            await truffleAssert.reverts(
-                pool.bind(WETH, toWei('5'), toWei('50.01')),
-                'ERR_MAX_WEIGHT',
-            );
+            await poolmanager.bindToken(pool.address, MKR, toWei('20'), toWei('5'), { from: owner, gas: 5000000 });
+            await poolmanager.bindToken(pool.address, DAI, toWei('10000'), toWei('5'));
+            assert(poolmanager.checkToken(pool.address, WETH));
+            const currentTokens = await poolmanager.currentTokens(pool.address);
+            assert.sameMembers(currentTokens, [WETH, MKR, DAI]);
         });
 
-        it('Fails finalizing pool without 2 tokens', async () => {
-            await truffleAssert.reverts(
-                pool.finalize(),
-                'ERR_MIN_TOKENS',
-            );
-        });
+            /*
 
-        it('Admin binds tokens', async () => {
+        it('Pool manager binds more tokens', async () => {
             // Equal weights WETH, MKR, DAI
-            await pool.bind(WETH, toWei('50'), toWei('5'));
-            await pool.bind(MKR, toWei('20'), toWei('5'));
-            await pool.bind(DAI, toWei('10000'), toWei('5'));
             const numTokens = await pool.getNumTokens();
             assert.equal(3, numTokens);
             const totalDernomWeight = await pool.getTotalDenormalizedWeight();
@@ -182,53 +155,6 @@ contract('PoolManager', async (accounts) => {
             const mkrBalance = await pool.getBalance(MKR);
             assert.equal(20, fromWei(mkrBalance));
         });
-
-        it('Admin unbinds token', async () => {
-            await pool.bind(XXX, toWei('10'), toWei('5'));
-            let adminBalance = await xxx.balanceOf(admin);
-            assert.equal(0, fromWei(adminBalance));
-            await pool.unbind(XXX);
-            adminBalance = await xxx.balanceOf(admin);
-            assert.equal(10, fromWei(adminBalance));
-            const numTokens = await pool.getNumTokens();
-            assert.equal(3, numTokens);
-            const totalDernomWeight = await pool.getTotalDenormalizedWeight();
-            assert.equal(15, fromWei(totalDernomWeight));
+            */
         });
-
-        it('Fails binding above MAX TOTAL WEIGHT', async () => {
-            await truffleAssert.reverts(
-                pool.bind(XXX, toWei('1'), toWei('40')),
-                'ERR_MAX_TOTAL_WEIGHT',
-            );
-        });
-
-        it('Fails rebinding token or unbinding random token', async () => {
-            await truffleAssert.reverts(
-                pool.bind(WETH, toWei('0'), toWei('1')),
-                'ERR_IS_BOUND',
-            );
-            await truffleAssert.reverts(
-                pool.rebind(XXX, toWei('0'), toWei('1')),
-                'ERR_NOT_BOUND',
-            );
-            await truffleAssert.reverts(
-                pool.unbind(XXX),
-                'ERR_NOT_BOUND',
-            );
-        });
-
-        it('Get current tokens', async () => {
-            const currentTokens = await pool.getCurrentTokens();
-            assert.sameMembers(currentTokens, [WETH, MKR, DAI]);
-        });
-
-        it('Fails getting final tokens before finalized', async () => {
-            await truffleAssert.reverts(
-                pool.getFinalTokens(),
-                'ERR_NOT_FINALIZED',
-            );
-        });
-        */
-    });
 });
