@@ -87,6 +87,16 @@ contract PoolManager {
         return currentPool.getCurrentTokens();
     }
 
+    //@dev returns the swap fee of the current smart pool
+    function swapFee(address _currentPoolAddress)
+        public
+        view
+        returns(uint)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.getSwapFee();
+    }
+
     //@dev binds a new token to the smart pool that is current being managed
     function bindToken(address _currentPoolAddress, address _token, uint _balance, uint _denorm)
         public
@@ -114,6 +124,15 @@ contract PoolManager {
     {
         BPool currentPool = BPool(_currentPoolAddress);
         currentPool.unbind(_token);
+    }
+
+    //@dev sets the swap fee
+    function setFee(address _currentPoolAddress, uint _fee)
+        public
+        onlyOwner
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        currentPool.setSwapFee(_fee);
     }
 
     //Stored data section for testing UI
