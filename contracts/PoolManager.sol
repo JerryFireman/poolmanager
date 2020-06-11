@@ -12,6 +12,8 @@ contract PoolManager {
     event PoolCreated(address bpoolAddress);
     event TokenBound(address currentPool, address token, uint balance, uint denorm);
     event TokenRebound(address currentPool, address token, uint balance, uint denorm);
+    event TokenUnbound(address currentPool, address token);
+
     event TokenApproved(address token, address currentPoolAddress, uint balance);
 
     modifier onlyOwner {
@@ -87,16 +89,6 @@ contract PoolManager {
         return currentPool.getCurrentTokens();
     }
 
-    //@dev returns the swap fee of the current smart pool
-    function swapFee(address _currentPoolAddress)
-        public
-        view
-        returns(uint)
-    {
-        BPool currentPool = BPool(_currentPoolAddress);
-        return currentPool.getSwapFee();
-    }
-
     //@dev binds a new token to the smart pool that is current being managed
     function bindToken(address _currentPoolAddress, address _token, uint _balance, uint _denorm)
         public
@@ -124,6 +116,7 @@ contract PoolManager {
     {
         BPool currentPool = BPool(_currentPoolAddress);
         currentPool.unbind(_token);
+        emit TokenUnbound(_currentPoolAddress, _token);
     }
 
     //@dev sets the swap fee
@@ -133,6 +126,16 @@ contract PoolManager {
     {
         BPool currentPool = BPool(_currentPoolAddress);
         currentPool.setSwapFee(_fee);
+    }
+
+    //@dev returns the swap fee of the current smart pool
+    function swapFee(address _currentPoolAddress)
+        public
+        view
+        returns(uint)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.getSwapFee();
     }
 
     //@dev sets the current pool public
@@ -153,19 +156,4 @@ contract PoolManager {
         BPool currentPool = BPool(_currentPoolAddress);
         return currentPool.isPublicSwap();
     }
-
-    //Stored data section for testing UI
-    uint storedData;
-
-    event LogSet(address sender, uint newValue);
-
-    function set(uint x) public {
-        storedData = x;
-        emit LogSet(msg.sender, x);
-    }
-
-    function get() public view returns (uint) {
-        return storedData;
-    }
-
 }
