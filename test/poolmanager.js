@@ -24,10 +24,7 @@ contract('PoolManager', async (accounts) => {
 
         before(async () => {
             factory = await BFactory.deployed();
-            console.log("owner", owner)
-            console.log("factory.address", await factory.address)
             poolmanager = await PoolManager.new(factory.address, { from: owner });
-            console.log("poolmanager.address", await poolmanager.address)
 
             weth = await TToken.new('Wrapped Ether', 'WETH', 18);
             mkr = await TToken.new('Maker', 'MKR', 18);
@@ -55,7 +52,6 @@ contract('PoolManager', async (accounts) => {
     
             // Poolmanager balances
             await weth.mint(poolmanager.address, toWei('75'), { from: owner } );
-            console.log("owner balance: ", await weth.balanceOf(owner).toString());
             await mkr.mint(poolmanager.address, toWei('30'), { from: owner });
             await dai.mint(poolmanager.address, toWei('40000'), { from: owner });
             await xxx.mint(poolmanager.address, toWei('15'), { from: owner });
@@ -147,22 +143,5 @@ contract('PoolManager', async (accounts) => {
             const wethNormalizedWeight = await poolmanager.normalizedWeight(pool.address, WETH);
             assert.equal(0.333333333333333333, fromWei(wethNormalizedWeight));
         });
-
-            /*
-
-        it('Pool manager binds more tokens', async () => {
-            // Equal weights WETH, MKR, DAI
-            const numTokens = await pool.getNumTokens();
-            assert.equal(3, numTokens);
-            const totalDernomWeight = await pool.getTotalDenormalizedWeight();
-            assert.equal(15, fromWei(totalDernomWeight));
-            const wethDenormWeight = await pool.getDenormalizedWeight(WETH);
-            assert.equal(5, fromWei(wethDenormWeight));
-            const wethNormWeight = await pool.getNormalizedWeight(WETH);
-            assert.equal(0.333333333333333333, fromWei(wethNormWeight));
-            const mkrBalance = await pool.getBalance(MKR);
-            assert.equal(20, fromWei(mkrBalance));
-        });
-            */
-        });
+    });
 });

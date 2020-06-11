@@ -11,6 +11,7 @@ contract PoolManager {
 
     event PoolCreated(address bpoolAddress);
     event TokenBound(address currentPool, address token, uint balance, uint denorm);
+    event TokenRebound(address currentPool, address token, uint balance, uint denorm);
     event TokenApproved(address token, address currentPoolAddress, uint balance);
 
     modifier onlyOwner {
@@ -84,6 +85,16 @@ contract PoolManager {
         BPool currentPool = BPool(_currentPoolAddress);
         currentPool.bind(_token, _balance, _denorm);
         emit TokenBound(_currentPoolAddress, _token, _balance, _denorm);
+    }
+
+    //@dev rebinds a token to the smart pool, changing the weight and/or balance
+    function rebindToken(address _currentPoolAddress, address _token, uint _balance, uint _denorm)
+        public
+        onlyOwner
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        currentPool.rebind(_token, _balance, _denorm);
+        emit TokenRebound(_currentPoolAddress, _token, _balance, _denorm);
     }
 
     //Stored data section for testing UI
