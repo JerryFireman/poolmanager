@@ -10,67 +10,60 @@ contract('PoolManager', async (accounts) => {
     const user1 = accounts[1];
     const { toWei } = web3.utils;
     const { fromWei } = web3.utils;
-    const { hexToUtf8 } = web3.utils;
     const MAX = web3.utils.toTwosComplement(-1);
 
-    let factory;
-    let poolmanager;
-    let pool;
-    let POOL;
-    let WETH; let MKR; let DAI; let
-        XXX; // addresses
-    let weth; let mkr; let dai; let
-        xxx; // TTokens
+    let factory; // contract factory that produces smart pool
+    let poolmanager; //smart contract that manages smart pool
+    let pool; // smart pool
+    let POOL; 
+    // token addresses
+    let WETH; 
+    let MKR; 
+    let DAI; 
+    // tokens
+    let weth; 
+    let mkr; 
+    let dai; 
 
-        before(async () => {
-            factory = await BFactory.deployed();
-            poolmanager = await PoolManager.new(factory.address, { from: owner });
+    before(async () => {
+        factory = await BFactory.deployed();
+        poolmanager = await PoolManager.new(factory.address, { from: owner });
 
-            weth = await TToken.new('Wrapped Ether', 'WETH', 18);
-            mkr = await TToken.new('Maker', 'MKR', 18);
-            dai = await TToken.new('Dai Stablecoin', 'DAI', 18);
-            xxx = await TToken.new('XXX', 'XXX', 18);
-    
-            WETH = weth.address;
-            MKR = mkr.address;
-            DAI = dai.address;
-            XXX = xxx.address;
-    
-            /*
-                Tests assume token prices
-                WETH - $200
-                MKR  - $500
-                DAI  - $1
-                XXX  - $0
-            */
-    
-            // Owner balances
-            await weth.mint(owner, toWei('100'));
-            await mkr.mint(owner, toWei('40'));
-            await dai.mint(owner, toWei('50000'));
-            await xxx.mint(owner, toWei('20'));
-    
-            // Poolmanager balances
-            await weth.mint(poolmanager.address, toWei('75'), { from: owner } );
-            await mkr.mint(poolmanager.address, toWei('30'), { from: owner });
-            await dai.mint(poolmanager.address, toWei('40000'), { from: owner });
-            await xxx.mint(poolmanager.address, toWei('15'), { from: owner });
-    
-            // User1 balances
-            await weth.mint(user1, toWei('12.2222'), { from: owner });
-            await mkr.mint(user1, toWei('1.015333'), { from: owner });
-            await dai.mint(user1, toWei('0'), { from: owner });
-            await xxx.mint(user1, toWei('51'), { from: owner });
-        });
+        weth = await TToken.new('Wrapped Ether', 'WETH', 18);
+        mkr = await TToken.new('Maker', 'MKR', 18);
+        dai = await TToken.new('Dai Stablecoin', 'DAI', 18);
+
+        WETH = weth.address;
+        MKR = mkr.address;
+        DAI = dai.address;
+
+        /*
+            Tests assume token prices
+            WETH - $200
+            MKR  - $500
+            DAI  - $1
+        */
+
+        // Owner balances
+        await weth.mint(owner, toWei('100'));
+        await mkr.mint(owner, toWei('40'));
+        await dai.mint(owner, toWei('50000'));
+
+        // Poolmanager balances
+        await weth.mint(poolmanager.address, toWei('75'), { from: owner } );
+        await mkr.mint(poolmanager.address, toWei('30'), { from: owner });
+        await dai.mint(poolmanager.address, toWei('40000'), { from: owner });
+
+    });
     
     describe('Create BPool', () => {
 
-            it('calling account should be owner of pool manager', async () => {
+            it('owner should also be owner of pool manager', async () => {
             const pmowner = await poolmanager.owner.call();
             assert.isTrue(owner == pmowner);
         });
 
-        it('factory in poolmanager should be set to correct address', async () => {
+        it('factory should be set to correct address', async () => {
             const factoryaddress = await poolmanager.factory.call();
             assert.isTrue(factory.address == factoryaddress);
         });
@@ -84,7 +77,7 @@ contract('PoolManager', async (accounts) => {
         });
 
         it('isBPool should return true', async () => {
-            const isBPool = await factory.isBPool(POOL);
+            const isBPool = await factory.isBPool(pool.address);
             assert.isTrue(isBPool);
         });
 
@@ -93,38 +86,33 @@ contract('PoolManager', async (accounts) => {
             assert.isFalse(isBPool);
         });
 
-        it('poolmanager should be controller of BPool', async () => {
+        it('poolmanager should be controller of smart pool', async () => {
             const controller = await pool.getController.call();
             assert.isTrue(controller == poolmanager.address);
         });
 
-        it('pool should not be finalized', async () => {
-            assert.isFalse(await pool.isFinalized.call());
-        });
     });
 
     describe('Binding Tokens', () => {
 
-
-        it('Pool starts with no bound tokens', async () => {
+        it('should start with no bound tokens', async () => {
             const numTokens = await pool.getNumTokens();
             assert.equal(0, numTokens);
             const isBound = await pool.isBound.call(WETH);
             assert(!isBound);
         });
 
-        it('Fails binding tokens that are not approved', async () => {
+        it('should not bind tokens that are not approved', async () => {
             await truffleAssert.reverts(
                 poolmanager.bindToken(pool.address, MKR, toWei('10'), toWei('2.5'), { from: owner, gas: 5000000 }),
                 'ERR_BTOKEN_BAD_CALLER',
             );
         });
 
-        it('Pool manager approves tokens', async () => {
+        it('should approve tokens', async () => {
             await poolmanager.approveToken(WETH, pool.address, MAX, { from: owner });
             await poolmanager.approveToken(DAI, pool.address, MAX, { from: owner });
             await poolmanager.approveToken(MKR, pool.address, MAX, { from: owner });
-            await poolmanager.approveToken(XXX, pool.address, MAX, { from: owner });
         });
 
         it('should bind token to current smart pool', async () => {
@@ -132,19 +120,19 @@ contract('PoolManager', async (accounts) => {
             assert(poolmanager.checkToken(pool.address, WETH));
         });
 
-        it('should bind more tokens and check they are bound to current smart pool', async () => {
+        it('should bind more tokens', async () => {
             await poolmanager.bindToken(pool.address, MKR, toWei('20'), toWei('5'), { from: owner, gas: 5000000 });
             await poolmanager.bindToken(pool.address, DAI, toWei('10000'), toWei('5'));
             const currentTokens = await poolmanager.currentTokens(pool.address);
             assert.sameMembers(currentTokens, [WETH, MKR, DAI]);
         });
 
-        it('should check normalized weight of token', async () => {
+        it('should yield correct normalized weight', async () => {
             const wethNormalizedWeight = await poolmanager.normalizedWeight(pool.address, WETH);
             assert.equal(0.333333333333333333, fromWei(wethNormalizedWeight));
         });
 
-        it('should rebind a token with new balance and denorm', async () => {
+        it('should rebind a token with new balance', async () => {
             await poolmanager.rebindToken(pool.address, MKR, toWei('15'), toWei('5'), { from: owner, gas: 5000000 });
             const mkrBalance = await poolmanager.tokenBalance(pool.address, MKR);
             assert.equal(15, fromWei(mkrBalance));
@@ -156,7 +144,7 @@ contract('PoolManager', async (accounts) => {
             assert.sameMembers(currentTokens, [WETH, MKR]);
         });
 
-        it('should set swap fee of current smart pool', async () => {
+        it('should set swap fee', async () => {
             await poolmanager.setFee(pool.address, (toWei('0.003')));
             const swapFee = await poolmanager.swapFee(pool.address)
             assert.equal(0.003, fromWei(swapFee));
