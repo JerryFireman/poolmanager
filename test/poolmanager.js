@@ -155,10 +155,16 @@ contract('PoolManager', async (accounts) => {
             const currentTokens = await poolmanager.currentTokens(pool.address);
             assert.sameMembers(currentTokens, [WETH, MKR]);
         });
+
         it('should set swap fee of current smart pool', async () => {
-            await poolmanager.setFee(pool.address, toWei('0.005'), { from: owner, gas: 5000000 });
-            const swapFee = await poolmanager.swapFee(pool.address);
-            assert.equal('0.005', fromWei(swapFee));
+            await poolmanager.setFee(pool.address, (toWei('0.003')));
+            const swapFee = await poolmanager.swapFee(pool.address)
+            assert.equal(0.003, fromWei(swapFee));
+        });
+
+        it('should set the current smart pool as public', async () => {
+            await poolmanager.setPublic(pool.address, true, { from: owner, gas: 5000000 });
+            assert(await poolmanager.isPublic(pool.address));
         });
     });
 });

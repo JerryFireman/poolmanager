@@ -135,6 +135,25 @@ contract PoolManager {
         currentPool.setSwapFee(_fee);
     }
 
+    //@dev sets the current pool public
+    function setPublic(address _currentPoolAddress, bool _public)
+        public
+        onlyOwner
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        currentPool.setPublicSwap(_public);
+    }
+
+    //@dev returns true if the current smart pool is public
+    function isPublic(address _currentPoolAddress)
+        public
+        view
+        returns(bool)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.isPublicSwap();
+    }
+
     //Stored data section for testing UI
     uint storedData;
 
