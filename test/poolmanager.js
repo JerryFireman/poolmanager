@@ -149,5 +149,11 @@ contract('PoolManager', async (accounts) => {
             const mkrBalance = await poolmanager.tokenBalance(pool.address, MKR);
             assert.equal(15, fromWei(mkrBalance));
         });
+
+        it('should unbind a token', async () => {
+            await poolmanager.unbindToken(pool.address, DAI, { from: owner, gas: 5000000 });
+            const currentTokens = await poolmanager.currentTokens(pool.address);
+            assert.sameMembers(currentTokens, [WETH, MKR]);
+        });
     });
 });

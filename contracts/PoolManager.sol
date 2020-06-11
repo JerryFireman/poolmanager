@@ -107,6 +107,15 @@ contract PoolManager {
         emit TokenRebound(_currentPoolAddress, _token, _balance, _denorm);
     }
 
+    //@dev unbinds a token from the smart pool
+    function unbindToken(address _currentPoolAddress, address _token)
+        public
+        onlyOwner
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        currentPool.unbind(_token);
+    }
+
     //Stored data section for testing UI
     uint storedData;
 
