@@ -67,6 +67,16 @@ contract PoolManager {
         return currentPool.getNormalizedWeight(_token);
     }
 
+    //@dev returns the balance of a token
+    function tokenBalance(address _currentPoolAddress, address _token)
+        external
+        view
+        returns(uint)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.getBalance(_token);
+    }
+
     //@dev returns array of tokens bound to the current smart pool
     function currentTokens(address _currentPoolAddress)
         public

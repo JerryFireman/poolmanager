@@ -127,21 +127,27 @@ contract('PoolManager', async (accounts) => {
             await poolmanager.approveToken(XXX, pool.address, MAX, { from: owner });
         });
 
-        it('it should bind token to current smart pool', async () => {
+        it('should bind token to current smart pool', async () => {
             await poolmanager.bindToken(pool.address, WETH, toWei('50'), toWei('5'), { from: owner, gas: 5000000 });
             assert(poolmanager.checkToken(pool.address, WETH));
         });
 
-        it('it should bind more tokens and check they are bound to current smart pool', async () => {
+        it('should bind more tokens and check they are bound to current smart pool', async () => {
             await poolmanager.bindToken(pool.address, MKR, toWei('20'), toWei('5'), { from: owner, gas: 5000000 });
             await poolmanager.bindToken(pool.address, DAI, toWei('10000'), toWei('5'));
             const currentTokens = await poolmanager.currentTokens(pool.address);
             assert.sameMembers(currentTokens, [WETH, MKR, DAI]);
         });
 
-        it('it should check normalized weight of token', async () => {
+        it('should check normalized weight of token', async () => {
             const wethNormalizedWeight = await poolmanager.normalizedWeight(pool.address, WETH);
             assert.equal(0.333333333333333333, fromWei(wethNormalizedWeight));
+        });
+
+        it('should rebind a token with new balance and denorm', async () => {
+            await poolmanager.rebindToken(pool.address, MKR, toWei('15'), toWei('5'), { from: owner, gas: 5000000 });
+            const mkrBalance = await poolmanager.tokenBalance(pool.address, MKR);
+            assert.equal(15, fromWei(mkrBalance));
         });
     });
 });
