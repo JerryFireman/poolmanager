@@ -56,7 +56,7 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) functions: get current tokens, norm weight, unbind, rebind, swap fee, set public, change controller, withdraw funds (as each is completed add test)
+1) functions: unbind, rebind, swap fee, set public, change controller, withdraw funds (as each is completed add test)
 2) wire bind new token: select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, ui function must convert to address, wei, wei
 3) wire status table
 4) wire rest

@@ -48,12 +48,22 @@ contract PoolManager {
 
     //@dev checks whether a token is bound to the current smart pool
     function checkToken(address _currentPoolAddress, address _token)
-        public
+        external
         view
         returns(bool)
     {
         BPool currentPool = BPool(_currentPoolAddress);
         return currentPool.isBound(_token);
+    }
+
+    //@dev returns the normalized weight of a token
+    function normalizedWeight(address _currentPoolAddress, address _token)
+        external
+        view
+        returns(uint)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.getNormalizedWeight(_token);
     }
 
     //@dev returns array of tokens bound to the current smart pool
