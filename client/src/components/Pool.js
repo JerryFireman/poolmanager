@@ -5,6 +5,11 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField'
 import StyledButton from './StyledButton';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +20,11 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+
 }));
 
 export default function Pool(props) {
@@ -61,26 +71,24 @@ export default function Pool(props) {
                 <StyledButton onClick={props.definePhase}>
                   Bind new token
                 </StyledButton><br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Token" 
-                  variant="filled" 
-                  type="text" 
-                  name="token" 
-                  value={props.token} 
-                  onChange={props.handleChange}
-                />
                 <br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Amount" 
-                  variant="filled" 
-                  type="number" 
-                  name="amount" 
-                  value={props.amount} 
-                  onChange={props.handleChange}
-                />
-                <br/>
+                <FormControl variant="filled" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
+        <Select
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+          value={props.token}
+          onChange={props.handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>WETH</MenuItem>
+          <MenuItem value={20}>DAI</MenuItem>
+          <MenuItem value={30}>MKR</MenuItem>
+        </Select>
+      </FormControl>
+                 <br/>
                 <TextField 
                   id="filled-basic" 
                   label="Denorm" 
