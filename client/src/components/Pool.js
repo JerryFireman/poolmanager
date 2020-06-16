@@ -23,7 +23,7 @@ export default function Pool(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={0} >
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
               <form className={classes.root} noValidate autoComplete="off">
@@ -51,7 +51,7 @@ export default function Pool(props) {
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
             <form className={classes.root} noValidate autoComplete="off">
@@ -88,47 +88,6 @@ export default function Pool(props) {
                   type="number" 
                   name="denorm" 
                   value={props.denorm} 
-                  onChange={props.handleChange}
-                />
-                <br/>
-             </form><br/>
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper} square={true} elevation={0}>
-            <Box fontWeight="fontWeightBold" textAlign="left">    
-            <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.definePhase}>
-                  Change balance/weight of token
-                </StyledButton><br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Token name" 
-                  variant="filled" 
-                  type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
-                  onChange={props.handleChange}
-                />
-                <br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Amount" 
-                  variant="filled" 
-                  type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
-                  onChange={props.handleChange}
-                />
-                <br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Denorm" 
-                  variant="filled" 
-                  type="number" 
-                  name="lockedPayment" 
-                  value={props.lockedPayment} 
                   onChange={props.handleChange}
                 />
                 <br/>
