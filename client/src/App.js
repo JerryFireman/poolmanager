@@ -16,6 +16,7 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.createPool = this.createPool.bind(this)
     this.loadExistingPool = this.loadExistingPool.bind(this)
+    this.approveToken = this.approveToken.bind(this)
   }
   
   state = { 
@@ -123,34 +124,51 @@ class App extends Component {
     console.log("this.state.value", this.state.value)
   }
 
-    // @dev Creates a new smart pool and gets ready to manage it
-    createPool = async () => {
-      const { accounts, contract } = this.state;
-      try {
-        const tx = await contract.methods.createPool().send({ from: accounts[0], gas: 6000000 });
-        console.log("tx",tx)
-        console.log("bPoolAddress: ",tx.events.PoolCreated.returnValues.bpoolAddress)
-        this.setState({ bpoolAddress: tx.events.PoolCreated.returnValues.bpoolAddress });
-        console.log("this.state.bpoolAddress", this.state.bpoolAddress)
+  // @dev Creates a new smart pool and gets ready to manage it
+  createPool = async () => {
+    const { accounts, contract } = this.state;
+    try {
+      const tx = await contract.methods.createPool().send({ from: accounts[0], gas: 6000000 });
+      console.log("tx",tx)
+      console.log("bPoolAddress: ",tx.events.PoolCreated.returnValues.bpoolAddress)
+      this.setState({ bpoolAddress: tx.events.PoolCreated.returnValues.bpoolAddress });
+      console.log("this.state.bpoolAddress", this.state.bpoolAddress)
 
+    } catch (error) {
+      alert(
+        `Attempt to create new smart pool failed. Check console for details.`,
+      );
+      console.error(error);
+    }
+  };
+  
+  // @dev loads an existing smart pool and gets ready to manage it
+  loadExistingPool = async () => {
+    this.setState({ 
+      bpoolAddress: this.state.bpoolToLoad 
+    });
+    this.setState({
+      bpoolToLoad: ""
+    });
+
+  };
+
+    // @dev approves a token for binding to smart pool
+    approveToken = async () => {
+      const { web3, accounts, contract } = this.state;
+      console.log("hit approveToken")
+      try {
+        var _amount = web3.utils.toWei(this.state.amount);
+        console.log("_amount: ", _amount)
+  
       } catch (error) {
         alert(
-          `Attempt to create new smart pool failed. Check console for details.`,
+          `Attempt to approve token failed. Check console for details.`,
         );
         console.error(error);
       }
     };
-  
-    // @dev loads an existing smart pool and gets ready to manage it
-    loadExistingPool = async () => {
-      this.setState({ 
-        bpoolAddress: this.state.bpoolToLoad 
-      });
-      this.setState({
-        bpoolToLoad: ""
-      });
-
-    };
+    
   
 
   render() {
@@ -167,6 +185,7 @@ class App extends Component {
           handleChange={this.handleChange}
           createPool={this.createPool}
           loadExistingPool={this.loadExistingPool}
+          approveToken={this.approveToken}
           token={this.state.token} 
           amount={this.state.amount} 
           denorm={this.state.denorm} 
