@@ -56,7 +56,6 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) UI: functions and status table select tag for token, https://reactjs.org/docs/forms.html, check ranges for last 2, ui function must convert to address, wei, wei
-2) clean up UI: fonts and colors
-3) readme, video demo, social media
-4) develop algorithm, code in node
+1) UI: layout, status, approve, bind, rebind, unbind, swap fee, public, select tag for token, https://reactjs.org/docs/forms.html, security check
+2) readme, video demo, social media
+3) develop algorithm, code in node
