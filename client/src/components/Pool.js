@@ -21,10 +21,12 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0),
     minWidth: 120,
   },
-
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default function Pool(props) {
@@ -79,13 +81,15 @@ export default function Pool(props) {
           id="demo-simple-select-filled"
           value={props.token}
           onChange={props.handleChange}
+          type="text"
+          name="token"
         >
-          <MenuItem value="">
+          <MenuItem>
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>WETH</MenuItem>
-          <MenuItem value={20}>DAI</MenuItem>
-          <MenuItem value={30}>MKR</MenuItem>
+          <MenuItem value={"WETH"}>WETH</MenuItem>
+          <MenuItem value={"DAI"}>DAI</MenuItem>
+          <MenuItem value={"MKR"}>MKR</MenuItem>
         </Select>
       </FormControl>
                  <br/>
