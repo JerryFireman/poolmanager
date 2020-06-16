@@ -121,7 +121,6 @@ class App extends Component {
     //e.preventDefault()
     this.setState({ [e.target.name]: e.target.value })
     console.log(e.target.name, ": ", e.target.value)
-    console.log("this.state.value", this.state.value)
   }
 
   // @dev Creates a new smart pool and gets ready to manage it
@@ -160,6 +159,8 @@ class App extends Component {
       try {
         var _amount = web3.utils.toWei(this.state.amount);
         console.log("_amount: ", _amount)
+        var _denorm = web3.utils.toWei(this.state.denorm);
+        console.log("_denorm: ", _denorm)
   
       } catch (error) {
         alert(

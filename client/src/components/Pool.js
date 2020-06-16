@@ -56,7 +56,7 @@ export default function Pool(props) {
             <Box fontWeight="fontWeightBold" textAlign="left">    
             <form className={classes.root} noValidate autoComplete="off">
             <StyledButton onClick={props.approveToken}>
-                  Approve payment
+                  Approve token
                 </StyledButton><br/>
                 <StyledButton onClick={props.definePhase}>
                   Bind new token
