@@ -77,7 +77,6 @@ export default function Pool(props) {
                 <FormControl variant="filled" className={classes.formControl}>
         <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
         <Select
-          labelId="demo-simple-select-filled-label"
           id="demo-simple-select-filled"
           value={props.token}
           onChange={props.handleChange}

@@ -28,9 +28,9 @@ class App extends Component {
     mkrContract: null,
     bpoolAddress: "",
     bpoolToLoad: "", 
-    token: "",
-    amount: "",
-    denorm: "",
+    token: "WETH",
+    amount: "0",
+    denorm: "0",
   };
 
   componentDidMount = async () => {
@@ -56,21 +56,32 @@ class App extends Component {
         WethContract.abi,
         deployedNetwork2 && deployedNetwork2.address,
       );
+
+      console.log("weth address: ",wethInstance.options.address)
+
+
+ 
       // Get Dai contract instance
       const networkId3 = await web3.eth.net.getId();
-      const deployedNetwork3 = WethContract.networks[networkId3];
+      const deployedNetwork3 = DaiContract.networks[networkId3];
       const daiInstance = new web3.eth.Contract(
         DaiContract.abi,
         deployedNetwork3 && deployedNetwork3.address,
       );
+      console.log("dai address: ",daiInstance.options.address)
+
+
 
       // Get Mkr contract instance
       const networkId4 = await web3.eth.net.getId();
-      const deployedNetwork4 = WethContract.networks[networkId4];
+      const deployedNetwork4 = MkrContract.networks[networkId4];
       const mkrInstance = new web3.eth.Contract(
         MkrContract.abi,
               deployedNetwork4 && deployedNetwork4.address,
             );
+      console.log("mkr address: ",mkrInstance.options.address)
+      
+                  
       
 
       // Set web3, accounts, and contracts to the state
@@ -82,6 +93,7 @@ class App extends Component {
         daiContract: daiInstance,
         mkrContract: mkrInstance, 
       });
+      const { contract } = this.state;
       const { wethContract } = this.state;
       const { daiContract } = this.state;
       const { mkrContract } = this.state;
@@ -93,6 +105,8 @@ class App extends Component {
       console.log("wethSupply", wethSupply);
       const wethOwnerBalance = await wethContract.methods.balanceOf(accounts[0]).call();
       console.log("weth owner balance: ", wethOwnerBalance)
+      console.log("weth address: ",wethContract.options.address)
+
 
       // @ mint dai for owner
       await daiContract.methods.mint(accounts[0], web3.utils.toWei('500')).send({ from: accounts[0], gas: 5000000 });
@@ -100,6 +114,10 @@ class App extends Component {
       console.log("daiSupply", daiSupply);
       const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
       console.log("dai owner balance: ", daiOwnerBalance)
+      console.log("dai address: ",daiContract.options.address)
+      console.log("poolmanager address: ",contract.options.address)
+
+
 
       // @ mint mkr for owner
       await mkrContract.methods.mint(accounts[0], web3.utils.toWei('50')).send({ from: accounts[0], gas: 5000000 });
@@ -144,12 +162,9 @@ class App extends Component {
   // @dev loads an existing smart pool and gets ready to manage it
   loadExistingPool = async () => {
     this.setState({ 
-      bpoolAddress: this.state.bpoolToLoad 
+      bpoolAddress: this.state.bpoolToLoad, 
+      bpoolToLoad: "",
     });
-    this.setState({
-      bpoolToLoad: ""
-    });
-
   };
 
     // @dev approves a token for binding to smart pool
@@ -157,9 +172,9 @@ class App extends Component {
       const { web3, accounts, contract } = this.state;
       console.log("hit approveToken")
       try {
-        var _amount = web3.utils.toWei(this.state.amount);
+        var _amount = web3.utils.toWei(this.state.amount.toString());
         console.log("_amount: ", _amount)
-        var _denorm = web3.utils.toWei(this.state.denorm);
+        var _denorm = web3.utils.toWei(this.state.denorm.toString());
         console.log("_denorm: ", _denorm)
   
       } catch (error) {
