@@ -56,6 +56,6 @@ module.exports = async function (deployer, network, accounts) {
 };
 
 Development plan 
-1) UI: approve, bind, status, rebind, unbind, swap fee, public, select tag for token, https://reactjs.org/docs/forms.html, security check
+1) UI: approve, bind, status (add contract balance), rebind, unbind, swap fee, public, select tag for token, https://reactjs.org/docs/forms.html, security check
 2) readme, video demo, social media
 3) develop algorithm, code in node

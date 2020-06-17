@@ -93,6 +93,16 @@ export default function Pool(props) {
         </Select>
       </FormControl>
                  <br/>
+                 <TextField 
+                  id="filled-basic" 
+                  label="Amount" 
+                  variant="filled" 
+                  type="number" 
+                  name="amount" 
+                  value={props.amount} 
+                  onChange={props.handleChange}
+                />
+                <br/>
                 <TextField 
                   id="filled-basic" 
                   label="Denorm" 
