@@ -171,10 +171,21 @@ class App extends Component {
     approveToken = async () => {
       const { web3, accounts, contract } = this.state;
       console.log("hit approveToken")
+      console.log("this.state.wethContract.options.address: ", this.state.wethContract.options.address)
+      console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
+      console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
       try {
+        if (this.state.token == "MKR") {
+          var _token = this.state.mkrContract.options.address
+        } else if (this.state.token == "WETH") {
+          var _token = this.state.wethContract.options.address
+        } else if (this.state.token == "DAI") {
+          var _token = this.state.daiContract.options.address
+        }
         var _amount = web3.utils.toWei(this.state.amount.toString());
-        console.log("_amount: ", _amount)
         var _denorm = web3.utils.toWei(this.state.denorm.toString());
+        console.log("_token: ", _token)
+        console.log("_amount: ", _amount)
         console.log("_denorm: ", _denorm)
   
       } catch (error) {
