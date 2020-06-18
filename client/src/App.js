@@ -184,10 +184,13 @@ class App extends Component {
           _token = this.state.daiContract.options.address
         };
         var _amount = web3.utils.toWei(this.state.amount.toString());
-        var _denorm = web3.utils.toWei(this.state.denorm.toString());
+//        var _denorm = web3.utils.toWei(this.state.denorm.toString());
         console.log("_token: ", _token)
+        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
         console.log("_amount: ", _amount)
-        console.log("_denorm: ", _denorm)
+//        console.log("_denorm: ", _denorm)
+        const tx = await contract.methods.approveToken(_token, this.state.bpoolAddress, _amount).send({ from: accounts[0] });
+
 
         // need to send to <contract className="methods approveToken"
         // then reset form to defaults
