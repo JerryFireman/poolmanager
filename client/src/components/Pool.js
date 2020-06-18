@@ -68,50 +68,50 @@ export default function Pool(props) {
             <Box fontWeight="fontWeightBold" textAlign="left">    
             <form className={classes.root} noValidate autoComplete="off">
             <StyledButton onClick={props.approveToken}>
-                  Approve token
-                </StyledButton><br/>
-                <StyledButton onClick={props.definePhase}>
-                  Bind new token
-                </StyledButton><br/>
-                <br/>
-                <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
-        <Select
-          id="demo-simple-select-filled"
-          value={props.token}
-          onChange={props.handleChange}
-          type="text"
-          name="token"
-        >
-          <MenuItem>
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={"WETH"}>WETH</MenuItem>
-          <MenuItem value={"DAI"}>DAI</MenuItem>
-          <MenuItem value={"MKR"}>MKR</MenuItem>
-        </Select>
-      </FormControl>
-                 <br/>
-                 <TextField 
-                  id="filled-basic" 
-                  label="Amount" 
-                  variant="filled" 
-                  type="number" 
-                  name="amount" 
-                  value={props.amount} 
+              Approve token
+            </StyledButton><br/>
+            <StyledButton onClick={props.bindToken}>
+              Bind new token
+            </StyledButton><br/>
+            <br/>
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
+                <Select
+                  id="demo-simple-select-filled"
+                  value={props.token}
                   onChange={props.handleChange}
-                />
-                <br/>
-                <TextField 
-                  id="filled-basic" 
-                  label="Denorm" 
-                  variant="filled" 
-                  type="number" 
-                  name="denorm" 
-                  value={props.denorm} 
-                  onChange={props.handleChange}
-                />
-                <br/>
+                  type="text"
+                  name="token"
+                >
+                  <MenuItem>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"WETH"}>WETH</MenuItem>
+                  <MenuItem value={"DAI"}>DAI</MenuItem>
+                  <MenuItem value={"MKR"}>MKR</MenuItem>
+                </Select>
+              </FormControl>
+              <br/>
+              <TextField 
+                id="filled-basic" 
+                label="Amount" 
+                variant="filled" 
+                type="number" 
+                name="amount" 
+                value={props.amount} 
+                onChange={props.handleChange}
+              />
+              <br/>
+              <TextField 
+                id="filled-basic" 
+                label="Denorm" 
+                variant="filled" 
+                type="number" 
+                name="denorm" 
+                value={props.denorm} 
+                onChange={props.handleChange}
+              />
+              <br/>
              </form><br/>
             </Box>
           </Paper>
