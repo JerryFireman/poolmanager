@@ -99,32 +99,36 @@ class App extends Component {
       const { mkrContract } = this.state;
 
 
-      // @ mint weth for owner
-      await wethContract.methods.mint(accounts[0], web3.utils.toWei('100')).send({ from: accounts[0], gas: 5000000 });
+      // @ mint weth for poolmanager contract
+      await wethContract.methods.mint(accounts[0], web3.utils.toWei('100')).send({ from: accounts[0] });
+      await wethContract.methods.mint(contract.options.address, web3.utils.toWei('80')).send({ from: accounts[0] });      
       const wethSupply = await wethContract.methods.totalSupply().call();
-      console.log("wethSupply", wethSupply);
+      console.log("Total weth supply", wethSupply);
       const wethOwnerBalance = await wethContract.methods.balanceOf(accounts[0]).call();
-      console.log("weth owner balance: ", wethOwnerBalance)
-      console.log("weth address: ",wethContract.options.address)
+      console.log("Owner weth balance: ", wethOwnerBalance)
+      const wethPoolmanagerBalance = await wethContract.methods.balanceOf(contract.options.address).call();
+      console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
 
 
-      // @ mint dai for owner
-      await daiContract.methods.mint(accounts[0], web3.utils.toWei('500')).send({ from: accounts[0], gas: 5000000 });
+      // @ mint dai for poolmanager contract
+      await daiContract.methods.mint(accounts[0], web3.utils.toWei('600')).send({ from: accounts[0] });
+      await daiContract.methods.mint(contract.options.address, web3.utils.toWei('500')).send({ from: accounts[0] });
       const daiSupply = await daiContract.methods.totalSupply().call();
-      console.log("daiSupply", daiSupply);
+      console.log("Total dai supply", daiSupply);
       const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
-      console.log("dai owner balance: ", daiOwnerBalance)
-      console.log("dai address: ",daiContract.options.address)
-      console.log("poolmanager address: ",contract.options.address)
+      console.log("Owner dai balance: ", daiOwnerBalance)
+      const daiPoolmanagerBalance = await daiContract.methods.balanceOf(contract.options.address).call();
+      console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
 
-
-
-      // @ mint mkr for owner
-      await mkrContract.methods.mint(accounts[0], web3.utils.toWei('50')).send({ from: accounts[0], gas: 5000000 });
+      // @ mint mkr for poolmanager contract
+      await mkrContract.methods.mint(accounts[0], web3.utils.toWei('60')).send({ from: accounts[0] });
+      await mkrContract.methods.mint(contract.options.address, web3.utils.toWei('50')).send({ from: accounts[0] });
       const mkrSupply = await mkrContract.methods.totalSupply().call();
-      console.log("mkrSupply", mkrSupply);
+      console.log("Total mkr supply", mkrSupply);
       const mkrOwnerBalance = await mkrContract.methods.balanceOf(accounts[0]).call();
-      console.log("mkri owner balance: ", mkrOwnerBalance)
+      console.log("Owner mkr balance: ", mkrOwnerBalance)
+      const mkrPoolmanagerBalance = await mkrContract.methods.balanceOf(contract.options.address).call();
+      console.log("Poolmanager mkr balance: ", mkrPoolmanagerBalance)
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -203,6 +207,7 @@ class App extends Component {
     
     // @dev binds a token to smart pool
     bindToken = async () => {
+      console.log("hit bind token")
       const { web3, accounts, contract } = this.state;
       console.log("this.state.wethContract.options.address: ", this.state.wethContract.options.address)
       console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
@@ -218,12 +223,17 @@ class App extends Component {
         };
         var _amount = web3.utils.toWei(this.state.amount.toString());
         var _denorm = web3.utils.toWei(this.state.denorm.toString());
+        const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("wethAllowance: ", wethAllowance)
+        const daiAllowance = await this.state.daiContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("daiAllowance: ", daiAllowance)
+        const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("mkrAllowance: ", mkrAllowance)
         console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
         console.log("_token: ", _token)
         console.log("_amount: ", _amount)
         console.log("_denorm: ", _denorm)
         await contract.methods.bindToken(this.state.bpoolAddress, _token, _amount, _denorm).send({ from: accounts[0] });
-//        const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
         this.setState({ 
           token: "WETH",
           amount: "0",
@@ -254,6 +264,7 @@ class App extends Component {
           createPool={this.createPool}
           loadExistingPool={this.loadExistingPool}
           approveToken={this.approveToken}
+          bindToken={this.bindToken}
           token={this.state.token} 
           amount={this.state.amount} 
           denorm={this.state.denorm} 

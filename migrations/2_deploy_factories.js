@@ -10,7 +10,6 @@ module.exports = function(deployer) {
   deployer.deploy(BFactory).then(function() {
     return deployer.deploy(PoolManager, BFactory.address);
   });
-  console.log("BFactory.address: ", BFactory.address)
 };
 
 
