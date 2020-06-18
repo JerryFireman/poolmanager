@@ -31,6 +31,16 @@ Just run: truffle test ./test/poolmanager.js
 Need to run ganache on specific addresses to access account with testnet coins
 Use .env to pass private key, deploy poolmanager with BFactory account on Kovan
 
+Make 2_deploy_factories conditional so it doesn't have to be changed manually, 
+such as ...
+module.exports = async function (deployer, network, accounts) {
+    if (network === 'development' || network === 'coverage') {
+        deployer.deploy(TMath);
+    }
+    deployer.deploy(PoolManager);
+};
+
+
 <2_deploy_factories.js>
 
 const PoolManager = artifacts.require('PoolManager');
@@ -46,14 +56,6 @@ truffle migrate --network kovan
 client$ npm start
 
 
-Consider making 2_deploy_factories conditional so it doesn't have to be changed manually, 
-such as ...
-module.exports = async function (deployer, network, accounts) {
-    if (network === 'development' || network === 'coverage') {
-        deployer.deploy(TMath);
-    }
-    deployer.deploy(PoolManager);
-};
 
 Development plan 
 1) UI: approve, bind, status (add contract balance), rebind, unbind, swap fee, public, select tag for token, https://reactjs.org/docs/forms.html, security check

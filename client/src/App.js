@@ -175,18 +175,23 @@ class App extends Component {
       console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
       console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
       try {
-        if (this.state.token == "MKR") {
-          var _token = this.state.mkrContract.options.address
-        } else if (this.state.token == "WETH") {
-          var _token = this.state.wethContract.options.address
-        } else if (this.state.token == "DAI") {
-          var _token = this.state.daiContract.options.address
-        }
+        var _token;
+        if (this.state.token === "MKR") {
+          _token = this.state.mkrContract.options.address
+        } else if (this.state.token === "WETH") {
+          _token = this.state.wethContract.options.address
+        } else if (this.state.token === "DAI") {
+          _token = this.state.daiContract.options.address
+        };
         var _amount = web3.utils.toWei(this.state.amount.toString());
         var _denorm = web3.utils.toWei(this.state.denorm.toString());
         console.log("_token: ", _token)
         console.log("_amount: ", _amount)
         console.log("_denorm: ", _denorm)
+
+        // need to send to <contract className="methods approveToken"
+        // then reset form to defaults
+        // error check -- amount and denorm cannot be zero
   
       } catch (error) {
         alert(
