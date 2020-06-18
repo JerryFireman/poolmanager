@@ -189,8 +189,18 @@ class App extends Component {
         console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
         console.log("_amount: ", _amount)
 //        console.log("_denorm: ", _denorm)
-        const tx = await contract.methods.approveToken(_token, this.state.bpoolAddress, _amount).send({ from: accounts[0] });
-
+        await contract.methods.approveToken(_token, this.state.bpoolAddress, _amount).send({ from: accounts[0] });
+        const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("wethAllowance: ", wethAllowance)
+        const daiAllowance = await this.state.daiContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("daiAllowance: ", daiAllowance)
+        const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("mkrAllowance: ", mkrAllowance)
+        this.setState({ 
+          token: "WETH",
+          amount: "0",
+              });
+          
 
         // need to send to <contract className="methods approveToken"
         // then reset form to defaults
