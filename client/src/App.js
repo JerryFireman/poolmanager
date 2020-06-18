@@ -106,8 +106,6 @@ class App extends Component {
       console.log("Total weth supply", wethSupply);
       const wethOwnerBalance = await wethContract.methods.balanceOf(accounts[0]).call();
       console.log("Owner weth balance: ", wethOwnerBalance)
-      const wethPoolmanagerBalance = await wethContract.methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
 
 
       // @ mint dai for poolmanager contract
@@ -117,8 +115,6 @@ class App extends Component {
       console.log("Total dai supply", daiSupply);
       const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
       console.log("Owner dai balance: ", daiOwnerBalance)
-      const daiPoolmanagerBalance = await daiContract.methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
 
       // @ mint mkr for poolmanager contract
       await mkrContract.methods.mint(accounts[0], web3.utils.toWei('60')).send({ from: accounts[0] });
@@ -127,8 +123,6 @@ class App extends Component {
       console.log("Total mkr supply", mkrSupply);
       const mkrOwnerBalance = await mkrContract.methods.balanceOf(accounts[0]).call();
       console.log("Owner mkr balance: ", mkrOwnerBalance)
-      const mkrPoolmanagerBalance = await mkrContract.methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager mkr balance: ", mkrPoolmanagerBalance)
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -223,6 +217,12 @@ class App extends Component {
         };
         var _amount = web3.utils.toWei(this.state.amount.toString());
         var _denorm = web3.utils.toWei(this.state.denorm.toString());
+        const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
+        const daiPoolmanagerBalance = await this.state.daiContract.methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
+        const mkrPoolmanagerBalance = await this.state.mkrContract.methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager mkr balance: ", mkrPoolmanagerBalance)
         const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
         console.log("wethAllowance: ", wethAllowance)
         const daiAllowance = await this.state.daiContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
@@ -233,7 +233,7 @@ class App extends Component {
         console.log("_token: ", _token)
         console.log("_amount: ", _amount)
         console.log("_denorm: ", _denorm)
-        await contract.methods.bindToken(this.state.bpoolAddress, _token, _amount, _denorm).send({ from: accounts[0] });
+        await contract.methods.bindToken(this.state.bpoolAddress, _token, _amount, _denorm).send({ from: accounts[0], gas: 5000000 });
         this.setState({ 
           token: "WETH",
           amount: "0",
