@@ -230,15 +230,20 @@ class App extends Component {
         const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
         console.log("mkrAllowance: ", mkrAllowance)
         console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
-        console.log("_token: ", _token)
-        console.log("_amount: ", _amount)
-        console.log("_denorm: ", _denorm)
+        console.log("_token: ", _token);
+        console.log("_amount: ", _amount);
+        console.log("_denorm: ", _denorm);
         await contract.methods.bindToken(this.state.bpoolAddress, _token, _amount, _denorm).send({ from: accounts[0], gas: 5000000 });
+        console.log(_token + " is bound: " + await contract.methods.checkToken(this.state.bpoolAddress, _token).call());
+        console.log(_token + " amount bound: " + await contract.methods.tokenBalance(this.state.bpoolAddress, _token).call());
+        console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(this.state.bpoolAddress, _token).call());
+        console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(this.state.bpoolAddress, _token).call());
         this.setState({ 
           token: "WETH",
           amount: "0",
           denorm: "0",
               });  
+        
       } catch (error) {
         alert(
           `Attempt to bind token failed. Check console for details.`,
