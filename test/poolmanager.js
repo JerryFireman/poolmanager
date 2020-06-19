@@ -132,6 +132,11 @@ contract('PoolManager', async (accounts) => {
             assert.equal(0.333333333333333333, fromWei(wethNormalizedWeight));
         });
 
+        it('should yield correct denormalized weight', async () => {
+            const wethDeNormalizedWeight = await poolmanager.denormalizedWeight(pool.address, WETH);
+            assert.equal(5, fromWei(wethDeNormalizedWeight));
+        });
+
         it('should rebind a token with new balance', async () => {
             await poolmanager.rebindToken(pool.address, MKR, toWei('15'), toWei('5'), { from: owner, gas: 5000000 });
             const mkrBalance = await poolmanager.tokenBalance(pool.address, MKR);

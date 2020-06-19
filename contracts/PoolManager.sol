@@ -69,6 +69,16 @@ contract PoolManager {
         return currentPool.getNormalizedWeight(_token);
     }
 
+    //@dev returns the denormalized weight of a token
+    function denormalizedWeight(address _currentPoolAddress, address _token)
+        external
+        view
+        returns(uint)
+    {
+        BPool currentPool = BPool(_currentPoolAddress);
+        return currentPool.getDenormalizedWeight(_token);
+    }
+
     //@dev returns the balance of a token
     function tokenBalance(address _currentPoolAddress, address _token)
         external
