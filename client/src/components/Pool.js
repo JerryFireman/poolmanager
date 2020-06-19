@@ -73,6 +73,9 @@ export default function Pool(props) {
             <StyledButton onClick={props.bindToken}>
               Bind new token
             </StyledButton><br/>
+            <StyledButton onClick={props.rebindToken}>
+              Rebind token
+            </StyledButton><br/>
             <br/>
             <FormControl variant="filled" className={classes.formControl}>
               <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>

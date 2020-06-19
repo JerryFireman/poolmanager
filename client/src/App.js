@@ -252,6 +252,55 @@ class App extends Component {
       }
     };
     
+    // @dev rebinds a token to smart pool
+    rebindToken = async () => {
+      const { web3, accounts, contract } = this.state;
+      try {
+        var _token;
+        if (this.state.token === "MKR") {
+          _token = this.state.mkrContract.options.address
+        } else if (this.state.token === "WETH") {
+          _token = this.state.wethContract.options.address
+        } else if (this.state.token === "DAI") {
+          _token = this.state.daiContract.options.address
+        };
+        var _amount = web3.utils.toWei(this.state.amount.toString());
+        var _denorm = web3.utils.toWei(this.state.denorm.toString());
+        const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
+        const daiPoolmanagerBalance = await this.state.daiContract.methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
+        const mkrPoolmanagerBalance = await this.state.mkrContract.methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager mkr balance: ", mkrPoolmanagerBalance)
+        const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("wethAllowance: ", wethAllowance)
+        const daiAllowance = await this.state.daiContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("daiAllowance: ", daiAllowance)
+        const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
+        console.log("mkrAllowance: ", mkrAllowance)
+        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
+        console.log("_token: ", _token);
+        console.log("_amount: ", _amount);
+        console.log("_denorm: ", _denorm);
+        await contract.methods.rebindToken(this.state.bpoolAddress, _token, _amount, _denorm).send({ from: accounts[0], gas: 5000000 });
+        console.log(_token + " is bound: " + await contract.methods.checkToken(this.state.bpoolAddress, _token).call());
+        console.log(_token + " amount bound: " + await contract.methods.tokenBalance(this.state.bpoolAddress, _token).call());
+        console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(this.state.bpoolAddress, _token).call());
+        console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(this.state.bpoolAddress, _token).call());
+        this.setState({ 
+          token: "WETH",
+          amount: "0",
+          denorm: "0",
+              });  
+        
+      } catch (error) {
+        alert(
+          `Attempt to bind token failed. Check console for details.`,
+        );
+        console.error(error);
+      }
+    };
+    
   
 
   render() {
@@ -270,6 +319,7 @@ class App extends Component {
           loadExistingPool={this.loadExistingPool}
           approveToken={this.approveToken}
           bindToken={this.bindToken}
+          rebindToken={this.rebindToken}
           token={this.state.token} 
           amount={this.state.amount} 
           denorm={this.state.denorm} 
