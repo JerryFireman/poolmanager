@@ -58,6 +58,6 @@ client$ npm start
 
 
 Development plan 
-1) UI: unbind, swap fee, public, approval test for smart contract, status (token, contract balance, allowance, bound balance, denormalized weight, normalized weight), 
-2) readme, video demo, social media
-3) develop algorithm, code in node
+1) UI: swap fee, public, approval test for smart contract, <fri> status (token, contract balance, allowance, bound balance, denormalized weight, normalized weight), swap fee, public/private <mon-tuey> 
+2) readme, video demo, social media <wed-thu-fri>
+3) error checking, security, conceive algorith, code algorithm

@@ -60,6 +60,29 @@ export default function Pool(props) {
                   onChange={props.handleChange}
                 />
               </form><br/>
+              <form className={classes.root} noValidate autoComplete="off">
+                <StyledButton onClick={props.setFee}>
+                    Set swap fee
+                </StyledButton>
+            </form>
+            <form className={classes.root} noValidate autoComplete="off">
+                <TextField 
+                  id="filled-basic" 
+                  label="Enter swap fee from 0.000001 to 0.1" 
+                  variant="filled" 
+                  fullWidth={false} 
+                  type="text" 
+                  name="swapFee" 
+                  value={props.swapFee} 
+                  onChange={props.handleChange}
+                />
+              </form><br/>
+              <br/>
+              <form className={classes.root} noValidate autoComplete="off">
+                <StyledButton onClick={props.setPublic}>
+                    Change public/private status
+                </StyledButton>
+            </form>
             </Box>
           </Paper>
         </Grid>

@@ -31,6 +31,7 @@ class App extends Component {
     token: "WETH",
     amount: "0",
     denorm: "0",
+    swapFee: "0",
   };
 
   componentDidMount = async () => {
@@ -320,7 +321,53 @@ class App extends Component {
         
       } catch (error) {
         alert(
-          `Attempt to unbind token failed. Check console for details.`,
+          `Attempt to unbind token failed: ` + error
+        );
+        console.error(error);
+      }
+    };
+    
+    // @dev sets swap fee in smart pool
+    setFee = async () => {
+      const { web3, accounts, contract } = this.state;
+      try {
+        console.log("hit setFee")
+        var swapFee = await this.state.contract.methods.swapFee(this.state.bpoolAddress).call();
+        console.log("Swap fee before changing: ", swapFee)
+        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
+       var _swapFee = web3.utils.toWei(this.state.swapFee.toString());
+       console.log("_swapFee: ", _swapFee)
+       await contract.methods.setFee(this.state.bpoolAddress, _swapFee).send({ from: accounts[0], gas: 5000000 });
+        swapFee = await this.state.contract.methods.swapFee(this.state.bpoolAddress).call();
+        console.log("Swap fee after changing: ", swapFee)
+        this.setState({ 
+          swapFee: "0",
+              });  
+        
+      } catch (error) {
+        alert(
+          `Attempt to set swap fee failed. Check console for details.`,
+        );
+        console.error(error);
+      }
+    };
+    
+    // @dev changes status from public to private or vice versa
+    setPublic = async () => {
+      const { web3, accounts, contract } = this.state;
+      try {
+        console.log("hit setPublic")
+        var isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
+        console.log("isPublic: ", isPublic)
+        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
+        var _isPublic = !isPublic
+        console.log("_public: ", _isPublic)
+        await contract.methods.setPublic(this.state.bpoolAddress, _isPublic).send({ from: accounts[0], gas: 5000000 });
+        var isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
+        console.log("isPublic: ", isPublic)
+      } catch (error) {
+        alert(
+          `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
         );
         console.error(error);
       }
@@ -344,9 +391,12 @@ class App extends Component {
           bindToken={this.bindToken}
           rebindToken={this.rebindToken}
           unbindToken={this.unbindToken}
+          setFee={this.setFee}
+          setPublic={this.setPublic}
           token={this.state.token} 
           amount={this.state.amount} 
           denorm={this.state.denorm} 
+          swapFee={this.state.swapFee}
         />
          
       </div>
