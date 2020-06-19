@@ -301,9 +301,32 @@ class App extends Component {
       }
     };
     
-  
-
-  render() {
+    // @dev unbinds a token from smart pool
+    unbindToken = async () => {
+      const { web3, accounts, contract } = this.state;
+      try {
+        var _token;
+        if (this.state.token === "MKR") {
+          _token = this.state.mkrContract.options.address
+        } else if (this.state.token === "WETH") {
+          _token = this.state.wethContract.options.address
+        } else if (this.state.token === "DAI") {
+          _token = this.state.daiContract.options.address
+        };
+        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
+        console.log("_token: ", _token);
+        await contract.methods.unbindToken(this.state.bpoolAddress, _token).send({ from: accounts[0], gas: 5000000 });
+        console.log(_token + " is bound: " + await contract.methods.checkToken(this.state.bpoolAddress, _token).call());
+        
+      } catch (error) {
+        alert(
+          `Attempt to unbind token failed. Check console for details.`,
+        );
+        console.error(error);
+      }
+    };
+    
+    render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
@@ -320,6 +343,7 @@ class App extends Component {
           approveToken={this.approveToken}
           bindToken={this.bindToken}
           rebindToken={this.rebindToken}
+          unbindToken={this.unbindToken}
           token={this.state.token} 
           amount={this.state.amount} 
           denorm={this.state.denorm} 
