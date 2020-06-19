@@ -70,7 +70,7 @@ export default function Pool(props) {
                   id="filled-basic" 
                   label="Enter swap fee from 0.000001 to 0.1" 
                   variant="filled" 
-                  fullWidth={false} 
+                  fullWidth={true} 
                   type="text" 
                   name="swapFee" 
                   value={props.swapFee} 
