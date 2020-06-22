@@ -59,9 +59,8 @@ class App extends Component {
         WethContract.abi,
         deployedNetwork2 && deployedNetwork2.address,
       );
-
-      this.state.tokenArray.push("WETH", wethInstance.options.address);
-      console.log("this.state.tokenArray: ", this.state.tokenArray)
+      this.state.tokenArray.push(["WETH", wethInstance.options.address]);
+      console.log("this.state.tokenArray: ", this.state.tokenArray);
 
 
  
@@ -72,7 +71,8 @@ class App extends Component {
         DaiContract.abi,
         deployedNetwork3 && deployedNetwork3.address,
       );
-      console.log("dai address: ",daiInstance.options.address)
+      this.state.tokenArray.push(["DAI", daiInstance.options.address]);
+      console.log("this.state.tokenArray: ", this.state.tokenArray);
 
 
 
@@ -83,7 +83,8 @@ class App extends Component {
         MkrContract.abi,
               deployedNetwork4 && deployedNetwork4.address,
             );
-      console.log("mkr address: ",mkrInstance.options.address)
+      this.state.tokenArray.push(["MKR", mkrInstance.options.address]);
+      console.log("this.state.tokenArray: ", this.state.tokenArray);
       
                   
       
