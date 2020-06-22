@@ -86,9 +86,6 @@ class App extends Component {
       this.state.tokenArray.push(["MKR", mkrInstance.options.address]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
       
-                  
-      
-
       // Set web3, accounts, and contracts to the state
       this.setState({ 
         web3, 
@@ -128,6 +125,10 @@ class App extends Component {
       console.log("Total mkr supply", mkrSupply);
       const mkrOwnerBalance = await mkrContract.methods.balanceOf(accounts[0]).call();
       console.log("Owner mkr balance: ", mkrOwnerBalance)
+
+      await this.currentStatus()
+      console.log(this.state.currentStatus)
+
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -377,20 +378,19 @@ class App extends Component {
       }
     };
     
-    // @dev builds an array containing current status of smart pool being managed
-    currentState = async () => {
+    // @dev builds an array with current status of smart pool being managed
+    currentStatus = async () => {
       const { web3, accounts, contract } = this.state;
+      console.log("hit currentStatus")
+      var statusLine = []
       try {
-        console.log("hit currentStatus")
-        var isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
-        console.log("isPublic: ", isPublic)
-        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
-        var _isPublic = !isPublic
-        console.log("_public: ", _isPublic)
-        await contract.methods.setPublic(this.state.bpoolAddress, _isPublic).send({ from: accounts[0], gas: 5000000 });
-        isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
-        console.log("isPublic: ", isPublic)
-      } catch (error) {
+        statusLine.push(this.state.tokenArray[0][0]);
+        console.log(statusLine);
+
+        // call from componentDidMount to test
+        // build out one line
+        // loop to build out full array
+     } catch (error) {
         alert(
           `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
         );
