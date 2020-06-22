@@ -28,6 +28,8 @@ class App extends Component {
     mkrContract: null,
     bpoolAddress: "",
     bpoolToLoad: "", 
+    tokenArray: [],
+    currentStatus: [],
     token: "WETH",
     amount: "0",
     denorm: "0",
@@ -58,7 +60,8 @@ class App extends Component {
         deployedNetwork2 && deployedNetwork2.address,
       );
 
-      console.log("weth address: ",wethInstance.options.address)
+      this.state.tokenArray.push("WETH", wethInstance.options.address);
+      console.log("this.state.tokenArray: ", this.state.tokenArray)
 
 
  
@@ -363,7 +366,28 @@ class App extends Component {
         var _isPublic = !isPublic
         console.log("_public: ", _isPublic)
         await contract.methods.setPublic(this.state.bpoolAddress, _isPublic).send({ from: accounts[0], gas: 5000000 });
+        isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
+        console.log("isPublic: ", isPublic)
+      } catch (error) {
+        alert(
+          `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
+        );
+        console.error(error);
+      }
+    };
+    
+    // @dev builds an array containing current status of smart pool being managed
+    currentState = async () => {
+      const { web3, accounts, contract } = this.state;
+      try {
+        console.log("hit currentStatus")
         var isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
+        console.log("isPublic: ", isPublic)
+        console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
+        var _isPublic = !isPublic
+        console.log("_public: ", _isPublic)
+        await contract.methods.setPublic(this.state.bpoolAddress, _isPublic).send({ from: accounts[0], gas: 5000000 });
+        isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
         console.log("isPublic: ", isPublic)
       } catch (error) {
         alert(

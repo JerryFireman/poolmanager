@@ -56,6 +56,6 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) UI: approval test for smart contract, <fri> status (token, contract balance, allowance, bound balance, denormalized weight, normalized weight), swap fee, public/private <mon-tue> 
-2) check input <wed>
+1) UI: status (token, contract balance, allowance, bound balance, denormalized weight, normalized weight), (first save array to state, then convert array to table, then add swap fee, public/private) <mon-tue> 
+2) check input and throw errors <wed>
 3) readme, video demo, social media <thu-fri>

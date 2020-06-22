@@ -12057,10 +12057,136 @@
       "links": {},
       "address": "0x873AdBE718e7Fe3FADEBe4D2b7c9A5B7cc712772",
       "transactionHash": "0x1a1ffa6a87fca956f15cc492779ea7477ea2d754df312065f2c480b81fd2a910"
+    },
+    "1592850259306": {
+      "events": {
+        "0x83a48fbcfc991335314e74d0496aab6a1987e992ddc85dddbcc4d6dd6ef2e9fc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "bpoolAddress",
+              "type": "address"
+            }
+          ],
+          "name": "PoolCreated",
+          "type": "event"
+        },
+        "0xc532e6b60637d86dd3fe55f7548ed169de9c79cfdef610593bea3569f079bc65": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "currentPoolAddress",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "balance",
+              "type": "uint256"
+            }
+          ],
+          "name": "TokenApproved",
+          "type": "event"
+        },
+        "0x194cdbdc6669374257b08c6948a71e61892de19c5d86896c9e7e26fc71c1ec6f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "currentPool",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "balance",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "denorm",
+              "type": "uint256"
+            }
+          ],
+          "name": "TokenBound",
+          "type": "event"
+        },
+        "0x9a99b71c4cf232ef1b26dafda743fa55ea29e8675f5fb3b087e4521d9d658929": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "currentPool",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "balance",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "denorm",
+              "type": "uint256"
+            }
+          ],
+          "name": "TokenRebound",
+          "type": "event"
+        },
+        "0x851fb1ea978289f547bc8cf664ad4d224d0dcd927c0fcb8a62d887aed42343c4": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "currentPool",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            }
+          ],
+          "name": "TokenUnbound",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x5b573426e6d3Dd822203CB14Ee4F993a23DF81F8",
+      "transactionHash": "0x0a6bc66928dbfdf724f13ebae909cc1cebe629e2688284fd1e474c19a31d50ea"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-06-19T15:21:34.118Z",
+  "updatedAt": "2020-06-22T18:35:59.864Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
