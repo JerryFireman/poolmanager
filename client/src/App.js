@@ -385,6 +385,8 @@ class App extends Component {
     const { contract } = this.state;
     const { tokenArray } = this.state;
     const { bpoolAddress } = this.state;
+    const { currentStatus } = this.state;
+
     var statusLine = [];
 
 
@@ -393,13 +395,16 @@ class App extends Component {
         statusLine = [];
         statusLine.push(tokenArray[i][0]);
         console.log(statusLine);
-      }
+        var tokenContract = tokenArray[i][2];
+        console.log("tokenArray[i][2]: ", tokenArray[i][2]);
+        const poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
+        console.log("Poolmanager balance: ", poolmanagerBalance)
+        statusLine.push(poolmanagerBalance);
+
+        currentStatus.push(statusLine);
+        console.log("currentStatus: ", currentStatus);
+          }
 /*
-      var tokenContract = tokenArray[1][2];
-      console.log("tokenArray[1][2]: ", tokenArray[1][2]);
-      const poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager balance: ", poolmanagerBalance)
-      statusLine.push(poolmanagerBalance);
       console.log(statusLine);
       const allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call()
       console.log("allowance: ", allowance)
