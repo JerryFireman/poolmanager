@@ -383,20 +383,38 @@ class App extends Component {
   // @dev builds an array with current status of smart pool being managed
   currentStatus = async () => {
     const { contract } = this.state;
+    const { wethContract } = this.state;
+    const { daiContract } = this.state;
+    const { mkrContract } = this.state;
+    const { tokenArray } = this.state;
+    const { bpoolAddress } = this.state;
+
+
     try {
       var xyz = "log"
       console[xyz]("hit currentStatus")
       var statusLine = [];
-      statusLine.push(this.state.tokenArray[0][0]);
+      statusLine.push(tokenArray[0][0]);
       console.log(statusLine);
       //try to make line below into variable 
-      // const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call(); 
+      // const wethPoolmanagerBalance = await wethContract.methods.balanceOf(contract.options.address).call(); 
       var tokenContract = this.state.tokenArray[0][2];
-      console.log("tokenArray[0][2]: ", this.state.tokenArray[0][2]);
+      console.log("tokenArray[0][2]: ", tokenArray[0][2]);
       const wethPoolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
       console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
       statusLine.push(wethPoolmanagerBalance);
       console.log(statusLine);
+      const wethAllowance = await wethContract.methods.allowance(contract.options.address, bpoolAddress).call()
+      console.log("wethAllowance: ", wethAllowance)
+      statusLine.push(wethAllowance);
+      console.log(statusLine);
+
+      console.log("weth is bound: " + await contract.methods.checkToken(bpoolAddress, wethContract.options.address).call());
+      var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, wethContract.options.address).call();
+      console.log("tokenBalance: ", tokenBalance)
+
+//      console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(bpoolAddress, _token).call());
+//      console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(bpoolAddress, _token).call());
 
 
       // build out one line
