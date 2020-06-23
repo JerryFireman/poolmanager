@@ -402,7 +402,27 @@ class App extends Component {
         allowance = web3.utils.fromWei(allowance)
         console.log("allowance: ", allowance)
         statusLine.push(allowance);
-  
+        var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
+        console.log("tokenBound: ", tokenBound)
+        if (tokenBound) {
+          var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, this.state[tokenContract].options.address).call();
+          tokenBalance = web3.utils.fromWei(tokenBalance)
+          console.log("tokenBalance: ", tokenBalance)  
+          statusLine.push(tokenBalance);
+          var normWeight = await contract.methods.normalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
+          normWeight = web3.utils.fromWei(normWeight)
+          console.log("normWeight: ", normWeight)  
+          statusLine.push(normWeight);
+          var denormWeight = await contract.methods.denormalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
+          denormWeight = web3.utils.fromWei(denormWeight)
+          console.log("denormWeight: ", denormWeight)  
+          statusLine.push(denormWeight);
+        } else  {
+          statusLine.push("0");
+          statusLine.push("0");
+          statusLine.push("0");
+        }
+    
         currentStatus.push(statusLine);
         console.log("currentStatus: ", currentStatus);
           }

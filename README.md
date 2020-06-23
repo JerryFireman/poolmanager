@@ -56,8 +56,6 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) UI: status (token, contract balance, allowance, bound balance, denormalized weight, normalized weight), (save array to state, 
-2) then convert array to table, then add swap fee, public/private) <mon-tue> 
-3) check input and throw errors <wed>
-4) readme, video demo, social media <thu-fri>
-5) algorithm -- maybe check prices and set fee to compete, 
+1) UI: convert array to table, then add swap fee, public/private) <wed> 
+2) check input and throw errors <thur>
+3) readme, video demo, social media <fri-mon-tue>
