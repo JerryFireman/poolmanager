@@ -382,10 +382,7 @@ class App extends Component {
 
   // @dev builds an array with current status of smart pool being managed
   currentStatus = async () => {
-    const { contract } = this.state;
-    const { tokenArray } = this.state;
-    const { bpoolAddress } = this.state;
-    const { currentStatus } = this.state;
+    const { contract, web3, tokenArray, bpoolAddress, currentStatus } = this.state;
 
     var statusLine = [];
 
@@ -397,7 +394,8 @@ class App extends Component {
         console.log(statusLine);
         var tokenContract = tokenArray[i][2];
         console.log("tokenArray[i][2]: ", tokenArray[i][2]);
-        const poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
+        var poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
+        poolmanagerBalance = web3.utils.fromWei(poolmanagerBalance)
         console.log("Poolmanager balance: ", poolmanagerBalance)
         statusLine.push(poolmanagerBalance);
 
