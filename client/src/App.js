@@ -396,30 +396,37 @@ class App extends Component {
       var statusLine = [];
       statusLine.push(tokenArray[0][0]);
       console.log(statusLine);
-      //try to make line below into variable 
-      // const wethPoolmanagerBalance = await wethContract.methods.balanceOf(contract.options.address).call(); 
-      var tokenContract = this.state.tokenArray[0][2];
+      var tokenContract = tokenArray[0][2];
       console.log("tokenArray[0][2]: ", tokenArray[0][2]);
-      const wethPoolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
-      statusLine.push(wethPoolmanagerBalance);
+      const poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
+      console.log("Poolmanager balance: ", poolmanagerBalance)
+      statusLine.push(poolmanagerBalance);
       console.log(statusLine);
-      const wethAllowance = await wethContract.methods.allowance(contract.options.address, bpoolAddress).call()
-      console.log("wethAllowance: ", wethAllowance)
-      statusLine.push(wethAllowance);
+      const allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call()
+      console.log("allowance: ", allowance)
+      statusLine.push(allowance);
       console.log(statusLine);
 
-      var wethBound = await contract.methods.checkToken(bpoolAddress, wethContract.options.address).call();
-      console.log("wethBound: ", wethBound)
-      if (wethBound) {
-        var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, wethContract.options.address).call();
+      var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
+      console.log("tokenBound: ", tokenBound)
+      if (tokenBound) {
+        var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, this.state[tokenContract].options.address).call();
         console.log("tokenBalance: ", tokenBalance)  
-        var normWeight = await contract.methods.normalizedWeight(bpoolAddress, wethContract.options.address).call();
+        statusLine.push(tokenBalance);
+        var normWeight = await contract.methods.normalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
         console.log("normWeight: ", normWeight)  
-        var denormWeight = await contract.methods.denormalizedWeight(bpoolAddress, wethContract.options.address).call();
-        console.log("denormWeight: ", normWeight)  
+        statusLine.push(normWeight);
+        var denormWeight = await contract.methods.denormalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
+        console.log("denormWeight: ", denormWeight)  
+        statusLine.push(denormWeight);
+      } else  {
+        statusLine.push("0");
+        statusLine.push("0");
+        statusLine.push("0");
       }
-      // build out one line
+      console.log(statusLine);
+
+      // one line: general variable and fix units
       // loop to build out full array
     } catch (error) {
       alert(
