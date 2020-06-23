@@ -154,7 +154,6 @@ class App extends Component {
             console.log("Poolmanager mkri balance: ", mkrPoolmanagerBalance)
 
             await this.currentStatus()
-            console.log(this.state.currentStatus)
                   
 
     } catch (error) {
@@ -251,6 +250,7 @@ class App extends Component {
         amount: "0",
         denorm: "0",
       });
+      await this.currentStatus()
 
     } catch (error) {
       alert(
@@ -409,14 +409,16 @@ class App extends Component {
       statusLine.push(wethAllowance);
       console.log(statusLine);
 
-      console.log("weth is bound: " + await contract.methods.checkToken(bpoolAddress, wethContract.options.address).call());
-      var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, wethContract.options.address).call();
-      console.log("tokenBalance: ", tokenBalance)
-
-//      console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(bpoolAddress, _token).call());
-//      console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(bpoolAddress, _token).call());
-
-
+      var wethBound = await contract.methods.checkToken(bpoolAddress, wethContract.options.address).call();
+      console.log("wethBound: ", wethBound)
+      if (wethBound) {
+        var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, wethContract.options.address).call();
+        console.log("tokenBalance: ", tokenBalance)  
+        var normWeight = await contract.methods.normalizedWeight(bpoolAddress, wethContract.options.address).call();
+        console.log("normWeight: ", normWeight)  
+        var denormWeight = await contract.methods.denormalizedWeight(bpoolAddress, wethContract.options.address).call();
+        console.log("denormWeight: ", normWeight)  
+      }
       // build out one line
       // loop to build out full array
     } catch (error) {
