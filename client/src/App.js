@@ -69,7 +69,7 @@ class App extends Component {
         DaiContract.abi,
         deployedNetwork3 && deployedNetwork3.address,
       );
-      this.state.tokenArray.push(["DAI", daiInstance.options.address, "DaiContract"]);
+      this.state.tokenArray.push(["DAI", daiInstance.options.address, "daiContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
 
 
@@ -81,7 +81,7 @@ class App extends Component {
         MkrContract.abi,
         deployedNetwork4 && deployedNetwork4.address,
       );
-      this.state.tokenArray.push(["MKR", mkrInstance.options.address, "MkrContract"]);
+      this.state.tokenArray.push(["MKR", mkrInstance.options.address, "mkrContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
 
       // Set web3, accounts, and contracts to the state
@@ -383,21 +383,20 @@ class App extends Component {
   // @dev builds an array with current status of smart pool being managed
   currentStatus = async () => {
     const { contract } = this.state;
-    const { wethContract } = this.state;
-    const { daiContract } = this.state;
-    const { mkrContract } = this.state;
     const { tokenArray } = this.state;
     const { bpoolAddress } = this.state;
+    var statusLine = [];
 
 
     try {
-      var xyz = "log"
-      console[xyz]("hit currentStatus")
-      var statusLine = [];
-      statusLine.push(tokenArray[0][0]);
-      console.log(statusLine);
-      var tokenContract = tokenArray[0][2];
-      console.log("tokenArray[0][2]: ", tokenArray[0][2]);
+      for (var i = 0; i < tokenArray.length; i++) {
+        statusLine = [];
+        statusLine.push(tokenArray[i][0]);
+        console.log(statusLine);
+      }
+/*
+      var tokenContract = tokenArray[1][2];
+      console.log("tokenArray[1][2]: ", tokenArray[1][2]);
       const poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
       console.log("Poolmanager balance: ", poolmanagerBalance)
       statusLine.push(poolmanagerBalance);
@@ -426,8 +425,9 @@ class App extends Component {
       }
       console.log(statusLine);
 
-      // one line: general variable and fix units
+      // one line: fix units
       // loop to build out full array
+      */
     } catch (error) {
       alert(
         `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
