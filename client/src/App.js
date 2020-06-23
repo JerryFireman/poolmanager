@@ -398,16 +398,15 @@ class App extends Component {
         poolmanagerBalance = web3.utils.fromWei(poolmanagerBalance)
         console.log("Poolmanager balance: ", poolmanagerBalance)
         statusLine.push(poolmanagerBalance);
-
+        var allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call()
+        allowance = web3.utils.fromWei(allowance)
+        console.log("allowance: ", allowance)
+        statusLine.push(allowance);
+  
         currentStatus.push(statusLine);
         console.log("currentStatus: ", currentStatus);
           }
 /*
-      console.log(statusLine);
-      const allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call()
-      console.log("allowance: ", allowance)
-      statusLine.push(allowance);
-      console.log(statusLine);
 
       var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
       console.log("tokenBound: ", tokenBound)
