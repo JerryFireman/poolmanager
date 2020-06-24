@@ -29,7 +29,7 @@ class App extends Component {
     bpoolAddress: null,
     bpoolToLoad: "",
     tokenArray: [],
-    currentStatus: [],
+    statusArray: [],
     token: "WETH",
     amount: "0",
     denorm: "0",
@@ -388,8 +388,8 @@ class App extends Component {
 
 
     try {
-      var currentStatus = [];
-git s      for (var i = 0; i < tokenArray.length; i++) {
+      var statusArray = [];
+      for (var i = 0; i < tokenArray.length; i++) {
         var statusLine = [];
         statusLine.push(i);
         statusLine.push(tokenArray[i][0]);
@@ -425,9 +425,9 @@ git s      for (var i = 0; i < tokenArray.length; i++) {
           statusLine.push("0");
         }
     
-        currentStatus.push(statusLine);
-        console.log("currentStatus: ", currentStatus);
-          }
+        statusArray.push(statusLine);
+      }
+      this.setState({statusArray: statusArray})
     } catch (error) {
       alert(
         `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
@@ -446,7 +446,7 @@ git s      for (var i = 0; i < tokenArray.length; i++) {
         <NavBar bpoolAddress={this.state.bpoolAddress} />
         <Status 
           bpoolAddress={this.state.bpoolAddress}
-          currentStatus={this.state.currentStatus}
+          statusArray={this.state.statusArray}
         />
         <Pool
           bpoolToLoad={this.state.bpoolToLoad}

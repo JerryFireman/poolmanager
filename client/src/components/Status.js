@@ -33,7 +33,7 @@ export default function Status(props) {
               </TableRow>
             </TableHead>
             <TableBody variant="body1">
-            {props.currentStatus.map((row) => (
+            {props.statusArray.map((row) => (
               <TableRow key={row[0]}>
                 <TableCell component="th" scope="row">
                   {row[1]}
