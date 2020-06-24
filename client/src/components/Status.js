@@ -17,23 +17,28 @@ const useStyles = makeStyles({
 
 export default function Status(props) {
   const classes = useStyles();
+  if (props.bpoolAddress)  {
+    return (
+      <div>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} size="small" aria-label="a dense table">
+            <TableHead variant="body1">
+              <TableRow>
+                <TableCell align="center"><strong>Token</strong></TableCell>
+                <TableCell align="center"><strong>Contract balance</strong></TableCell>
+                <TableCell align="center"><strong>Allowance</strong></TableCell>
+                <TableCell align="center"><strong>Balance</strong></TableCell>
+                <TableCell align="center"><strong>Normalized weight</strong></TableCell>
+                <TableCell align="center"><strong>Denormalized weight</strong></TableCell>
+  
+              </TableRow>
+            </TableHead>
+          </Table>
+        </TableContainer>
+      </div>
+    );
+  } else {
+    return null
+  }
 
-  return (
-    <div>
-      <Typography variant="h4" color="primary"  >
-        Current smart pool status
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} size="small" aria-label="a dense table">
-          <TableHead variant="body1">
-            <TableRow>
-              <TableCell align="center"><strong>Token</strong></TableCell>
-              <TableCell align="center"><strong>Balance</strong></TableCell>
-              <TableCell align="center"><strong>Weight</strong></TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-      </TableContainer>
-    </div>
-  );
 }
