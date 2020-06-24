@@ -26,7 +26,7 @@ class App extends Component {
     wethContract: null,
     daiContract: null,
     mkrContract: null,
-    bpoolAddress: "",
+    bpoolAddress: null,
     bpoolToLoad: "",
     tokenArray: [],
     currentStatus: [],
@@ -250,6 +250,7 @@ class App extends Component {
         amount: "0",
         denorm: "0",
       });
+      console.log("bpoolAddress: ", this.state.bpoolAddress)
       await this.currentStatus()
 
     } catch (error) {
@@ -388,8 +389,10 @@ class App extends Component {
 
 
     try {
+      this.setState({currentStatus: ""});
       for (var i = 0; i < tokenArray.length; i++) {
         statusLine = [];
+        statusLine.push(i);
         statusLine.push(tokenArray[i][0]);
         console.log(statusLine);
         var tokenContract = tokenArray[i][2];
@@ -426,30 +429,6 @@ class App extends Component {
         currentStatus.push(statusLine);
         console.log("currentStatus: ", currentStatus);
           }
-/*
-
-      var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
-      console.log("tokenBound: ", tokenBound)
-      if (tokenBound) {
-        var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, this.state[tokenContract].options.address).call();
-        console.log("tokenBalance: ", tokenBalance)  
-        statusLine.push(tokenBalance);
-        var normWeight = await contract.methods.normalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
-        console.log("normWeight: ", normWeight)  
-        statusLine.push(normWeight);
-        var denormWeight = await contract.methods.denormalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
-        console.log("denormWeight: ", denormWeight)  
-        statusLine.push(denormWeight);
-      } else  {
-        statusLine.push("0");
-        statusLine.push("0");
-        statusLine.push("0");
-      }
-      console.log(statusLine);
-
-      // one line: fix units
-      // loop to build out full array
-      */
     } catch (error) {
       alert(
         `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
@@ -466,7 +445,10 @@ class App extends Component {
       <div className="App">
         <Header />
         <NavBar bpoolAddress={this.state.bpoolAddress} />
-        <Status />
+        <Status 
+          bpoolAddress={this.state.bpoolAddress}
+          currentStatus={this.state.currentStatus}
+        />
         <Pool
           bpoolToLoad={this.state.bpoolToLoad}
           handleChange={this.handleChange}

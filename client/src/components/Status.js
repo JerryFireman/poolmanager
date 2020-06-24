@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
+import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
@@ -30,9 +30,24 @@ export default function Status(props) {
                 <TableCell align="center"><strong>Balance</strong></TableCell>
                 <TableCell align="center"><strong>Normalized weight</strong></TableCell>
                 <TableCell align="center"><strong>Denormalized weight</strong></TableCell>
-  
               </TableRow>
             </TableHead>
+            <TableBody variant="body1">
+            {props.currentStatus.map((row) => (
+              <TableRow key={row[0]}>
+                <TableCell component="th" scope="row">
+                  {row[1]}
+                </TableCell>
+                <TableCell align="right">{row[2]}</TableCell>
+                <TableCell align="right">{row[3]}</TableCell>
+                <TableCell align="right">{row[4]}</TableCell>
+                <TableCell align="right">{row[5]}</TableCell>
+                <TableCell align="right">{row[6]}</TableCell>
+
+              </TableRow>
+            ))}
+          </TableBody>
+
           </Table>
         </TableContainer>
       </div>
