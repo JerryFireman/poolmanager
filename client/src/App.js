@@ -385,13 +385,12 @@ class App extends Component {
   currentStatus = async () => {
     const { contract, web3, tokenArray, bpoolAddress, currentStatus } = this.state;
 
-    var statusLine = [];
 
 
     try {
-      this.setState({currentStatus: ""});
-      for (var i = 0; i < tokenArray.length; i++) {
-        statusLine = [];
+      var currentStatus = [];
+git s      for (var i = 0; i < tokenArray.length; i++) {
+        var statusLine = [];
         statusLine.push(i);
         statusLine.push(tokenArray[i][0]);
         console.log(statusLine);
