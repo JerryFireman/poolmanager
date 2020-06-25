@@ -34,8 +34,8 @@ class App extends Component {
     amount: "0",
     denorm: "0",
     swapFee: "0",
-    publicPrivate: "private",
-    swapFee: "000001"
+    publicPrivate: "Private",
+    swapFeeNavBar: "000001",
   };
 
   componentDidMount = async () => {
@@ -120,43 +120,43 @@ class App extends Component {
       console.log("bPoolAddress: ", tx.events.PoolCreated.returnValues.bpoolAddress)
       this.setState({ bpoolAddress: tx.events.PoolCreated.returnValues.bpoolAddress });
       console.log("this.state.bpoolAddress", this.state.bpoolAddress)
-            // @ mint weth for poolmanager contract
-            const { contract } = this.state;
-            const { wethContract } = this.state;
-            const { daiContract } = this.state;
-            const { mkrContract } = this.state;
+      // @ mint weth for poolmanager contract
+      const { contract } = this.state;
+      const { wethContract } = this.state;
+      const { daiContract } = this.state;
+      const { mkrContract } = this.state;
 
-            await wethContract.methods.mint(accounts[0], web3.utils.toWei('100')).send({ from: accounts[0] });
-            await this.state.wethContract.methods.mint(contract.options.address, web3.utils.toWei('80')).send({ from: accounts[0] });
-            const wethSupply = await wethContract.methods.totalSupply().call();
-            console.log("Total weth supply", wethSupply);
-            const wethOwnerBalance = await wethContract.methods.balanceOf(accounts[0]).call();
-            console.log("Owner weth balance: ", wethOwnerBalance)
-            const wethPoolmanagerBalance = await wethContract.methods.balanceOf(contract.options.address).call();
-            console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
-      
-            // @ mint dai for poolmanager contract
-            await daiContract.methods.mint(accounts[0], web3.utils.toWei('600')).send({ from: accounts[0] });
-            await daiContract.methods.mint(contract.options.address, web3.utils.toWei('500')).send({ from: accounts[0] });
-            const daiSupply = await daiContract.methods.totalSupply().call();
-            console.log("Total dai supply", daiSupply);
-            const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
-            console.log("Owner dai balance: ", daiOwnerBalance)
-            const daiPoolmanagerBalance = await daiContract.methods.balanceOf(contract.options.address).call();
-            console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
-      
-            // @ mint mkr for poolmanager contract
-            await mkrContract.methods.mint(accounts[0], web3.utils.toWei('60')).send({ from: accounts[0] });
-            await mkrContract.methods.mint(contract.options.address, web3.utils.toWei('50')).send({ from: accounts[0] });
-            const mkrSupply = await this.state.mkrContract.methods.totalSupply().call();
-            console.log("Total mkr supply", mkrSupply);
-            const mkrOwnerBalance = await this.state.mkrContract.methods.balanceOf(accounts[0]).call();
-            console.log("Owner mkr balance: ", mkrOwnerBalance)
-            const mkrPoolmanagerBalance = await this.state.mkrContract.methods.balanceOf(this.state.contract.options.address).call();
-            console.log("Poolmanager mkri balance: ", mkrPoolmanagerBalance)
+      await wethContract.methods.mint(accounts[0], web3.utils.toWei('100')).send({ from: accounts[0] });
+      await this.state.wethContract.methods.mint(contract.options.address, web3.utils.toWei('80')).send({ from: accounts[0] });
+      const wethSupply = await wethContract.methods.totalSupply().call();
+      console.log("Total weth supply", wethSupply);
+      const wethOwnerBalance = await wethContract.methods.balanceOf(accounts[0]).call();
+      console.log("Owner weth balance: ", wethOwnerBalance)
+      const wethPoolmanagerBalance = await wethContract.methods.balanceOf(contract.options.address).call();
+      console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
 
-            await this.currentStatus()
-                  
+      // @ mint dai for poolmanager contract
+      await daiContract.methods.mint(accounts[0], web3.utils.toWei('600')).send({ from: accounts[0] });
+      await daiContract.methods.mint(contract.options.address, web3.utils.toWei('500')).send({ from: accounts[0] });
+      const daiSupply = await daiContract.methods.totalSupply().call();
+      console.log("Total dai supply", daiSupply);
+      const daiOwnerBalance = await daiContract.methods.balanceOf(accounts[0]).call();
+      console.log("Owner dai balance: ", daiOwnerBalance)
+      const daiPoolmanagerBalance = await daiContract.methods.balanceOf(contract.options.address).call();
+      console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
+
+      // @ mint mkr for poolmanager contract
+      await mkrContract.methods.mint(accounts[0], web3.utils.toWei('60')).send({ from: accounts[0] });
+      await mkrContract.methods.mint(contract.options.address, web3.utils.toWei('50')).send({ from: accounts[0] });
+      const mkrSupply = await this.state.mkrContract.methods.totalSupply().call();
+      console.log("Total mkr supply", mkrSupply);
+      const mkrOwnerBalance = await this.state.mkrContract.methods.balanceOf(accounts[0]).call();
+      console.log("Owner mkr balance: ", mkrOwnerBalance)
+      const mkrPoolmanagerBalance = await this.state.mkrContract.methods.balanceOf(this.state.contract.options.address).call();
+      console.log("Poolmanager mkri balance: ", mkrPoolmanagerBalance)
+
+      await this.currentStatus()
+      console.log("swapFeeNavBar: ", this.state.swapFeeNavBar)
 
     } catch (error) {
       alert(
@@ -351,6 +351,7 @@ class App extends Component {
       swapFee = await this.state.contract.methods.swapFee(this.state.bpoolAddress).call();
       console.log("Swap fee after changing: ", swapFee)
       this.setState({
+        swapFeeNavBar: swapFee,
         swapFee: "0",
       });
 
@@ -445,7 +446,11 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <NavBar bpoolAddress={this.state.bpoolAddress} />
+        <NavBar 
+          bpoolAddress={this.state.bpoolAddress}
+          publicPrivate={this.state.publicPrivate} 
+          swapFeeNavBar={this.state.swapFeeNavBar}
+        />
         <Status 
           bpoolAddress={this.state.bpoolAddress}
           statusArray={this.state.statusArray}
