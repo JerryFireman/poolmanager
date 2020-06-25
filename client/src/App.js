@@ -34,6 +34,8 @@ class App extends Component {
     amount: "0",
     denorm: "0",
     swapFee: "0",
+    publicPrivate: "private",
+    swapFee: "000001"
   };
 
   componentDidMount = async () => {

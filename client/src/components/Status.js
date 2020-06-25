@@ -11,9 +11,9 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles({
   table: {
     minWidth: 500,
+    fontSize: 16,
   },
 });
-
 
 export default function Status(props) {
   const classes = useStyles();
@@ -21,28 +21,28 @@ export default function Status(props) {
     return (
       <div>
         <TableContainer component={Paper}>
-          <Table className={classes.table} size="small" aria-label="a dense table">
+          <Table className={classes.root} size="small" aria-label="a dense table" >
             <TableHead variant="body1">
-              <TableRow>
-                <TableCell align="center"><strong>Token</strong></TableCell>
-                <TableCell align="center"><strong>Contract balance</strong></TableCell>
-                <TableCell align="center"><strong>Allowance</strong></TableCell>
-                <TableCell align="center"><strong>Balance</strong></TableCell>
-                <TableCell align="center"><strong>Normalized weight</strong></TableCell>
-                <TableCell align="center"><strong>Denormalized weight</strong></TableCell>
+              <TableRow >
+                <TableCell style={{fontSize: 18}} align="center"><strong>Token</strong></TableCell>
+                <TableCell style={{fontSize: 18}} align="center"><strong>Contract balance</strong></TableCell>
+                <TableCell style={{fontSize: 18}} align="center"><strong>Allowance</strong></TableCell>
+                <TableCell style={{fontSize: 18}} align="center"><strong>Balance</strong></TableCell>
+                <TableCell style={{fontSize: 18}} align="center"><strong>Normalized weight</strong></TableCell>
+                <TableCell style={{fontSize: 18}} align="center"><strong>Denormalized weight</strong></TableCell>
               </TableRow>
             </TableHead>
             <TableBody variant="body1">
             {props.statusArray.map((row) => (
               <TableRow key={row[0]}>
-                <TableCell component="th" scope="row">
+                <TableCell style={{fontSize: 18}} component="th" scope="row">
                   {row[1]}
                 </TableCell>
-                <TableCell align="right">{row[2]}</TableCell>
-                <TableCell align="right">{row[3]}</TableCell>
-                <TableCell align="right">{row[4]}</TableCell>
-                <TableCell align="right">{row[5]}</TableCell>
-                <TableCell align="right">{row[6]}</TableCell>
+                <TableCell style={{fontSize: 18}} align="right">{row[2]}</TableCell>
+                <TableCell style={{fontSize: 18}} align="right">{row[3]}</TableCell>
+                <TableCell style={{fontSize: 18}} align="right">{row[4]}</TableCell>
+                <TableCell style={{fontSize: 18}} align="right">{row[5]}</TableCell>
+                <TableCell style={{fontSize: 18}} align="right">{row[6]}</TableCell>
 
               </TableRow>
             ))}
