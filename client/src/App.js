@@ -194,9 +194,6 @@ class App extends Component {
     } else {
       this.setState({publicPrivate: "Private"})
     };
-
-    
-
   }
 
   // @dev approves a token for binding to smart pool

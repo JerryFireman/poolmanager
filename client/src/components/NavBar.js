@@ -13,7 +13,7 @@ const NavBar = (props) => {
                 >
                     <Toolbar align="center">
                         <Typography  variant="h5" color="inherit" >
-                            Current smart pool address: {props.bpoolAddress} &nbsp; &nbsp; &nbsp; Status: {props.publicPrivate} &nbsp; &nbsp; &nbsp; Swap fee: {props.swapFeeNavBar}
+                            Smart pool address: {props.bpoolAddress} &nbsp; &nbsp; &nbsp; Status: {props.publicPrivate} &nbsp; &nbsp; &nbsp; Swap fee: {props.swapFeeNavBar}
                         </Typography>
                     </Toolbar>
                 </AppBar>

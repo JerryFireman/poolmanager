@@ -56,6 +56,5 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) UI: add swap fee, public/private to state and navbar, <thur> 
-2) check input and throw errors, clean up code and docs <thur>
-3) readme, video demo, social media <fri-mon>
+1) validate input, clean up code and docs <fri>
+2) readme, video demo, social media <mon tue>
