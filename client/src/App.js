@@ -222,6 +222,7 @@ class App extends Component {
       console.log("daiAllowance: ", daiAllowance)
       const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
       console.log("mkrAllowance: ", mkrAllowance)
+      await this.currentStatus()
     } catch (error) {
       alert(
         `Attempt to approve token failed. Check console for details.`,
@@ -430,6 +431,7 @@ class App extends Component {
         statusArray.push(statusLine);
       }
       this.setState({statusArray: statusArray})
+      console.log(this.state.statusArray)
     } catch (error) {
       alert(
         `Attempt to update the current status of the smart pool failed. Check console for details.`,

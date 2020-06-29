@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 const useStyles = makeStyles(theme => ({
@@ -77,6 +78,25 @@ export default function Pool(props) {
                   onChange={props.handleChange}
                 />
               </form><br/>
+
+              <ValidatorForm
+//                ref="form"
+//                onSubmit={props.swapFee}
+                onError={errors => console.log(errors)}
+            >
+                <TextValidator
+                    label="Enter swap fee"
+                    onChange={props.handleChange}
+                    name="swapFee"
+                    value={props.swapFee}
+                    validators={['minFloat:0.000001', 'maxFloat:0.1']}
+                    errorMessages={['Swap fee must be at least 0.000001', 'Swap fee cannot exceed 0.1']}
+                />
+                <StyledButton onClick={props.setFee} type="submit">
+                    Set swap fee
+                </StyledButton>
+            </ValidatorForm>
+               
               <br/>
               <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.setPublic}>
