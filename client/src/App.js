@@ -109,7 +109,12 @@ class App extends Component {
     //e.preventDefault()
     this.setState({ [e.target.name]: e.target.value })
     console.log(e.target.name, ": ", e.target.value)
+    if (e.target.name == "token") {
+      console.log("token changed to", e.target.value)
+    }
   }
+
+
 
   // @dev Creates a new smart pool and gets ready to manage it
   createPool = async () => {
