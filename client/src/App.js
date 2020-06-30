@@ -304,15 +304,6 @@ class App extends Component {
     const { web3, accounts, contract } = this.state;
     try {
       var _token = this.state.tokenObject[this.state.token]["address"];
-/*
-      if (this.state.token === "MKR") {
-        _token = this.state.mkrContract.options.address
-      } else if (this.state.token === "WETH") {
-        _token = this.state.wethContract.options.address
-      } else if (this.state.token === "DAI") {
-        _token = this.state.daiContract.options.address
-      };
-      */
       var _amount = web3.utils.toWei(this.state.amount.toString());
       var _denorm = web3.utils.toWei(this.state.denorm.toString());
       const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
@@ -355,14 +346,7 @@ class App extends Component {
   unbindToken = async () => {
     const { accounts, contract } = this.state;
     try {
-      var _token;
-      if (this.state.token === "MKR") {
-        _token = this.state.mkrContract.options.address
-      } else if (this.state.token === "WETH") {
-        _token = this.state.wethContract.options.address
-      } else if (this.state.token === "DAI") {
-        _token = this.state.daiContract.options.address
-      };
+      var _token = this.state.tokenObject[this.state.token]["address"];
       console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
       console.log("_token: ", _token);
       await contract.methods.unbindToken(this.state.bpoolAddress, _token).send({ from: accounts[0], gas: 5000000 });
@@ -374,6 +358,8 @@ class App extends Component {
       );
       console.error(error);
     }
+    await this.currentStatus()
+
   };
 
   // @dev sets swap fee in smart pool
