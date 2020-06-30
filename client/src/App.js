@@ -67,8 +67,9 @@ class App extends Component {
       this.state.tokenArray.push(["WETH", wethInstance.options.address, "wethContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
       console.log("wethInstance.options.address: ", wethInstance.options.address);
-      this.state.tokenObject["WETH"] = wethInstance.options.address;
-      console.log(this.state.tokenObject)
+      this.state.tokenObject["WETH"] = {};
+      this.state.tokenObject["WETH"]["address"] = wethInstance.options.address;
+      this.state.tokenObject["WETH"]["contract"] = "wethContract";
 
 
       // Get Dai contract instance
@@ -80,8 +81,9 @@ class App extends Component {
       );
       this.state.tokenArray.push(["DAI", daiInstance.options.address, "daiContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
-      this.state.tokenObject["DAI"] = daiInstance.options.address;
-      console.log(this.state.tokenObject)
+      this.state.tokenObject["DAI"] = {};
+      this.state.tokenObject["DAI"]["address"] = daiInstance.options.address;
+      this.state.tokenObject["DAI"]["contract"] = "daiContract";
 
 
 
@@ -94,7 +96,10 @@ class App extends Component {
       );
       this.state.tokenArray.push(["MKR", mkrInstance.options.address, "mkrContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
-      this.state.tokenObject["MKR"] = mkrInstance.options.address;
+      this.state.tokenObject["MKR"] = {};
+      this.state.tokenObject["MKR"]["address"] = mkrInstance.options.address;
+      this.state.tokenObject["MKR"]["contract"] = "mkrContract";
+      console.log("this.state.tokenObject")
       console.log(this.state.tokenObject)
 
       // Set web3, accounts, and contracts to the state
@@ -223,7 +228,8 @@ class App extends Component {
     console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
     console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
     try {
-      var _token;
+      var _token = this.state.tokenObject[this.state.token];
+      console.log("_token: ", _token)
       if (this.state.token === "MKR") {
         _token = this.state.mkrContract.options.address
       } else if (this.state.token === "WETH") {
