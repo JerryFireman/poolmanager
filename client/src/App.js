@@ -9,7 +9,6 @@ import Header from "./components/Header.js";
 import NavBar from './components/NavBar.js';
 import Pool from './components/Pool.js';
 import Status from './components/Status.js';
-import { keys } from "@material-ui/core/styles/createBreakpoints";
 
 class App extends Component {
   constructor(props) {
@@ -29,7 +28,6 @@ class App extends Component {
     mkrContract: null,
     bpoolAddress: null,
     bpoolToLoad: "",
-    tokenArray: [],
     tokenObject: {},
     statusArray: [],
     token: "WETH",
@@ -65,9 +63,6 @@ class App extends Component {
         WethContract.abi,
         deployedNetwork2 && deployedNetwork2.address,
       );
-      this.state.tokenArray.push(["WETH", wethInstance.options.address, "wethContract"]);
-      console.log("this.state.tokenArray: ", this.state.tokenArray);
-      console.log("wethInstance.options.address: ", wethInstance.options.address);
       this.state.tokenObject["WETH"] = {};
       this.state.tokenObject["WETH"]["address"] = wethInstance.options.address;
       this.state.tokenObject["WETH"]["contract"] = "wethContract";
@@ -80,8 +75,6 @@ class App extends Component {
         DaiContract.abi,
         deployedNetwork3 && deployedNetwork3.address,
       );
-      this.state.tokenArray.push(["DAI", daiInstance.options.address, "daiContract"]);
-      console.log("this.state.tokenArray: ", this.state.tokenArray);
       this.state.tokenObject["DAI"] = {};
       this.state.tokenObject["DAI"]["address"] = daiInstance.options.address;
       this.state.tokenObject["DAI"]["contract"] = "daiContract";
@@ -95,8 +88,6 @@ class App extends Component {
         MkrContract.abi,
         deployedNetwork4 && deployedNetwork4.address,
       );
-      this.state.tokenArray.push(["MKR", mkrInstance.options.address, "mkrContract"]);
-      console.log("this.state.tokenArray: ", this.state.tokenArray);
       this.state.tokenObject["MKR"] = {};
       this.state.tokenObject["MKR"]["address"] = mkrInstance.options.address;
       this.state.tokenObject["MKR"]["contract"] = "mkrContract";
@@ -391,7 +382,7 @@ class App extends Component {
 
   // @dev builds an array with current status of smart pool being managed
   currentStatus = async () => {
-    const { contract, web3, tokenArray, bpoolAddress, tokenObject } = this.state;
+    const { contract, web3, bpoolAddress, tokenObject } = this.state;
     try {
       var statusArray = [];
      for (var i = 0; i < Object.keys(tokenObject).length; i++) {
