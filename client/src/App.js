@@ -224,19 +224,12 @@ class App extends Component {
   // @dev approves a token for binding to smart pool
   approveToken = async () => {
     const { web3, accounts, contract } = this.state;
+    var _token;
     console.log("this.state.wethContract.options.address: ", this.state.wethContract.options.address)
     console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
     console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
     try {
-      var _token = this.state.tokenObject[this.state.token];
-      console.log("_token: ", _token)
-      if (this.state.token === "MKR") {
-        _token = this.state.mkrContract.options.address
-      } else if (this.state.token === "WETH") {
-        _token = this.state.wethContract.options.address
-      } else if (this.state.token === "DAI") {
-        _token = this.state.daiContract.options.address
-      };
+      _token = this.state.tokenObject[this.state.token]["address"];
       var _amount = web3.utils.toWei(this.state.amount.toString());
       console.log("_token: ", _token)
       console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
@@ -266,6 +259,8 @@ class App extends Component {
     console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
     try {
       var _token;
+      _token = this.state.tokenObject[this.state.token]["address"];
+/*
       if (this.state.token === "MKR") {
         _token = this.state.mkrContract.options.address
       } else if (this.state.token === "WETH") {
@@ -273,6 +268,7 @@ class App extends Component {
       } else if (this.state.token === "DAI") {
         _token = this.state.daiContract.options.address
       };
+      */
       var _amount = web3.utils.toWei(this.state.amount.toString());
       var _denorm = web3.utils.toWei(this.state.denorm.toString());
       const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
