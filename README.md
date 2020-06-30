@@ -56,5 +56,5 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) validate input, clean up code and docs <fri>
-2) readme, video demo, social media <mon tue>
+1) validate input, clean up code and docs <mon>
+2) readme, video demo, social media <tue wed>

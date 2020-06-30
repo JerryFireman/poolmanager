@@ -29,6 +29,7 @@ class App extends Component {
     bpoolAddress: null,
     bpoolToLoad: "",
     tokenArray: [],
+    tokenObject: {},
     statusArray: [],
     token: "WETH",
     amount: "0",
@@ -36,7 +37,9 @@ class App extends Component {
     swapFee: "0",
     publicPrivate: "Private",
     swapFeeNavBar: "0.000001",
+    currentTokenAllowance: "0",
   };
+
 
   componentDidMount = async () => {
     try {
@@ -63,6 +66,10 @@ class App extends Component {
       );
       this.state.tokenArray.push(["WETH", wethInstance.options.address, "wethContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
+      console.log("wethInstance.options.address: ", wethInstance.options.address);
+      this.state.tokenObject["WETH"] = wethInstance.options.address;
+      console.log(this.state.tokenObject)
+
 
       // Get Dai contract instance
       const networkId3 = await web3.eth.net.getId();
@@ -73,6 +80,8 @@ class App extends Component {
       );
       this.state.tokenArray.push(["DAI", daiInstance.options.address, "daiContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
+      this.state.tokenObject["DAI"] = daiInstance.options.address;
+      console.log(this.state.tokenObject)
 
 
 
@@ -85,6 +94,8 @@ class App extends Component {
       );
       this.state.tokenArray.push(["MKR", mkrInstance.options.address, "mkrContract"]);
       console.log("this.state.tokenArray: ", this.state.tokenArray);
+      this.state.tokenObject["MKR"] = mkrInstance.options.address;
+      console.log(this.state.tokenObject)
 
       // Set web3, accounts, and contracts to the state
       this.setState({
@@ -96,6 +107,7 @@ class App extends Component {
         mkrContract: mkrInstance,
       });
 
+
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -105,12 +117,15 @@ class App extends Component {
     }
   };
 
+
   handleChange = async (e) => {
     //e.preventDefault()
     this.setState({ [e.target.name]: e.target.value })
     console.log(e.target.name, ": ", e.target.value)
     if (e.target.name == "token") {
       console.log("token changed to", e.target.value)
+//      currentTokenAllowance = 
+      this.setState({ currentTokenAllowance: "0" })
     }
   }
 
