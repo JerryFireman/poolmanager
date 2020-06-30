@@ -9,6 +9,7 @@ import Header from "./components/Header.js";
 import NavBar from './components/NavBar.js';
 import Pool from './components/Pool.js';
 import Status from './components/Status.js';
+import { keys } from "@material-ui/core/styles/createBreakpoints";
 
 class App extends Component {
   constructor(props) {
@@ -224,12 +225,11 @@ class App extends Component {
   // @dev approves a token for binding to smart pool
   approveToken = async () => {
     const { web3, accounts, contract } = this.state;
-    var _token;
     console.log("this.state.wethContract.options.address: ", this.state.wethContract.options.address)
     console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
     console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
     try {
-      _token = this.state.tokenObject[this.state.token]["address"];
+      var _token = this.state.tokenObject[this.state.token]["address"];
       var _amount = web3.utils.toWei(this.state.amount.toString());
       console.log("_token: ", _token)
       console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
@@ -391,13 +391,13 @@ class App extends Component {
 
   // @dev builds an array with current status of smart pool being managed
   currentStatus = async () => {
-    const { contract, web3, tokenArray, bpoolAddress } = this.state;
+    const { contract, web3, tokenArray, bpoolAddress, tokenObject } = this.state;
     try {
       var statusArray = [];
-      for (var i = 0; i < tokenArray.length; i++) {
+     for (var i = 0; i < Object.keys(tokenObject).length; i++) {
         var statusLine = [];
         statusLine.push(i);
-        statusLine.push(tokenArray[i][0]);
+        statusLine.push(Object.keys(tokenObject)[i]);
         console.log(statusLine);
         var tokenContract = tokenArray[i][2];
         console.log("tokenArray[i][2]: ", tokenArray[i][2]);
@@ -432,8 +432,9 @@ class App extends Component {
     
         statusArray.push(statusLine);
       }
-      this.setState({statusArray: statusArray})
-      console.log(this.state.statusArray)
+      this.setState({statusArray: statusArray});
+      console.log("this.state.statusArray");
+      console.log(this.state.statusArray);
     } catch (error) {
       alert(
         `Attempt to update the current status of the smart pool failed. Check console for details.`,
