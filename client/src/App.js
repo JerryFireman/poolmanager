@@ -399,15 +399,12 @@ class App extends Component {
         statusLine.push(i);
         statusLine.push(Object.keys(tokenObject)[i]);
         console.log(statusLine);
-        var tokenContract = tokenArray[i][2];
-        console.log("tokenArray[i][2]: ", tokenArray[i][2]);
+        var tokenContract = tokenObject[Object.keys(tokenObject)[i]]["contract"];
         var poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
         poolmanagerBalance = web3.utils.fromWei(poolmanagerBalance)
-        console.log("Poolmanager balance: ", poolmanagerBalance)
         statusLine.push(poolmanagerBalance);
         var allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call()
         allowance = web3.utils.fromWei(allowance)
-        console.log("allowance: ", allowance)
         statusLine.push(allowance);
         var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
         console.log("tokenBound: ", tokenBound)
