@@ -260,15 +260,6 @@ class App extends Component {
     try {
       var _token;
       _token = this.state.tokenObject[this.state.token]["address"];
-/*
-      if (this.state.token === "MKR") {
-        _token = this.state.mkrContract.options.address
-      } else if (this.state.token === "WETH") {
-        _token = this.state.wethContract.options.address
-      } else if (this.state.token === "DAI") {
-        _token = this.state.daiContract.options.address
-      };
-      */
       var _amount = web3.utils.toWei(this.state.amount.toString());
       var _denorm = web3.utils.toWei(this.state.denorm.toString());
       const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
@@ -312,7 +303,8 @@ class App extends Component {
   rebindToken = async () => {
     const { web3, accounts, contract } = this.state;
     try {
-      var _token;
+      var _token = this.state.tokenObject[this.state.token]["address"];
+/*
       if (this.state.token === "MKR") {
         _token = this.state.mkrContract.options.address
       } else if (this.state.token === "WETH") {
@@ -320,6 +312,7 @@ class App extends Component {
       } else if (this.state.token === "DAI") {
         _token = this.state.daiContract.options.address
       };
+      */
       var _amount = web3.utils.toWei(this.state.amount.toString());
       var _denorm = web3.utils.toWei(this.state.denorm.toString());
       const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
@@ -348,6 +341,7 @@ class App extends Component {
         amount: "0",
         denorm: "0",
       });
+      await this.currentStatus()
 
     } catch (error) {
       alert(
