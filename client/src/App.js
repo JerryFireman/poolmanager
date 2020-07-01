@@ -37,6 +37,7 @@ class App extends Component {
     publicPrivate: "Private",
     swapFeeNavBar: "0.000001",
     currentTokenAllowance: "0",
+    currentTokenBalance: "0",
   };
 
 
@@ -398,7 +399,6 @@ class App extends Component {
         allowance = web3.utils.fromWei(allowance)
         statusLine.push(allowance);
         var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
-        console.log("tokenBound: ", tokenBound)
         if (tokenBound) {
           var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, this.state[tokenContract].options.address).call();
           tokenBalance = web3.utils.fromWei(tokenBalance)
@@ -420,7 +420,18 @@ class App extends Component {
     
         statusArray.push(statusLine);
       }
-      this.setState({statusArray: statusArray});
+      var currentTokenAllowance = await this.state[tokenObject[this.state.token]["contract"]].methods.allowance(contract.options.address, bpoolAddress).call()
+      currentTokenAllowance = web3.utils.fromWei(currentTokenAllowance);
+      console.log("this.state.token", this.state.token);
+      console.log("token contract", await [tokenObject[this.state.token]["contract"]]);
+      console.log("currentTokenAllowance", currentTokenAllowance);
+      
+
+      this.setState({
+        statusArray: statusArray,
+        currentTokenAllowance: currentTokenAllowance,
+        currentTokenBalance: "0",    
+      });
       console.log("this.state.statusArray");
       console.log(this.state.statusArray);
     } catch (error) {
