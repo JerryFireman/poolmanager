@@ -500,6 +500,8 @@ class App extends Component {
           amount={this.state.amount}
           denorm={this.state.denorm}
           swapFee={this.state.swapFee}
+          currentTokenAllowance={this.state.currentTokenAllowance}
+          currentTokenContractBalance={this.state.currentTokenContractBalance}
         />
       </div>
     );
