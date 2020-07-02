@@ -33,7 +33,7 @@ class App extends Component {
     token: "WETH",
     amount: "0",
     denorm: "0",
-    swapFee: "0",
+    swapFee: "",
     publicPrivate: "Private",
     swapFeeNavBar: "0.000001",
     currentTokenAllowance: "0",

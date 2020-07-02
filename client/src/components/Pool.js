@@ -57,30 +57,13 @@ export default function Pool(props) {
                 <StyledButton onClick={props.loadExistingPool}>
                     Load pool
                 </StyledButton>
-            </form>
-              <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.setFee}>
-                    Set swap fee
-                </StyledButton>
-            </form>
-            <form className={classes.root} noValidate autoComplete="off">
-                <TextField 
-                  id="filled-basic" 
-                  label="Enter swap fee from 0.000001 to 0.1" 
-                  variant="filled" 
-                  fullWidth={true} 
-                  type="text" 
-                  name="swapFee" 
-                  value={props.swapFee} 
-                  onChange={props.handleChange}
-                />
-              </form><br/>
-
+              </form>
               <ValidatorForm
 //                ref="form"
 //                onSubmit={props.swapFee}
                 onError={errors => console.log(errors)}
-            >
+              >
+              <br/>
                 <TextValidator
                     label="Enter swap fee"
                     onChange={props.handleChange}
