@@ -56,9 +56,7 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) fix user interface to where i was (consider resetting to "")
-reset master to current position: new commit, checkout master, git reset --hard <new commit>, git push -f origin master -- test bind frequently
-2) add some validation -- test bind, rebind, unbind frequently
+1) add validation for fields and forms, need to address currentToken, test bind, rebind, unbind frequently
 3) review code, remove instrumentation, check, check docs
 4) readme: what its for, install, operate
-6) social media
+5) social media

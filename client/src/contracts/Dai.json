@@ -14147,12 +14147,12 @@
         }
       },
       "links": {},
-      "address": "0x7C4Cf4313A6791e6CB005A7cb0EdB7711DBE3A5a",
-      "transactionHash": "0x673fe60d1b2c8a5b4ac64330dd934136df6ae335237ab3a44409b86c33d501a3"
+      "address": "0xA2E978a1bFB9065Efbdf8ee79Bb5338f29889d64",
+      "transactionHash": "0xe1f36163fc4b6457802f1fa28fb1f1e001f132840fcbdd3a02a2a0516ccfc72c"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-07-02T15:26:19.167Z",
+  "updatedAt": "2020-07-02T22:10:46.236Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
