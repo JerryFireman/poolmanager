@@ -235,6 +235,10 @@ class App extends Component {
       console.log("daiAllowance: ", daiAllowance)
       const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
       console.log("mkrAllowance: ", mkrAllowance)
+      this.setState({
+        tokenToApprove: "",
+        approvalAmount: "",
+      })
       await this.currentStatus()
     } catch (error) {
       alert(
@@ -372,7 +376,7 @@ class App extends Component {
       swapFee = web3.utils.fromWei(swapFee.toString());
       this.setState({
         swapFeeNavBar: swapFee,
-        swapFee: "0",
+        swapFee: "",
       });
 
     } catch (error) {
@@ -422,6 +426,7 @@ class App extends Component {
     
         statusArray.push(statusLine);
       }
+      /*
       if (this.state.token) {
         console.log("tokenObject");
         console.log(this.state.tokenObject);
@@ -439,7 +444,8 @@ class App extends Component {
           currentTokenContractBalance: currentTokenContractBalance,    
         });
       }
-      this.setState({
+        */
+       this.setState({
         statusArray: statusArray,
       });
       console.log("this.state.statusArray");

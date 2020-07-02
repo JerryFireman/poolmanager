@@ -126,19 +126,6 @@ export default function Pool(props) {
               <br/>
 
             <form className={classes.root} noValidate autoComplete="off">
-            <StyledButton onClick={props.approveToken}>
-              Approve token
-            </StyledButton><br/>
-            <StyledButton onClick={props.bindToken}>
-              Bind new token
-            </StyledButton><br/>
-            <StyledButton onClick={props.rebindToken}>
-              Rebind token
-            </StyledButton><br/>
-            <StyledButton onClick={props.unbindToken}>
-              Unbind token
-            </StyledButton><br/>
-            <br/>
             <FormControl variant="filled" className={classes.formControl}>
               <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
                 <Select
@@ -176,6 +163,19 @@ export default function Pool(props) {
                 value={props.denorm} 
                 onChange={props.handleChange}
               />
+            <StyledButton onClick={props.approveToken}>
+              Approve token
+            </StyledButton><br/>
+            <StyledButton onClick={props.bindToken}>
+              Bind new token
+            </StyledButton><br/>
+            <StyledButton onClick={props.rebindToken}>
+              Rebind token
+            </StyledButton><br/>
+            <StyledButton onClick={props.unbindToken}>
+              Unbind token
+            </StyledButton><br/>
+            <br/>
               <br/>
              </form><br/>
             </Box>
