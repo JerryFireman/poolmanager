@@ -58,14 +58,13 @@ export default function Pool(props) {
                     Load pool
                 </StyledButton>
               </form>
+              <br/>
               <ValidatorForm
-//                ref="form"
-//                onSubmit={props.swapFee}
+                onSubmit={props.setFee}
                 onError={errors => console.log(errors)}
               >
-              <br/>
                 <TextValidator
-                    label="Enter swap fee"
+                    label="Swap fee"
                     onChange={props.handleChange}
                     name="swapFee"
                     value={props.swapFee}
@@ -89,6 +88,43 @@ export default function Pool(props) {
         <Grid item xs={6}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
+                <Select
+                  id="demo-simple-select-filled"
+                  value={props.tokenToApprove}
+                  onChange={props.handleChange}
+                  type="text"
+                  name="tokenToApprove"
+                >
+                  <MenuItem>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"WETH"}>WETH</MenuItem>
+                  <MenuItem value={"DAI"}>DAI</MenuItem>
+                  <MenuItem value={"MKR"}>MKR</MenuItem>
+                </Select>
+              </FormControl>
+              <br/>
+            <ValidatorForm
+                onSubmit={props.approveToken}
+                onError={errors => console.log(errors)}
+              >
+                <TextValidator
+                    label="Amount"
+                    onChange={props.handleChange}
+                    name="approvalAmount"
+                    value={props.approvalAmount}
+//                    validators={['minFloat:0.000001', 'maxFloat:0.1']}
+//                    errorMessages={['Swap fee must be at least 0.000001', 'Swap fee cannot exceed 0.1']}
+                />
+                <StyledButton onClick={props.approveToken} type="submit">
+                    Approve
+                </StyledButton>
+            </ValidatorForm>
+               
+              <br/>
+
             <form className={classes.root} noValidate autoComplete="off">
             <StyledButton onClick={props.approveToken}>
               Approve token

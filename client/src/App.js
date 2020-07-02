@@ -30,7 +30,7 @@ class App extends Component {
     bpoolToLoad: "",
     tokenObject: {},
     statusArray: [],
-    token: "WETH",
+    token: "",
     amount: "0",
     denorm: "0",
     swapFee: "",
@@ -38,6 +38,8 @@ class App extends Component {
     swapFeeNavBar: "0.000001",
     currentTokenAllowance: "0",
     currentTokenContractBalance: "0",
+    tokenToApprove: "",
+    approvalAmount: "",
   };
 
 
@@ -120,10 +122,10 @@ class App extends Component {
     //e.preventDefault()
     this.setState({ [e.target.name]: e.target.value })
     console.log(e.target.name, ": ", e.target.value)
-    if (e.target.name == "token") {
+    if (e.target.name === "token") {
       console.log("token changed to", e.target.value)
 //      currentTokenAllowance = 
-      this.setState({ currentTokenAllowance: "0" })
+      this.setState({ currentTokenAllowance: "0" }) //should be set to current balance not zero
     }
   }
 
@@ -221,8 +223,8 @@ class App extends Component {
     console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
     console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
     try {
-      var _token = this.state.tokenObject[this.state.token]["address"];
-      var _amount = web3.utils.toWei(this.state.amount.toString());
+      var _token = this.state.tokenObject[this.state.tokenToApprove]["address"];
+      var _amount = web3.utils.toWei(this.state.approvalAmount.toString());
       console.log("_token: ", _token)
       console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
       console.log("_amount: ", _amount)
@@ -420,7 +422,14 @@ class App extends Component {
     
         statusArray.push(statusLine);
       }
-      var currentTokenAllowance = await this.state[tokenObject[this.state.token]["contract"]].methods.allowance(contract.options.address, bpoolAddress).call()
+      /*
+      console.log("tokenObject");
+      console.log(this.state.tokenObject);
+      console.log("tokenToApprove: ", this.state.tokenToApprove);
+      console.log("this.state[tokenObject[this.state.tokenToApprove]['contract']]", this.state[tokenObject[this.state.tokenToApprove]["contract"]])
+
+
+      var currentTokenAllowance = await this.state[tokenObject[this.state.tokenToApprove]["contract"]].methods.allowance(contract.options.address, bpoolAddress).call()
       currentTokenAllowance = web3.utils.fromWei(currentTokenAllowance);
       console.log("currentTokenAllowance", currentTokenAllowance);
       
@@ -428,11 +437,11 @@ class App extends Component {
       // this.state[tokenContract].methods.balanceOf(contract.options.address).call();
       currentTokenContractBalance = web3.utils.fromWei(currentTokenContractBalance)
       console.log("currentTokenContractBalance", currentTokenContractBalance);
-
+*/
       this.setState({
         statusArray: statusArray,
-        currentTokenAllowance: currentTokenAllowance,
-        currentTokenContractBalance: currentTokenContractBalance,    
+//        currentTokenAllowance: currentTokenAllowance,
+//        currentTokenContractBalance: currentTokenContractBalance,    
       });
       console.log("this.state.statusArray");
       console.log(this.state.statusArray);
@@ -502,6 +511,8 @@ class App extends Component {
           swapFee={this.state.swapFee}
           currentTokenAllowance={this.state.currentTokenAllowance}
           currentTokenContractBalance={this.state.currentTokenContractBalance}
+          tokenToApprove={this.state.tokenToApprove}
+          approvalAmount={this.state.approvalAmount}
         />
       </div>
     );
