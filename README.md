@@ -56,5 +56,8 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) validate input, clean up code and docs <mon>
-2) readme, video demo, social media <tue wed>
+1) fix user interface to where i was (consider resetting to "")
+2) add validation for all fields
+3) review code, remove instrumentation, check;, check docs
+4) readme: what its for, install, operate
+6) social media

@@ -41,26 +41,23 @@ export default function Pool(props) {
             <Box fontWeight="fontWeightBold" textAlign="left">    
               <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.createPool}>
-                  Create new smart pool
+                  Create pool
                 </StyledButton>
               </form><br/>
               <form className={classes.root} noValidate autoComplete="off">
-                <StyledButton onClick={props.loadExistingPool}>
-                    Load existing smart pool
-                </StyledButton>
-            </form>
-            <form className={classes.root} noValidate autoComplete="off">
                 <TextField 
                   id="filled-basic" 
-                  label="Address of smart pool to load" 
-                  variant="filled" 
+                  label="Address" 
                   fullWidth={true} 
                   type="text" 
                   name="bpoolToLoad" 
                   value={props.bpoolToLoad} 
                   onChange={props.handleChange}
                 />
-              </form><br/>
+                <StyledButton onClick={props.loadExistingPool}>
+                    Load pool
+                </StyledButton>
+            </form>
               <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.setFee}>
                     Set swap fee
