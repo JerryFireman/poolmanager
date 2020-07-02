@@ -79,7 +79,7 @@ export default function Pool(props) {
               <br/>
               <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.setPublic}>
-                    Change public/private status
+                    Public/Private switch
                 </StyledButton>
             </form>
             </Box>
@@ -126,7 +126,7 @@ export default function Pool(props) {
               <br/>
 
             <form className={classes.root} noValidate autoComplete="off">
-            <FormControl variant="filled" className={classes.formControl}>
+            <FormControl className={classes.formControl}>
               <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
                 <Select
                   id="demo-simple-select-filled"
@@ -147,7 +147,6 @@ export default function Pool(props) {
               <TextField 
                 id="filled-basic" 
                 label="Amount" 
-                variant="filled" 
                 type="number" 
                 name="amount" 
                 value={props.amount} 
@@ -157,23 +156,19 @@ export default function Pool(props) {
               <TextField 
                 id="filled-basic" 
                 label="Denorm" 
-                variant="filled" 
                 type="number" 
                 name="denorm" 
                 value={props.denorm} 
                 onChange={props.handleChange}
               />
-            <StyledButton onClick={props.approveToken}>
-              Approve token
-            </StyledButton><br/>
             <StyledButton onClick={props.bindToken}>
-              Bind new token
-            </StyledButton><br/>
+              Bind
+            </StyledButton><br/><br/>
             <StyledButton onClick={props.rebindToken}>
-              Rebind token
+              Rebind
             </StyledButton><br/>
             <StyledButton onClick={props.unbindToken}>
-              Unbind token
+              Unbind
             </StyledButton><br/>
             <br/>
               <br/>

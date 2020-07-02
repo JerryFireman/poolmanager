@@ -31,8 +31,8 @@ class App extends Component {
     tokenObject: {},
     statusArray: [],
     token: "",
-    amount: "0",
-    denorm: "0",
+    amount: "",
+    denorm: "",
     swapFee: "",
     publicPrivate: "Private",
     swapFeeNavBar: "0.000001",
@@ -282,9 +282,9 @@ class App extends Component {
       console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(this.state.bpoolAddress, _token).call());
       console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(this.state.bpoolAddress, _token).call());
       this.setState({
-        token: "WETH",
-        amount: "0",
-        denorm: "0",
+        token: "",
+        amount: "",
+        denorm: "",
       });
       console.log("bpoolAddress: ", this.state.bpoolAddress)
       await this.currentStatus()
@@ -326,9 +326,9 @@ class App extends Component {
       console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(this.state.bpoolAddress, _token).call());
       console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(this.state.bpoolAddress, _token).call());
       this.setState({
-        token: "WETH",
-        amount: "0",
-        denorm: "0",
+        token: "",
+        amount: "",
+        denorm: "",
       });
       await this.currentStatus()
 
@@ -349,6 +349,11 @@ class App extends Component {
       console.log("_token: ", _token);
       await contract.methods.unbindToken(this.state.bpoolAddress, _token).send({ from: accounts[0], gas: 5000000 });
       console.log(_token + " is bound: " + await contract.methods.checkToken(this.state.bpoolAddress, _token).call());
+      this.setState({
+        token: "",
+        amount: "",
+        denorm: "",
+      });
 
     } catch (error) {
       alert(
@@ -426,7 +431,7 @@ class App extends Component {
     
         statusArray.push(statusLine);
       }
-      /*
+      /* needs to be done just before approval and binding, save until validation
       if (this.state.token) {
         console.log("tokenObject");
         console.log(this.state.tokenObject);
