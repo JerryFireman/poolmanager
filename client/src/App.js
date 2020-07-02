@@ -422,26 +422,25 @@ class App extends Component {
     
         statusArray.push(statusLine);
       }
-      /*
-      console.log("tokenObject");
-      console.log(this.state.tokenObject);
-      console.log("tokenToApprove: ", this.state.tokenToApprove);
-      console.log("this.state[tokenObject[this.state.tokenToApprove]['contract']]", this.state[tokenObject[this.state.tokenToApprove]["contract"]])
-
-
-      var currentTokenAllowance = await this.state[tokenObject[this.state.tokenToApprove]["contract"]].methods.allowance(contract.options.address, bpoolAddress).call()
-      currentTokenAllowance = web3.utils.fromWei(currentTokenAllowance);
-      console.log("currentTokenAllowance", currentTokenAllowance);
-      
-      var currentTokenContractBalance = await this.state[tokenObject[this.state.token]["contract"]].methods.balanceOf(contract.options.address).call();
-      // this.state[tokenContract].methods.balanceOf(contract.options.address).call();
-      currentTokenContractBalance = web3.utils.fromWei(currentTokenContractBalance)
-      console.log("currentTokenContractBalance", currentTokenContractBalance);
-*/
+      if (this.state.token) {
+        console.log("tokenObject");
+        console.log(this.state.tokenObject);
+        console.log("tokenToApprove: ", this.state.tokenToApprove);
+        console.log("this.state[tokenObject[this.state.tokenToApprove]['contract']]", this.state[tokenObject[this.state.tokenToApprove]["contract"]])
+        var currentTokenAllowance = await this.state[tokenObject[this.state.tokenToApprove]["contract"]].methods.allowance(contract.options.address, bpoolAddress).call()
+        currentTokenAllowance = web3.utils.fromWei(currentTokenAllowance);
+        console.log("currentTokenAllowance", currentTokenAllowance);
+        var currentTokenContractBalance = await this.state[tokenObject[this.state.token]["contract"]].methods.balanceOf(contract.options.address).call();
+        // this.state[tokenContract].methods.balanceOf(contract.options.address).call();
+        currentTokenContractBalance = web3.utils.fromWei(currentTokenContractBalance)
+        console.log("currentTokenContractBalance", currentTokenContractBalance);
+        this.setState({
+          currentTokenAllowance: currentTokenAllowance,
+          currentTokenContractBalance: currentTokenContractBalance,    
+        });
+      }
       this.setState({
         statusArray: statusArray,
-//        currentTokenAllowance: currentTokenAllowance,
-//        currentTokenContractBalance: currentTokenContractBalance,    
       });
       console.log("this.state.statusArray");
       console.log(this.state.statusArray);
