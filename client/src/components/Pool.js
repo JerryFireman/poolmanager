@@ -157,7 +157,7 @@ export default function Pool(props) {
                       name="denorm"
                       value={props.denorm}
                       validators={['minFloat:1.0', 'maxFloat:49']}
-                      errorMessages={['Must be 2 or greater', 'Must be 49 or less']}
+                      errorMessages={['Must be 1 or greater', 'Must be 49 or less']}
                   />
                 </FormControl>
                 <StyledButton type="submit">
@@ -169,6 +169,9 @@ export default function Pool(props) {
                     Rebind
                 </StyledButton>
               <br/>
+              <StyledButton onClick={props.unbindToken} type="submit">
+                    Unbind
+                </StyledButton>
 
             </Box>
           </Paper>

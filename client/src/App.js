@@ -522,8 +522,7 @@ class App extends Component {
           currentTokenAllowance={this.state.currentTokenAllowance}
           currentTokenContractBalance={this.state.currentTokenContractBalance}
           tokenToApprove={this.state.tokenToApprove}
-          approvalAmount={this.state.approvalAmount}
-        />
+          approvalAmount={this.state.approvalAmount}        />
       </div>
     );
   };
