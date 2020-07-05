@@ -95,14 +95,9 @@ export default function Pool(props) {
                     name='tokenToApprove'
                     value={props.tokenToApprove}
                     onChange={props.handleChange}
-                    className={classes.textField}
-                    label='Token'
-                    inputProps={{
-                      name: 'partner',
-                      id: 'partner',
-                    }}
-//                    validators={['required']}
-//                    errorMessages={['Обязательно']}
+                    label="Token"
+                    validators={['required']}
+                    errorMessages={['This field is required']}
                   >
                     <MenuItem><em>None</em></MenuItem>
                     <MenuItem value={"WETH"}>WETH</MenuItem>
@@ -110,6 +105,21 @@ export default function Pool(props) {
                     <MenuItem value={"MKR"}>MKR</MenuItem>
                   </SelectValidator>
                 </FormControl>
+                <br/>
+                <FormControl className={classes.formControl}>
+                  <TextValidator
+                      label="Amount"
+                      onChange={props.handleChange}
+                      name="approvalAmount"
+                      value={props.approvalAmount}
+                      validators={['minFloat:0.0000001']}
+                      errorMessages={['Positive value must be entered']}
+                  />
+
+                </FormControl>
+                <StyledButton onClick={props.approveToken} type="submit">
+                    Approve
+                </StyledButton>
               </ValidatorForm>
 
 
@@ -132,6 +142,9 @@ export default function Pool(props) {
                 </Select>
               </FormControl>
               <br/>
+              <FormControl className={classes.formControl}>
+              </FormControl>
+
             <ValidatorForm
                 onSubmit={props.approveToken}
                 onError={errors => console.log(errors)}
@@ -141,8 +154,8 @@ export default function Pool(props) {
                     onChange={props.handleChange}
                     name="approvalAmount"
                     value={props.approvalAmount}
-//                    validators={['minFloat:0.000001', 'maxFloat:0.1']}
-//                    errorMessages={['Swap fee must be at least 0.000001', 'Swap fee cannot exceed 0.1']}
+                    validators={['isFloat']}
+                    errorMessages={['Value must be entered for approval amount']}
                 />
                 <StyledButton onClick={props.approveToken} type="submit">
                     Approve
