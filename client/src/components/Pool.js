@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
 
 
 const useStyles = makeStyles(theme => ({
@@ -88,6 +88,32 @@ export default function Pool(props) {
         <Grid item xs={6}>
           <Paper className={classes.paper} square={true} elevation={0}>
             <Box fontWeight="fontWeightBold" textAlign="left">    
+
+              <ValidatorForm className={classes.form} onSubmit={props.approveToken}>
+                <FormControl className={classes.formControl}>
+                  <SelectValidator
+                    name='tokenToApprove'
+                    value={props.tokenToApprove}
+                    onChange={props.handleChange}
+                    className={classes.textField}
+                    label='Token'
+                    inputProps={{
+                      name: 'partner',
+                      id: 'partner',
+                    }}
+//                    validators={['required']}
+//                    errorMessages={['Обязательно']}
+                  >
+                    <MenuItem><em>None</em></MenuItem>
+                    <MenuItem value={"WETH"}>WETH</MenuItem>
+                    <MenuItem value={"DAI"}>DAI</MenuItem>
+                    <MenuItem value={"MKR"}>MKR</MenuItem>
+                  </SelectValidator>
+                </FormControl>
+              </ValidatorForm>
+
+
+
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
                 <Select
