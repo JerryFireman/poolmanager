@@ -164,6 +164,12 @@ export default function Pool(props) {
                     Bind
                 </StyledButton>
               </ValidatorForm>
+              <br/>
+              <StyledButton onClick={props.rebindToken} type="submit">
+                    Rebind
+                </StyledButton>
+              <br/>
+
             </Box>
           </Paper>
         </Grid>
