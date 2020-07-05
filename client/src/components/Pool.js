@@ -8,7 +8,6 @@ import StyledButton from './StyledButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
 
 
@@ -121,97 +120,50 @@ export default function Pool(props) {
                     Approve
                 </StyledButton>
               </ValidatorForm>
-
-
-
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
-                <Select
-                  id="demo-simple-select-filled"
-                  value={props.tokenToApprove}
-                  onChange={props.handleChange}
-                  type="text"
-                  name="tokenToApprove"
-                >
-                  <MenuItem>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"WETH"}>WETH</MenuItem>
-                  <MenuItem value={"DAI"}>DAI</MenuItem>
-                  <MenuItem value={"MKR"}>MKR</MenuItem>
-                </Select>
-              </FormControl>
               <br/>
-              <FormControl className={classes.formControl}>
-              </FormControl>
 
-            <ValidatorForm
-                onSubmit={props.approveToken}
-                onError={errors => console.log(errors)}
-              >
-                <TextValidator
-                    label="Amount"
+              <ValidatorForm className={classes.form} onSubmit={props.bindToken}>
+                <FormControl className={classes.formControl}>
+                  <SelectValidator
+                    name='token'
+                    value={props.token}
                     onChange={props.handleChange}
-                    name="approvalAmount"
-                    value={props.approvalAmount}
-                    validators={['isFloat']}
-                    errorMessages={['Value must be entered for approval amount']}
-                />
-                <StyledButton onClick={props.approveToken} type="submit">
-                    Approve
+                    label="Token"
+                    validators={['required']}
+                    errorMessages={['This field is required']}
+                  >
+                    <MenuItem><em>None</em></MenuItem>
+                    <MenuItem value={"WETH"}>WETH</MenuItem>
+                    <MenuItem value={"DAI"}>DAI</MenuItem>
+                    <MenuItem value={"MKR"}>MKR</MenuItem>
+                  </SelectValidator>
+                </FormControl>
+                <br/>
+                <FormControl className={classes.formControl}>
+                  <TextValidator
+                      label="Amount"
+                      onChange={props.handleChange}
+                      name="amount"
+                      value={props.amount}
+                      validators={['minFloat:0.0000001']}
+                      errorMessages={['Positive value must be entered']}
+                  />
+                </FormControl>
+                <br/>
+                <FormControl className={classes.formControl}>
+                  <TextValidator
+                      label="Denorm"
+                      onChange={props.handleChange}
+                      name="denorm"
+                      value={props.denorm}
+                      validators={['minFloat:1.0', 'maxFloat:49']}
+                      errorMessages={['Must be 2 or greater', 'Must be 49 or less']}
+                  />
+                </FormControl>
+                <StyledButton type="submit">
+                    Bind
                 </StyledButton>
-            </ValidatorForm>
-               
-              <br/>
-
-            <form className={classes.root} noValidate autoComplete="off">
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-filled-label">Token</InputLabel>
-                <Select
-                  id="demo-simple-select-filled"
-                  value={props.token}
-                  onChange={props.handleChange}
-                  type="text"
-                  name="token"
-                >
-                  <MenuItem>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"WETH"}>WETH</MenuItem>
-                  <MenuItem value={"DAI"}>DAI</MenuItem>
-                  <MenuItem value={"MKR"}>MKR</MenuItem>
-                </Select>
-              </FormControl>
-              <br/>
-              <TextField 
-                id="filled-basic" 
-                label="Amount" 
-                type="number" 
-                name="amount" 
-                value={props.amount} 
-                onChange={props.handleChange}
-              />
-              <br/>
-              <TextField 
-                id="filled-basic" 
-                label="Denorm" 
-                type="number" 
-                name="denorm" 
-                value={props.denorm} 
-                onChange={props.handleChange}
-              />
-            <StyledButton onClick={props.bindToken}>
-              Bind
-            </StyledButton><br/><br/>
-            <StyledButton onClick={props.rebindToken}>
-              Rebind
-            </StyledButton><br/>
-            <StyledButton onClick={props.unbindToken}>
-              Unbind
-            </StyledButton><br/>
-            <br/>
-              <br/>
-             </form><br/>
+              </ValidatorForm>
             </Box>
           </Paper>
         </Grid>

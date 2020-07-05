@@ -56,7 +56,7 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) add validation for fields and forms, need to address currentToken, test bind, rebind, unbind frequently
-3) review code, remove instrumentation, check, check docs
+1) validate bind, rebind, unbind
+3) review code, remove instrumentation, check, check docs (test frequently)
 4) readme: what its for, install, operate
 5) social media
