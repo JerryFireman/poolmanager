@@ -10,13 +10,14 @@ import NavBar from './components/NavBar.js';
 import Pool from './components/Pool.js';
 import Status from './components/Status.js';
 
+//App controls the user interface
 class App extends Component {
   constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.createPool = this.createPool.bind(this)
-    this.loadExistingPool = this.loadExistingPool.bind(this)
-    this.approveToken = this.approveToken.bind(this)
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.createPool = this.createPool.bind(this);
+    this.loadExistingPool = this.loadExistingPool.bind(this);
+    this.approveToken = this.approveToken.bind(this);
   }
 
   state = {
@@ -41,7 +42,6 @@ class App extends Component {
     tokenToApprove: "",
     approvalAmount: "",
   };
-
 
   componentDidMount = async () => {
     try {
@@ -70,7 +70,6 @@ class App extends Component {
       this.state.tokenObject["WETH"]["address"] = wethInstance.options.address;
       this.state.tokenObject["WETH"]["contract"] = "wethContract";
 
-
       // Get Dai contract instance
       const networkId3 = await web3.eth.net.getId();
       const deployedNetwork3 = DaiContract.networks[networkId3];
@@ -82,8 +81,6 @@ class App extends Component {
       this.state.tokenObject["DAI"]["address"] = daiInstance.options.address;
       this.state.tokenObject["DAI"]["contract"] = "daiContract";
 
-
-
       // Get Mkr contract instance
       const networkId4 = await web3.eth.net.getId();
       const deployedNetwork4 = MkrContract.networks[networkId4];
@@ -94,8 +91,6 @@ class App extends Component {
       this.state.tokenObject["MKR"] = {};
       this.state.tokenObject["MKR"]["address"] = mkrInstance.options.address;
       this.state.tokenObject["MKR"]["contract"] = "mkrContract";
-      console.log("this.state.tokenObject")
-      console.log(this.state.tokenObject)
 
       // Set web3, accounts, and contracts to the state
       this.setState({
@@ -107,26 +102,19 @@ class App extends Component {
         mkrContract: mkrInstance,
       });
 
-
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
+        `Failed to load web3, accounts, contract or tokens. Check console for details.`,
       );
       console.error(error);
     }
   };
 
-
+  // This function updates state in response to user input
   handleChange = async (e) => {
-    //e.preventDefault()
-    this.setState({ [e.target.name]: e.target.value })
-    console.log(e.target.name, ": ", e.target.value)
-    if (e.target.name === "token") {
-      console.log("token changed to", e.target.value)
-//      currentTokenAllowance = 
-      this.setState({ currentTokenAllowance: "0" }) //should be set to current balance not zero
-    }
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target.name, ": ", e.target.value);
   }
 
 
