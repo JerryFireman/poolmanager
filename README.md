@@ -56,6 +56,6 @@ truffle migrate --network kovan
 client$ npm start
 
 Development plan 
-1) review code, remove instrumentation, check, check docs (test frequently)
+1) review code, remove instrumentation, check ;, check docs (test frequently)
 2) readme: what its for, install, operate
 3) social media

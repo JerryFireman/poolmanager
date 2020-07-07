@@ -5,7 +5,6 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField'
 import StyledButton from './StyledButton';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
