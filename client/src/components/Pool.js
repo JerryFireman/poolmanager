@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -73,7 +72,6 @@ export default function Pool(props) {
                     Set swap fee
                 </StyledButton>
             </ValidatorForm>
-               
               <br/>
               <form className={classes.root} noValidate autoComplete="off">
                 <StyledButton onClick={props.setPublic}>
@@ -113,7 +111,6 @@ export default function Pool(props) {
                       validators={['minFloat:0.0000001']}
                       errorMessages={['Positive value must be entered']}
                   />
-
                 </FormControl>
                 <StyledButton onClick={props.approveToken} type="submit">
                     Approve
