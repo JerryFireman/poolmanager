@@ -336,19 +336,15 @@ class App extends Component {
   setPublic = async () => {
     const { accounts, contract } = this.state;
     try {
-      console.log("hit setPublic")
       var isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
-      console.log("isPublic: ", isPublic)
-      console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
-      var _isPublic = !isPublic
-      console.log("_public: ", _isPublic)
+      var _isPublic = !isPublic;
       await contract.methods.setPublic(this.state.bpoolAddress, _isPublic).send({ from: accounts[0], gas: 5000000 });
       isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
       if (isPublic) {
         this.setState({publicPrivate: "Public"})
       } else {
         this.setState({publicPrivate: "Private"})
-      }
+      };
     } catch (error) {
       alert(
         `Attempt to change the public/private status of the smart pool failed. Check console for details.`,
