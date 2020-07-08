@@ -155,14 +155,13 @@ class App extends Component {
     }
   };
 
-  // @dev loads an existing smart pool and gets ready to manage it
+  // loads an existing smart pool and gets ready to manage it
   loadExistingPool = async () => {
     const { web3} = this.state;
     this.setState({
       bpoolAddress: this.state.bpoolToLoad,
       bpoolToLoad: "",
     });
-    console.log("this.state.bpoolAddress", this.state.bpoolAddress)
     var isPublic = await this.state.contract.methods.isPublic(this.state.bpoolAddress).call();
     if (isPublic) {
       this.setState({publicPrivate: "Public"})
@@ -185,27 +184,15 @@ class App extends Component {
   // @dev approves a token for binding to smart pool
   approveToken = async () => {
     const { web3, accounts, contract } = this.state;
-    console.log("this.state.wethContract.options.address: ", this.state.wethContract.options.address)
-    console.log("this.state.mkrContract.options.address: ", this.state.mkrContract.options.address)
-    console.log("this.state.daiContract.options.address: ", this.state.daiContract.options.address)
     try {
       var _token = this.state.tokenObject[this.state.tokenToApprove]["address"];
       var _amount = web3.utils.toWei(this.state.approvalAmount.toString());
-      console.log("_token: ", _token)
-      console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
-      console.log("_amount: ", _amount)
       await contract.methods.approveToken(_token, this.state.bpoolAddress, _amount).send({ from: accounts[0] });
-      const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
-      console.log("wethAllowance: ", wethAllowance)
-      const daiAllowance = await this.state.daiContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
-      console.log("daiAllowance: ", daiAllowance)
-      const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
-      console.log("mkrAllowance: ", mkrAllowance)
       this.setState({
         tokenToApprove: "",
         approvalAmount: "",
-      })
-      await this.currentStatus()
+      });
+      await this.currentStatus();
     } catch (error) {
       alert(
         `Attempt to approve token failed. Check console for details.`,
