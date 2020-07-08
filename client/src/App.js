@@ -230,34 +230,13 @@ class App extends Component {
       var _token = this.state.tokenObject[this.state.token]["address"];
       var _amount = web3.utils.toWei(this.state.amount.toString());
       var _denorm = web3.utils.toWei(this.state.denorm.toString());
-      const wethPoolmanagerBalance = await this.state.wethContract.methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager weth balance: ", wethPoolmanagerBalance)
-      const daiPoolmanagerBalance = await this.state.daiContract.methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager dai balance: ", daiPoolmanagerBalance)
-      const mkrPoolmanagerBalance = await this.state.mkrContract.methods.balanceOf(contract.options.address).call();
-      console.log("Poolmanager mkr balance: ", mkrPoolmanagerBalance)
-      const wethAllowance = await this.state.wethContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
-      console.log("wethAllowance: ", wethAllowance)
-      const daiAllowance = await this.state.daiContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
-      console.log("daiAllowance: ", daiAllowance)
-      const mkrAllowance = await this.state.mkrContract.methods.allowance(contract.options.address, this.state.bpoolAddress).call()
-      console.log("mkrAllowance: ", mkrAllowance)
-      console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
-      console.log("_token: ", _token);
-      console.log("_amount: ", _amount);
-      console.log("_denorm: ", _denorm);
       await contract.methods.rebindToken(this.state.bpoolAddress, _token, _amount, _denorm).send({ from: accounts[0], gas: 5000000 });
-      console.log(_token + " is bound: " + await contract.methods.checkToken(this.state.bpoolAddress, _token).call());
-      console.log(_token + " amount bound: " + await contract.methods.tokenBalance(this.state.bpoolAddress, _token).call());
-      console.log(_token + " normalized weight: " + await contract.methods.normalizedWeight(this.state.bpoolAddress, _token).call());
-      console.log(_token + " denormalized weight: " + await contract.methods.denormalizedWeight(this.state.bpoolAddress, _token).call());
       this.setState({
         token: "",
         amount: "",
         denorm: "",
       });
       await this.currentStatus()
-
     } catch (error) {
       alert(
         `Attempt to bind token failed. Check console for details.`,
