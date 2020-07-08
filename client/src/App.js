@@ -250,8 +250,6 @@ class App extends Component {
     const { accounts, contract } = this.state;
     try {
       var _token = this.state.tokenObject[this.state.token]["address"];
-      console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
-      console.log("_token: ", _token);
       await contract.methods.unbindToken(this.state.bpoolAddress, _token).send({ from: accounts[0], gas: 5000000 });
       console.log(_token + " is bound: " + await contract.methods.checkToken(this.state.bpoolAddress, _token).call());
       this.setState({
@@ -259,7 +257,6 @@ class App extends Component {
         amount: "",
         denorm: "",
       });
-
     } catch (error) {
       alert(
         `Attempt to unbind token failed: ` + error
@@ -267,7 +264,6 @@ class App extends Component {
       console.error(error);
     }
     await this.currentStatus()
-
   };
 
   // @dev sets swap fee in smart pool
