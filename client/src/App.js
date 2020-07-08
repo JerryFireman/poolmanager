@@ -37,8 +37,6 @@ class App extends Component {
     swapFee: "",
     publicPrivate: "Private",
     swapFeeNavBar: "0.000001",
-    currentTokenAllowance: "0",
-    currentTokenContractBalance: "0",
     tokenToApprove: "",
     approvalAmount: "",
   };
@@ -384,8 +382,6 @@ class App extends Component {
           amount={this.state.amount}
           denorm={this.state.denorm}
           swapFee={this.state.swapFee}
-          currentTokenAllowance={this.state.currentTokenAllowance}
-          currentTokenContractBalance={this.state.currentTokenContractBalance}
           tokenToApprove={this.state.tokenToApprove}
           approvalAmount={this.state.approvalAmount}        />
       </div>
