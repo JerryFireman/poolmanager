@@ -270,21 +270,15 @@ class App extends Component {
   setFee = async () => {
     const { web3, accounts, contract } = this.state;
     try {
-      console.log("hit setFee")
       var swapFee = await this.state.contract.methods.swapFee(this.state.bpoolAddress).call();
-      console.log("Swap fee before changing: ", swapFee)
-      console.log("this.state.bpoolAddress: ", this.state.bpoolAddress)
       var _swapFee = web3.utils.toWei(this.state.swapFee.toString());
-      console.log("_swapFee: ", _swapFee)
       await contract.methods.setFee(this.state.bpoolAddress, _swapFee).send({ from: accounts[0], gas: 5000000 });
       swapFee = await this.state.contract.methods.swapFee(this.state.bpoolAddress).call();
-      console.log("Swap fee after changing: ", swapFee)
       swapFee = web3.utils.fromWei(swapFee.toString());
       this.setState({
         swapFeeNavBar: swapFee,
         swapFee: "",
       });
-
     } catch (error) {
       alert(
         `Attempt to set swap fee failed. Check console for details.`,
@@ -302,60 +296,34 @@ class App extends Component {
         var statusLine = [];
         statusLine.push(i);
         statusLine.push(Object.keys(tokenObject)[i]);
-        console.log(statusLine);
         var tokenContract = tokenObject[Object.keys(tokenObject)[i]]["contract"];
         var poolmanagerBalance = await this.state[tokenContract].methods.balanceOf(contract.options.address).call();
-        poolmanagerBalance = web3.utils.fromWei(poolmanagerBalance)
+        poolmanagerBalance = web3.utils.fromWei(poolmanagerBalance);
         statusLine.push(poolmanagerBalance);
-        var allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call()
-        allowance = web3.utils.fromWei(allowance)
+        var allowance = await this.state[tokenContract].methods.allowance(contract.options.address, bpoolAddress).call();
+        allowance = web3.utils.fromWei(allowance);
         statusLine.push(allowance);
         var tokenBound = await contract.methods.checkToken(bpoolAddress, this.state[tokenContract].options.address).call();
         if (tokenBound) {
           var tokenBalance = await contract.methods.tokenBalance(bpoolAddress, this.state[tokenContract].options.address).call();
           tokenBalance = web3.utils.fromWei(tokenBalance)
-          console.log("tokenBalance: ", tokenBalance)  
           statusLine.push(tokenBalance);
           var normWeight = await contract.methods.normalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
           normWeight = web3.utils.fromWei(normWeight)
-          console.log("normWeight: ", normWeight)  
           statusLine.push(normWeight);
           var denormWeight = await contract.methods.denormalizedWeight(bpoolAddress, this.state[tokenContract].options.address).call();
           denormWeight = web3.utils.fromWei(denormWeight)
-          console.log("denormWeight: ", denormWeight)  
           statusLine.push(denormWeight);
         } else  {
           statusLine.push("0");
           statusLine.push("0");
           statusLine.push("0");
         }
-    
         statusArray.push(statusLine);
       }
-      /* needs to be done just before approval and binding, save until validation
-      if (this.state.token) {
-        console.log("tokenObject");
-        console.log(this.state.tokenObject);
-        console.log("tokenToApprove: ", this.state.tokenToApprove);
-        console.log("this.state[tokenObject[this.state.tokenToApprove]['contract']]", this.state[tokenObject[this.state.tokenToApprove]["contract"]])
-        var currentTokenAllowance = await this.state[tokenObject[this.state.tokenToApprove]["contract"]].methods.allowance(contract.options.address, bpoolAddress).call()
-        currentTokenAllowance = web3.utils.fromWei(currentTokenAllowance);
-        console.log("currentTokenAllowance", currentTokenAllowance);
-        var currentTokenContractBalance = await this.state[tokenObject[this.state.token]["contract"]].methods.balanceOf(contract.options.address).call();
-        // this.state[tokenContract].methods.balanceOf(contract.options.address).call();
-        currentTokenContractBalance = web3.utils.fromWei(currentTokenContractBalance)
-        console.log("currentTokenContractBalance", currentTokenContractBalance);
-        this.setState({
-          currentTokenAllowance: currentTokenAllowance,
-          currentTokenContractBalance: currentTokenContractBalance,    
-        });
-      }
-        */
        this.setState({
         statusArray: statusArray,
       });
-      console.log("this.state.statusArray");
-      console.log(this.state.statusArray);
     } catch (error) {
       alert(
         `Attempt to update the current status of the smart pool failed. Check console for details.`,
