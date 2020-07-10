@@ -14434,10 +14434,67 @@
       "links": {},
       "address": "0x963a98B5B06341f8f17e805853855d1d1C2Bf317",
       "transactionHash": "0xa26dcfc4eee0d08bdd8a0f906fa9b194c77a1fcab3762e85b5c3d0d14677df21"
+    },
+    "1594396077421": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "src",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "dst",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amt",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "src",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "dst",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amt",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x48B240534f562B329F26Ea15612DE12Ee5EceD6B",
+      "transactionHash": "0x57e9f1c0e8981b7e4db8e130f7db2d8f0069aeed6b345d6f60ae0fd2e1be46a0"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-07-09T20:05:36.735Z",
+  "updatedAt": "2020-07-10T15:48:15.054Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

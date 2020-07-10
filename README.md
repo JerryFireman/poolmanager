@@ -16,7 +16,7 @@ Migrate to Kovan and Mainnet
 What features/algorithms would you find valuable
 
 ## Video demonstration
-
+https://www.youtube.com/watch?v=fYCOh7iQ5CQ
 
 ## How to install and run the software
 Requirements: Git, Truffle, Ganache-CLI
@@ -39,12 +39,3 @@ Requirements: Git, Truffle, Ganache-CLI
 
 ## Support by developer
 I would be happy to help anyone who needs support installing and running this software. I would also love to get feedback on any problems you have with the software and what features you would like to see added. Please contact me at jerry_fireman@strucinfo.com or leave an issue on Github.
-
-Development plan 
-1) record video, test installation and operation
-2) social media: github, discord, linkedin, twitter
-3) research algorithms
-4) write simple algorithm
-5) kovan
-6) improve error messages and validation
-
