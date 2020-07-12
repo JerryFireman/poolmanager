@@ -25,8 +25,8 @@ Requirements: Git, Truffle, Ganache-CLI
 2. Navigate to the project director and install dependencies: $ npm install.
 3. Navigate to the client subdirectory and install create-react-app dependencies: $ npm install.
 4. Disable the Metamask extension to save time by avoiding the need to confirm transactions.
-5. Run tests from the project directory: $ truffle test ./test/poolmanager.js.
-6. Run Ganache CLI: $ ganache-cli -l 10000000.
+5. Run Ganache CLI: $ ganache-cli -l 10000000.
+6. Run tests from the project directory: $ truffle test ./test/poolmanager.js.
 7. From the project directory, deploy the contracts to the Ganache blockchain: $ truffle migrate --reset.
 8. From the client subdirectory, run the React app: $ npm start.
 9. A new browser window should open "Smart Pool Manager".
