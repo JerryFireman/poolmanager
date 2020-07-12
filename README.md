@@ -22,7 +22,7 @@ https://www.youtube.com/watch?v=fYCOh7iQ5CQ
 Requirements: Git, Truffle, Ganache-CLI
 
 1. Clone the repo:  git clone https://github.com/JerryFireman/poolmanager.git.
-2. Install dependencies: $npm install.
+2. Navigate to the project director and install dependencies: $npm install.
 3. Navigate to the client subdirectory and install create-react-app dependencies: $ npm install.
 4. Disable the Metamask extension to save time by avoiding the need to confirm transactions.
 5. Run tests: $ truffle test ./test/poolmanager.js.
