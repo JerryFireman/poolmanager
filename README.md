@@ -8,6 +8,7 @@
 - Remove tokens from the pool
 - Change the swap fee of the pool
 - Change the pool from private to public and vice versa
+- View the contract balance, allowance, bound balance, normalized weight and denormalized weight of each token
 - Currently runs in the development environment under ganache-cli
 
 ## Planned features
